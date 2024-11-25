@@ -313,9 +313,29 @@ Once defined the major concepts in the ontology, I define the relationships betw
 
     \item \textit{has architecture:} a large language model type has architecture a specific base model, for example GPT has architecture the decoder-only model.
 
-    \item \textit{has capability:}
+    \item \textit{has capability:} a large language model type has capability a specific capability and all versions have that capability. For example if GPT has capability the text processing capability, GPT-1, GPT-2, GPT-3 and GPT-4 are able to process text. In the case where a version represents an evolution of the model by introducing new capabilities, that specific version will be linked to the newly introduced capabilities, for example GPT-4 has \textit{image processing} and \textit{code processing} capabilities.
 \end{itemize}
+As we have seen, the aspect of different versions of the same model (GPT) must be considered and appropriately represented. To achieve this, I have used two distinct relationships:
+\begin{itemize}
+    \item \textit{has variant:} this relationship represents a contemporaneity between two models, where a model x is a variant of a model y, and this does not represent an evolution of model x. For example Mistral-7B has variant Codestral (a version of Mistral specific for source code processing.)
 
+    \item \textit{evolves:} unlike \textit{has variant}, this relationship represents a temporal succession between an older model and a newer model, for example GPT-3 evolves GPT-4, where GPT-4 is a more recent and powerful version of GPT. For this relation, I have introduced also the inverse relation \textit{evolved from}.
+\end{itemize}
+Another specific aspect considered is the presence of relationships between organizations developing large language models, where one organization is part of another organization, for example, DeepMind is a research organization and is part of Google. I created two relationships called: \textit{has organization} and \textit{is organization of} in order to represent this aspect in the ontology. In the figure below we can see the conceptualization of the part just described.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_26.png}
+    \caption{Large language models\\ dimensions conceptualization}
+    \label{fig:enter-label}
+\end{figure}
+% dire le relazioni del prompt engineering...
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_27.png}
+    \caption{Prompt engineering\\ dimensions conceptualization}
+    \label{fig:enter-label}
+\end{figure}
 \subsection{Ontology reuse}
 
 \subsection{Ontology encoding}
