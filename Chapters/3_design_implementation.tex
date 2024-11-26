@@ -361,17 +361,27 @@ Before proceeding with ontology encoding, it is necessary to consider any simila
 
     \item \textbf{Soft reuse:} it involves adapting or copying specific concepts without importing the complete ontology. This approach offers more flexibility, allowing customization, but it may introduce semantic inconsistencies or redundancies 
 \end{itemize}
-I considered three ontologies that can be reused for the implementation of prompt engineering ontology:
+I considered two ontologies that can be reused for the implementation of prompt engineering ontology:
 \begin{enumerate}
     \item HALO ontology
 
-    \item Explanation ontology
-
     \item AI ontology
 \end{enumerate}
+The HALO ontology \cite{nananukul2024halo}, reviewed in the state-of-the-art chapter, has been considered due to its relevance to a domain closely connected to large language models, specifically addressing the hallucinations they generate. The ontology is accessible on \href{https://github.com/navapatn/halo-ontology}{Github} and despite the complete and exhaustive paper published, the published ontology is very poor. It has just twenty-five classes and non of them as an annotation or something to explain better the concept. There is a class called \textit{"LLMs Hallucination"} with two subclasses called \textit{"factuality hallucination"} and \textit{"faithfulness hallucination"} each one has subclasses about the type of hallucination that represent. Moreover there are pretty useless classes like \textit{"answers"} or \textit{"Book"} that seem have no sense in an ontology of this type, there are no individuals and just nine unused object properties. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{Figures/fig_28.png}
+    \caption{HALO ontology on Protegé}
+    \label{fig:enter-label}
+\end{figure}
+This was sufficient to conclude that the HALO ontology would not be reused in the development of the prompt engineering ontology, as it would not offer any meaningful or valuable information.\\
+The second ontology took into account is the Artificial Intelligence Ontology\cite{aio}, an ontology that covers machine learning methods, deep learning networks and their components. This ontology is particularly intriguing, as it stands out as one of the few, if not the only, ontologies focused on the field of artificial intelligence. The ontology is available on \href{https://github.com/berkeleybop/artificial-intelligence-ontology}{Github} in owl, json and csv format. Even in this case, despite the thorough study conducted, the ontology seems, in my opinion, incomplete in several aspects. Similar to the previous ontology, it includes only class labels without any additional annotations to clarify the represented concepts. The ontology is essentially a hierarchical structure, a taxonomy of concepts related to machine learning and deep learning, lacking both object properties and instances to populate the classes. The ontology, therefore, is not only useless in and of itself but, due to its lack of completeness, would not contribute any valuable information or serve as a meaningful reference for the prompt engineering ontology.\\ Prompt engineering and large language models represent a very recent field, and, as we have observed, only a few ontologies address it, often in a superficial and incomplete way. Therefore, I have chosen not to reuse any existing ontologies and to develop the prompt engineering ontology entirely from scratch. This approach allows me to represent the domain in the best possible way, without any limitations, and in a complete and clear manner.
 
+\newpage
 \subsection{Ontology encoding}
 
+
+\newpage
 \subsection{Ontology evaluation}
 
 \newpage
