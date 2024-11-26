@@ -71,7 +71,7 @@ This use case is aimed at software developers who need assistance in generating 
     \item Actors: Teacher, students, PEO ontology. 
     \item Flow: The teacher opens the ontology and shows with proper explanation different prompt engineering techniques represented in the ontology.
 \end{itemize}
-The prompt engineering ontology can be used for learning prompt engineering techniques, thanks to the classes and relationships present, and serves as a valuable support for a computer science instructor during lessons.\\
+The prompt engineering ontology can be used for learning prompt engineering techniques, thanks to the classes and relations present, and serves as a valuable support for a computer science instructor during lessons.\\
 
 \textbf{Use case 5:}
 \begin{itemize}
@@ -80,7 +80,7 @@ The prompt engineering ontology can be used for learning prompt engineering tech
     \item Actors: Teacher, students, PEO ontology.
     \item Flow: The teacher opens the ontology and shows with proper explanation different large language models represented in the ontology. 
 \end{itemize}
-Similar to the previous use case, the ontology of prompt engineering represents state-of-the-art large language models and their relationships. This representation can be useful for an instructor to explain large language models during lessons. \\
+Similar to the previous use case, the ontology of prompt engineering represents state-of-the-art large language models and their relations. This representation can be useful for an instructor to explain large language models during lessons. \\
 
 \textbf{Use case 6:}
 \begin{itemize}
@@ -114,9 +114,9 @@ As seen in the previous use cases, the ontology can be used for educational purp
     \item Name: Large language models learning
     \item Description: Students use PEO ontology to learn different types of large language models.
     \item Actors: Students, PEO ontology
-    \item Flow: Students explore different large language models represented in the ontology and the relationships among them, learning all the features of each large language model.
+    \item Flow: Students explore different large language models represented in the ontology and the relations among them, learning all the features of each large language model.
 \end{itemize}
-This use case is similar to the previous one, where students use the ontology to learn about state-of-the-art large language models by exploring their relationships with tasks and the prompt engineering techniques represented.\\
+This use case is similar to the previous one, where students use the ontology to learn about state-of-the-art large language models by exploring their relations with tasks and the prompt engineering techniques represented.\\
 
 \textbf{Use case 10:}
 \begin{itemize}
@@ -172,7 +172,7 @@ This is the scope of the PEO ontology.
 In general, the goal of the project and the ontology is to create a resource accessible to everyone on a recently introduced topic, for which there are not many available resources. This resource aims to support not only the learning but also the application of prompt engineering techniques and large language models.
 
 \subsection{Functional ontology requirements specification}
-The LOT methodology provides for the specification of requirements in one of three ways: through competency questions, through natural language statements, or through tabular information containing concepts, relationships, and attributes. As seen in the background chapter, competency questions are widely used in ontology engineering and allow for clearly expressing the functional requirements of an ontology. In the case of the prompt engineering ontology, based on the use cases and the purpose and scope identification described earlier, I have identified eighteen competency questions, which are:
+The LOT methodology provides for the specification of requirements in one of three ways: through competency questions, through natural language statements, or through tabular information containing concepts, relations, and attributes. As seen in the background chapter, competency questions are widely used in ontology engineering and allow for clearly expressing the functional requirements of an ontology. In the case of the prompt engineering ontology, based on the use cases and the purpose and scope identification described earlier, I have identified eighteen competency questions, which are:
 \begin{itemize}
     \item \textbf{CQ1:} What is prompt engineering?
 
@@ -290,9 +290,9 @@ Starting from competency questions I chosed a top-down strategy in order to mode
 
     \item \textbf{Organization:} organization that creates the large language model.
 
-    \item \textbf{Base model:} the deep learning model at the base of the architecture of the large language model.
+    \item \textbf{Base model:} the deep learning model at the base of the architecture of the large language model. This concept represents a characteristic of a large language model.
 
-    \item \textbf{Capability:} the capability of a large language model.
+    \item \textbf{Capability:} the capability of a large language model and it represents a characteristic of a large language model.
 \end{enumerate}
 These concepts provide a representation of various aspects of large language models, from their underlying architecture to the organizations that develop them, which can range from universities and research institutions to companies with business-oriented goals. A fundamental aspect is the representation of the capabilities of large language models. In fact, the ontology will not only include large language models capable of processing text but also multimodal models capable of handling more complex data types, such as images, audio, video, and source code.\\
 Regarding prompt engineering, starting from the user's perspective, I decided to model the domain using the following concepts:
@@ -307,7 +307,7 @@ Regarding prompt engineering, starting from the user's perspective, I decided to
     generated by large language model after the input of a prompt in the context of a specific chat.
 \end{itemize}
 In addition there is also the modelling of the concept \textbf{"Task"} represents the tasks to be solved using large language models by applying prompting techniques. This concept has sub concepts specific for the task that has to be solved like: image task, text task, code task, audio task and video tasks, each one of those concepts has other sub concepts, for example the "text task" has as sub concepts: text summarization, emotion classification, text translation ecc. The concepts of \textbf{"Chat"} and \textbf{"Prompt"} are introduced to decouple each prompting technique from a specific large language model, ensuring their independence. The reasoning behind this conceptualization is simple and straightforward: a prompt is created using a specific prompting technique and applied in the context of a specific chat with a version of large language model producing a response. The connection with the concept of Task lies in solving a specific task through the use of an instance of a prompting technique.\\
-Once defined the major concepts in the ontology, I define the relationships between these concepts. Starting from the large language model, each sub concept like GPT, Mistral, Gemini is involved in the following relationships:
+Once defined the major concepts in the ontology, I define the relations between these concepts. Starting from the large language model, each sub concept like GPT, Mistral, Gemini is involved in the following relations:
 \begin{itemize}
     \item \textit{develops:} an organization develops a large language model type, for example Google develops Gemini.
 
@@ -315,20 +315,36 @@ Once defined the major concepts in the ontology, I define the relationships betw
 
     \item \textit{has capability:} a large language model type has capability a specific capability and all versions have that capability. For example if GPT has capability the text processing capability, GPT-1, GPT-2, GPT-3 and GPT-4 are able to process text. In the case where a version represents an evolution of the model by introducing new capabilities, that specific version will be linked to the newly introduced capabilities, for example GPT-4 has \textit{image processing} and \textit{code processing} capabilities.
 \end{itemize}
-As we have seen, the aspect of different versions of the same model (GPT) must be considered and appropriately represented. To achieve this, I have used two distinct relationships:
+As we have seen, the aspect of different versions of the same model (GPT) must be considered and appropriately represented. To achieve this, I have used two distinct relations:
 \begin{itemize}
-    \item \textit{has variant:} this relationship represents a contemporaneity between two models, where a model x is a variant of a model y, and this does not represent an evolution of model x. For example Mistral-7B has variant Codestral (a version of Mistral specific for source code processing.)
+    \item \textit{has variant:} this relation represents a contemporaneity between two models, where a model x is a variant of a model y, and this does not represent an evolution of model x. For example Mistral-7B has variant Codestral (a version of Mistral specific for source code processing.)
 
-    \item \textit{evolves:} unlike \textit{has variant}, this relationship represents a temporal succession between an older model and a newer model, for example GPT-3 evolves GPT-4, where GPT-4 is a more recent and powerful version of GPT. For this relation, I have introduced also the inverse relation \textit{evolved from}.
+    \item \textit{evolves:} unlike \textit{has variant}, this relation represents a temporal succession between an older model and a newer model, for example GPT-3 evolves GPT-4, where GPT-4 is a more recent and powerful version of GPT. For this relation, I have introduced also the inverse relation \textit{evolved from}.
 \end{itemize}
-Another specific aspect considered is the presence of relationships between organizations developing large language models, where one organization is part of another organization, for example, DeepMind is a research organization and is part of Google. I created two relationships called: \textit{has organization} and \textit{is organization of} in order to represent this aspect in the ontology. In the figure below we can see the conceptualization of the part just described.
+Another specific aspect considered is the presence of relations between organizations developing large language models, where one organization is part of another organization, for example, DeepMind is a research organization and is part of Google. I created two relations called: \textit{has organization} and \textit{is organization of} in order to represent this aspect in the ontology. In the figure below we can see the conceptualization of the part just described.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{Figures/fig_26.png}
     \caption{Large language models\\ dimensions conceptualization}
     \label{fig:enter-label}
 \end{figure}
-% dire le relazioni del prompt engineering...
+Regarding the prompt domain the following relations have been created in order to properly connect concepts introduced:
+\begin{itemize}
+    \item \textit{solves task:} this relation connects an instance of a prompting technique with an instance of a task, where the instance of the prompting technique solves that specific task. The inverse relation is: \textit{solved by}.
+
+    \item \textit{is used in prompt:} the instance of a prompting technique is used in a specific prompt for generating the prompt using that technique. The inverse relation is: \textit{prompt generated using}.
+
+    \item \textit{has context:} this relation connects the prompt with its context, the chat where one or more prompt are connected to. The inverse relation is: \textit{has prompt}.
+
+    \item \textit{uses model:} this relation connects the chat with the specific model that is used to input prompts and generate responses. The inverse relation is: \textit{is used in chat}
+
+    \item \textit{generates response:} this relation connects the specific large language model with the response generated after the input of the prompt. The inverse relation is: \textit{response generated using}.
+
+    \item \textit{prompt follows response:} this relation connects a prompt with its response, the inverse relation is: \textit{response followed by prompt}.
+
+    \item \textit{has response:} this relation connects the chat with the response generated by the model, the inverse relation is: \textit{is response of}. 
+\end{itemize}
+The conceptualization of prompt engineering domain is represented in the below diagram using draw.io
 
 \begin{figure}[H]
     \centering
@@ -336,14 +352,30 @@ Another specific aspect considered is the presence of relationships between orga
     \caption{Prompt engineering\\ dimensions conceptualization}
     \label{fig:enter-label}
 \end{figure}
+After completing the conceptualization phase, the process can proceed to ontology reuse and ontology encoding. This involves first identifying similar ontologies within the domain of interest for potential reuse, followed by implementing and encoding the defined concepts using dedicated software tools.
+
 \subsection{Ontology reuse}
+Before proceeding with ontology encoding, it is necessary to consider any similar ontologies that can be reused in the creation of the prompt engineering ontology. There are two types of reuse:
+\begin{itemize}
+    \item \textbf{Hard reuse:} it involves directly importing an entire ontology, rigidly incorporating it. Classes and properties are used without modification, ensuring semantic consistency but creating strong dependency on the original ontology.
+
+    \item \textbf{Soft reuse:} it involves adapting or copying specific concepts without importing the complete ontology. This approach offers more flexibility, allowing customization, but it may introduce semantic inconsistencies or redundancies 
+\end{itemize}
+I considered three ontologies that can be reused for the implementation of prompt engineering ontology:
+\begin{enumerate}
+    \item HALO ontology
+
+    \item Explanation ontology
+
+    \item AI ontology
+\end{enumerate}
 
 \subsection{Ontology encoding}
 
 \subsection{Ontology evaluation}
 
 \newpage
-\section{Ontology publication}
+\section{Ontology publication and maintenance}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{Figures/fig_25.png}
