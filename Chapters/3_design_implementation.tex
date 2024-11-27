@@ -464,10 +464,83 @@ The Capability has five subclasses, each subclass has a label and a description:
     \end{tabular}
     \caption{Capability subclasses}
 \end{table}
-Each subclass has an individual with the same name, those individuals are created with the aim of assigning a capability to the instances of large language models that possess it, this aspect will be discussed later.
+Each subclass has an individual with the same name, those individuals are created with the aim of assigning a capability to the instances of large language models that possess it, this aspect will be discussed later.\\
+The class "Base model" represents the models at the base of the architecture of large language models, it has six subclasses each one with label, description and reference and a subclass can have another subclass representing a more specific architecture, for example the subclass "Decoder" has inside the subclasses "Decoder only" and "Pixel decoder". 
+I have included only the foundational models of the large language models represented in the ontology, excluding other base models as they fall outside the scope of this ontology. The subclasses included are: 
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|}
+        \hline
+        \textbf{Class} & \textbf{Subclasses} \\ \hline
+         CLIP & none \\ \hline
+         
+         Decoder & Decoder-only, Pixel decoder \\ \hline
+         
+         Diffusion model & none \\ \hline
+         
+         Encoder & Encoder only, Global Image Encoder, Grounding Image Encoder, Region Encoder, ViT Encoder \\ \hline
+         
+         Recurrent Neural Network & none \\ \hline
+
+        Transformer & Q-Former, LAMDA PT, Transformer XL \\ \hline
+    \end{tabular}
+    \caption{Base model subclasses}
+\end{table}
+The class "LLM characteristic" is subclass of both "Base model" and "Capability", each large language model subclass is connected to those two classes using the relations: \textit{has\_capability} and \textit{has\_model\_architecture}. In total there are 33 large language models subclasses of large language model, each subclass represents a type of a llm like GPT, Gemini ecc. The definition of large language models is completed with a label, a description, a link to the paper and a link to the website. Below there are large language models in the prompt engineering ontology with its own capability and architecture.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{LLM} & \textbf{Capability} & \textbf{Base model} \\ \hline
+        Alpaca & Text processing & Transformer\\ \hline
+        BERT & Text processing & Encoder only \\ \hline
+        BLIP-2 & Image processing & Q-Former \\ \hline
+        BLOOM & Text processing & Transformer \\ \hline
+        Chinchilla & Text processing & Transformer \\ \hline
+        Claude & Text processing & Transformer \\ \hline
+        CogVLM & Image processing & ViT Encoder \\ \hline
+        Command R & Text processing & Transformer \\ \hline
+        DALL-E & Image processing & CLIP, Decoder, Transformer \\ \hline
+        Falcon & Text processing & Decoder only \\ \hline
+        FLAN & Text processing & LAMDA PT \\ \hline
+        Gemini & Audio processing, Code processing, Image Processing, Text processing, Video processing & Transformer\\ \hline
+        Gemma & Text processing & Transformer \\ \hline
+        GLaMM & Image processing & Global Image Encoder, Grounding Image Encoder \\ \hline
+    \end{tabular}
+    \caption{Large language models in PEO ontology - part 1}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{LLM} & \textbf{Capability} & \textbf{Base model} \\ \hline
+        LLaMA & Text processing & Transformer \\ \hline
+        Midjourney & Image processing & Diffusion model  \\ \hline
+        Minerva & Text processing & Transformer \\ \hline
+        Mistral & Text processing & Transformer \\ \hline
+        MPT-7B & Text processing & Decoder only \\ \hline
+        OLMo & Text processing & Decoder only \\ \hline
+        OpenELM & Text processing & Decoder only \\ \hline
+        OPT & Text processing & Transformer \\ \hline
+        PaLM & Text processing, Code processing & Transformer \\ \hline
+        Phi-1 & Text processing & Transformer \\ \hline
+        RWKV LLM & Text processing & Recurrent Neural Network, Transformer \\ \hline
+        Sora & Video processing & Decoder only \\ \hline
+        StableLM & Text processing & Decoder only \\ \hline
+        StarCoder & Code processing & Decoder only \\ \hline
+        T5 & Text processing & Transformer \\ \hline
+        VALL-E & Audio processing & Transformer \\ \hline
+        Vicuna & Text processing & Transformer \\ \hline
+        XLNet & Text processing & Transformer XL \\ \hline
+    \end{tabular}
+    \caption{Large language models in PEO ontology - part 2}
+\end{table}
 
 
 
+
+Versions of each large language model are the instances of each subclass, those versions can be connected using the relations \textit{evolves} and \textit{has\_variant.}
 
 \newpage
 \subsection{Ontology evaluation}
