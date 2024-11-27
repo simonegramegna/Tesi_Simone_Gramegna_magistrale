@@ -379,6 +379,94 @@ The second ontology took into account is the Artificial Intelligence Ontology\ci
 
 \newpage
 \subsection{Ontology encoding}
+The ontology encoding phase is where the ontology is actually implemented. During this stage, the concepts and relationships defined in the conceptualization phase are formalized into a specific machine-readable language. Several tools are available to assist developers with this task. The main software tools for implementing ontologies include:
+\begin{itemize}
+    \item \href{https://protege.stanford.edu/}{Protégé}
+    \item \href{https://www.cognitum.eu/semantics/fluenteditor/}{FluentEditor}
+    \item \href{https://github.com/vivo-project/Vitro?tab=readme-ov-file}{Vitro}
+    \item \href{https://www.semafora-systems.com/ontobroker-and-ontostudio-x}{OntoStudio}
+\end{itemize}
+To begin, I chose the software for my project and opted for \href{https://protege.stanford.edu/}{Protégé}: an open-source ontology editor developed by a team at Stanford University since 1987. Widely used and highly regarded among ontology engineers, it offers a user-friendly Eclipse-based interface and a wide range of features, including:
+\begin{itemize}
+    \item Ontology editing for OWL and RDF: it is possible to create, edit and visualize ontologies based on standard languages such as OWL (Web Ontology Language) and RDF (Resource Description Framework). 
+    
+    \item Reasoning and ontology validation: Protégé includes reasoning tools that allow the deduction of new information based on the rules defined in the ontology.
+
+    \item Support for extensible plug-ins: Protégé supports a wide range of plug-ins, such as HermiT, FaCT++, and Pellet, which enhance reasoning, visualization, and ontology management capabilities.
+
+    \item Ontology import and export: it is possible to import and export ontologies in various formats, including OWL, RDF/XML, Turtle, and JSON-LD, ensuring  compatibility with other tools and systems.
+
+    \item Automatic documentation: Protégé supports the automatic creation of ontology documentation without any additional plug-in.
+
+    \item SPARQL Query Support: Protégé allows users to execute SPARQL queries directly within the tool to extract specific information from the ontology.
+
+    \item SWRL support: Protégé has the SWRL Tab which allows to define complex rules on concepts.
+\end{itemize}
+Only a limited number of ontology editors provide an extensive set of features tailored for developers. Moreover, several editors have remained outdated for years and suffer from lots of bugs. During the ontology development process, \href{https://git-scm.com/}{Git} was also used: a version control software to track changes made to the ontology. These changes were then synchronized with the \href{https://github.com/simonegramegna/peo_ontology}{GitHub repository}.\\
+Starting from an empty page, the first thing to do is the definition of the ontology IRI (International Resource Identifier): which has to be unique and it has to refer to a standard organization. The ontology IRI of the PEO ontology is: \textit{https://w3id.org/peo\#}, this IRI will be in every entity created inside the ontology.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{Figures/fig_29.png}
+    \caption{PEO ontology main page}
+    \label{fig:enter-label}
+\end{figure}
+
+Once created the IRI, I defined the five annotations to properly describe the ontology:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|}
+        \hline
+        \textbf{Annotation} & \textbf{Annotation value} \\ \hline
+         rdfs:label & PEO ontology: an ontology for prompt 
+         engineering and large language models. \\ \hline
+         
+         creator & Simone Gramegna\\ \hline
+         
+         description & The PEO ontology is a modern ontology that covers state-of-art prompt engineering techniques and large language models. The ontology is designed to support students, researchers and developers who want to know more about prompt engineering, applying prompting techniques in solving tasks. \\ \hline
+         
+         language & English \\ \hline
+         
+         owl:versionInfo & 1.0 \\ \hline
+    \end{tabular}
+    \caption{Ontology annotations in the main page}
+\end{table}
+Starting from the concepts outlined in the conceptualization phase, I define the primary classes of the ontology, which include:
+\begin{itemize}
+    \item \textbf{Base model}
+
+    \item \textbf{Capability}
+
+    \item \textbf{Large Language Model}
+
+    \item \textbf{Organization}
+
+    \item \textbf{Prompt engineering}
+
+    \item \textbf{Task}
+\end{itemize}
+All these classes are mutually disjoint, as they represent distinct entities with no overlapping properties. The only exception is the relationship between "Base model" and "Capability", which are not disjoint. Both represent attributes of large language models and are collectively grouped under the \textbf{"LLM characteristic"} class, formed by the union of the two classes. \\
+The Capability has five subclasses, each subclass has a label and a description:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|}
+        \hline
+        \textbf{Label} & \textbf{Description} \\ \hline
+         Audio processing &  Capability to process audio files. \\ \hline
+         
+         Code processing & Capability to process source code written in any programming language. \\ \hline
+         
+         Image processing & Capability to process images, understanding the content of the image. \\ \hline
+         
+         Text processing & Capability to process text and documents with text inside. \\ \hline
+         
+         Video processing & Capability to process video files. \\ \hline
+    \end{tabular}
+    \caption{Capability subclasses}
+\end{table}
+Each subclass has an individual with the same name, those individuals are created with the aim of assigning a capability to the instances of large language models that possess it, this aspect will be discussed later.
+
+
 
 
 \newpage
