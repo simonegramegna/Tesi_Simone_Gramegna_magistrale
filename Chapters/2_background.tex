@@ -130,6 +130,8 @@ OWL is a family of knowledge representation for ontologies, the latest version O
 \subsection{Ontology engineering methodologies}
 The definition of requirements through competency questions and the subsequent conceptualization and implementation fall within the ontology design process, which is studied in ontology engineering. By definition the ontology engineering  is the discipline that investigates the principles, methods and tools for creating and maintaining ontologies. An ontology engineering methodology caters the methodological aspect of ontology development and it gives a set of guidelines and activities to develop ontologies.\cite{iqbal2013analysis}
 Over the years, various ontology engineering methods have been proposed; below, I analyze the main methods available in the state of the art.
+
+\subsubsection{METHONTOLOGY}
 The first methodology analyzed is \textit{METHONTOLOGY} \cite{fernandez1997ontological} that proposes a structured method which consists of six steps: 
 The process begins with the Specification phase, where the goal is to produce an ontology specification document. This document can be informal, semi-formal, or formal, and is written either in natural language or using competency questions to outline the main requirements and scope of the ontology. Next is the Knowledge Acquisition phase, which involves gathering all relevant knowledge related to the domain. This is achieved through various techniques, such as text analysis, brainstorming, interviews, and reviewing existing similar ontologies. The aim is to collect a comprehensive set of information that will serve as the foundation for the ontology. The Conceptualization phase follows, where the acquired knowledge is organized into a conceptual model. This model effectively structures the domain knowledge, describing both the problem and its proposed solution in a coherent manner. During the Integration phase, the methodology encourages reusing and integrating existing ontologies rather than developing new ones from scratch. This step is crucial for ensuring consistency and coherence, as it involves checking libraries of ontologies to find definitions of terms that match the semantics identified in the conceptualization phase. The Implementation phase is where the actual construction of the ontology takes place. Here, the developer selects the appropriate environment and tools to implement the ontology based on the specifications and conceptual model developed in the earlier phases. Finally, the Evaluation phase ensures the quality and correctness of the ontology. This step involves both verification, to confirm that the ontology is technically sound, and validation, to guarantee that the ontology meets the specified requirements. The methodology has the following advantages: 
 \begin{itemize}
@@ -149,6 +151,8 @@ and the following disadvantages:
 
     \item The methodology was created before the widespread adoption of agile development practices, which are now a common approach in software and ontology engineering. This makes it less flexible for fast-paced, iterative development environments.
 \end{itemize}
+
+\subsubsection{NeOn methodology}
 Another proposed methodology is the \textit{NeOn methodology}\cite{neon1}\cite{neon2} which provides guidance for all key aspects of the ontology engineering process. The concepts underlying this methodology are: scenarios, collaborative ontology development, reuse of ontological and non-ontological resources and evolution of networked ontologies. The ontology design is based on nine scenarios:
 \begin{enumerate}
     \item \textbf{Scenario 1: From specification to implementation} The ontology network is developed from scratch, developers should specify ontology requirements and search for potential resources to be reused. 
@@ -196,6 +200,7 @@ But NeOn has the following disadvantages:
     \item The methodology is meant to be technology-independent, in practice, it may require specific tools to implement the processes effectively, and these tools might not always be accessible or easy to use for all teams.
 \end{itemize}
 
+\subsubsection{Extreme design}
 While the NeOn methodology is scenario-based, the eXtreme Design methodology \cite{presutti2009extreme} is based on a sequence of tasks inspired by the principles of agile development in software engineering. eXtreme Design involves the client in order to gather complete requirements without making incorrect assumptions. This interaction is useful for defining competency questions and customer stories that detail the use of the ontology, supported by contextual statements that make implicit knowledge explicit. The principles of eXtreme Design not only focus on the client but also provide clear guidelines to designers regarding the design and organization of work. In particular, the design must be modular and task-oriented, focusing on the specifications defined in the competency questions. These competency questions are used in the development of unit tests during the testing phase, verifying the compliance of the ontology with the user stories. Tests are generally conducted using SPARQL queries that encode the competency questions. Throughout the development phase, the designers are organized according to the \textit{pair design}, where the design team is divided into pairs that must collaborate, sharing knowledge and integrating the various parts of the ontology developed. Based on the principles illustrated, eXtreme design defines adisci task: 
 \begin{enumerate}
     \item \textbf{Task 1. Get into the project context:} The development process begins by aligning the designers and domain experts, who may have different backgrounds and terminologies. The goal is twofold: to familiarize the customer with the project's methods and tools, and to provide the designers with an understanding of the problem, scope, and initial terminology, establishing a collaborative environment for sharing documentation and discussing modeling issues.
@@ -341,7 +346,7 @@ General purpose large language models are large language models capable of perfo
     \item \textbf{Mistral}
 \end{itemize}
 
-\textbf{GPT (Generative Pretrained Transformes)}\\
+\subsubsection{GPT}
 The Generative Pretrained Transformer (GPT) is actually the most advanced and powerful large language models available to users. The LLM has been developed by OpenAI and it has been made available to the public in November 2022 in form of a web application called ChatGPT. In two months it gained over than 100 million of users, making it the  fastest-growing consumer software application in history, this massive success it is due to its capacity of understanding user language supporting him in different task.\cite{chatgpt_wiki} 
 \begin{figure}[H]
     \centering
@@ -350,31 +355,27 @@ The Generative Pretrained Transformer (GPT) is actually the most advanced and po
     \label{fig:enter-label}
 \end{figure}
 Since its first version, GPT-1 released in 2018, the model represented a step forward in AI development because it was able to comprehend textual material in a more natural manner than before, it had 117 million parameters and it was trained on the BookCorpus dataset. The model was improved in 2019 with the next version: GPT-2 which had 1.5 billions of parameters and it was trained on WebText dataset with 8 millions of documents.\cite{radford2019language} In 2020, OpenAI released GPT-3: this version is more powerful than GPT-2, it is trained over one trillion of internet resources and it has 175 billions of parameters. It is able to perform \textit{in-context learning}, the model recognize pattern in data which is useful when it has few example or just a task description. \cite{journey_gpt}
-The latest version of GPT is GPT-4, this large language model is a multimodal model, it can take as input images and text and generate a response. Despite the continuous evolution and the billions of parameters of the model, it is still subject to issues, including hallucinations: it is unable to provide a correct answer and instead outputs false information.\cite{achiam2023gpt}\\
-
-\textbf{BERT (Bidirectional Encoder Representations from Transformers)}\\
+The latest version of GPT is GPT-4, this large language model is a multimodal model, it can take as input images and text and generate a response. Despite the continuous evolution and the billions of parameters of the model, it is still subject to issues, including hallucinations: it is unable to provide a correct answer and instead outputs false information.\cite{achiam2023gpt}
+\subsubsection{BERT}
 BERT (Bidirectional Encoder Representations from Transformers) was introduced by Google AI in 2018 and it is described in the paper \textit{"BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"}.\cite{kenton2019bert} Compared to other models like GPT, BERT is a bidirectional transformer-based model: it takes into account the context on the left and on the right of each word in order to get better understanding of the text. This goal is achieved during the pre-training phase: in the training corpus. tokens are masked randomly allowing the model to predict missing tokens in the text. The pre-training is based on the BookCorpus dataset\cite{bandy2021addressing} and on english Wikipedia. Moreover BERT is able to perform the next sentence prediction nlp task\cite{shi2019next}, predicting a sentence on the basis of the previous sentence.\\
-BERT model is used mainly for sentiment analysis and text classification, unlike GPT, it does not have a web interface, but the different versions of BERT are available on Huggingface at this link:\\ https://huggingface.co/docs/transformers/model\_doc/bert.\\
-
-\textbf{PaLM (Pathways Language Model)}\\
+BERT model is used mainly for sentiment analysis and text classification, unlike GPT, it does not have a web interface, but the different versions of BERT are available on Huggingface at this link:\\ https://huggingface.co/docs/transformers/model\_doc/bert.
+\subsubsection{PaLM}
 In September 2023, Google AI released a more powerful model: PaLM (Pathways Language Model), this model has 540 billions of parameters using a dense decoder-only Transformer model trained with the Pathways system that allows parallel training. \cite{anil2023palm}\cite{barham2022pathways}
 PaLM is trained  using a combination of English and multilingual datasets (100 languages) that include high-quality web documents, books, Wikipedia, conversations, and GitHub code, this dataset allows PaLM to do complex reasoning and code generation.\cite{palm2_intro} PaLM is a general purpose large language models but more specialized versions have been developed: 
 \begin{itemize}
     \item \textbf{Med-PaLM 2:} this version of PaLM is specifically trained medical text and it is able to give in output medical diagnosis. 
     \item \textbf{Sec-PaLM:} this version of PaLM is applied to cybersecurity, it can analyze and detect malicious scripts that ca be a threat for companies.
 \end{itemize}
-PaLM represents a significant step forward in large language models and is the direct competitor to GPT. Additionally, it serves as the starting point for an even more powerful multimodal model: Google Gemini, which I will discuss in the following section.\\
-
-\textbf{LLaMA (Large Language Model Meta AI)}\\
+PaLM represents a significant step forward in large language models and is the direct competitor to GPT. Additionally, it serves as the starting point for an even more powerful multimodal model: Google Gemini, which I will discuss in the following section.
+\subsubsection{LLaMA}
 LLaMA (Large Language Model Meta AI) is a family of large language models developed by another web giant: META developed introduced in 2023. LLaMA models are based on transformer architecture and, like PaLM, they are trained using different sources, specifically: EnglishCommonCrawl dataset, C4 dataset, Github, Wikipedia, ArXiv and Stack Exchange.  Thanks to the extensive dataset LLaMA models are able to perform common sense reasoning, question-answering, mathematical reasoning, text comprehension and code generation, those abilities have been assessed using zero-shot and few-shot prompting. \cite{touvron2023llama}\\The latest version LLaMA 3 includes over 400 billions of parameters\cite{llama3_intro} and it can be downloaded on huggingface or on the official meta website. More specific LLaMA versions have been developed:
 \begin{itemize}
     \item \textbf{Code LLaMA:} Code Llama is a family with the capabilities to accept text prompts and generate and discuss code. The release also includes two other variants (Code Llama Python and Code Llama Instruct) and different sizes.
     \item \textbf{LLaMA Guard:} LLaMA Guard is an LLM-based input-output safeguard model geared towards Human-AI conversation use cases. The model an LLM-based input-output safeguard model geared towards Human-AI conversation use cases.
     \item \textbf{LLaMA 3.2 Vision:} the most advanced version of LLaMA that supports visual prompts.
 \end{itemize}
-Moreover these version, a version of LLaMA 2 called "LLaMAntino"\cite{basile2023llamantino} that has been created by researchers of the University of Bari ant it is trained on the Italian corpora.\\
-
-\textbf{T5 (Text-to-Text Transfer Transformer)}\\
+Moreover these version, a version of LLaMA 2 called "LLaMAntino"\cite{basile2023llamantino} that has been created by researchers of the University of Bari ant it is trained on the Italian corpora.
+\subsubsection{T5}
 T5 (Text-to-Text Transfer Transformer) is an encoder-decoder model, introduced in 2020, pre-trained on a multi-task mixture of unsupervised and supervised tasks\cite{raffel2020exploring} and for which each task is converted into a text-to-text format. The model has been trained on CommonCrawl dataset that includes 750 GB of english text in addition to Wikipedia and RealNews-like dataset.
 There are five version of the T5 model:
 \begin{enumerate}
@@ -403,13 +404,12 @@ All version of T5 are able to perform different tasks including:\cite{t5_docs}
     \item Logical Inference: T5 can handle natural language inference tasks where it determines whether one sentence entails, contradicts, or is neutral in relation to another sentence.
 \end{itemize}
 All the version of T5 models are available on Huggingface at the link:\\
-https://huggingface.co/docs/transformers/model\_doc/t5 
-using the transformers python library.\\
+https://huggingface.co/docs/transformers/model\_doc/t5
+using the transformers python library.
 
-\textbf{BLOOM (BigScience Large Open-science Open-access Multilingual Language Model)}\\
-BLOOM (BigScience Large Open-science Open-access Multilingual Language Model) is an open source autoregressive large language model trained to continue text from a prompt on vast amounts of text data using industrial-scale computational resources. In detail the model has 175 billions of parameters and it is trained on a dataset that includes 46 natural languages and 13 programming languages in form of 350 billions of unique tokens.\cite{le2023bloom} BLOOM actually is the biggest and the most powerful open source large language model and it can be used for multilingual content generation, software development and research.\cite{exploring_bloom} The BLOOM llm is available on Huggingface at the link: https://huggingface.co/bigscience/bloom using the transformers python library.\\
-
-\textbf{Mistral}\\
+\subsubsection{BLOOM}
+BLOOM (BigScience Large Open-science Open-access Multilingual Language Model) is an open source autoregressive large language model trained to continue text from a prompt on vast amounts of text data using industrial-scale computational resources. In detail the model has 175 billions of parameters and it is trained on a dataset that includes 46 natural languages and 13 programming languages in form of 350 billions of unique tokens.\cite{le2023bloom} BLOOM actually is the biggest and the most powerful open source large language model and it can be used for multilingual content generation, software development and research.\cite{exploring_bloom} The BLOOM llm is available on Huggingface at the link: https://huggingface.co/bigscience/bloom using the transformers python library.
+\subsubsection{Mistral}
 Mistral is a seven-billion parameters large language models released in September 2023 by the french startup Mistral-AI, the model, like others analyzed, is based on the transformer architecture and it has free versions and premium version available.\cite{jiang2023mistral} Mistral has text and code generation capabilities and it can be used using a web interface available at the link: https://chat.mistral.ai/chat. 
 \begin{figure}[H]
     \centering
@@ -427,6 +427,7 @@ The presented large language models are the main general-purpose LLMs available 
 
 \newpage
 \subsection{Multimodal large language models}
+\subsubsection{Introduction to MLLMs}
 The evolution of large language models is represented by multimodal large language models, which are capable of processing information in various forms: text, images, audio, video, documents. At the core of these models’ functionality there is a complex Transformer architecture where images, audio, and video are transformed into embeddings, that are multidimensional vector representations. Processing these embeddings through a multi-layered network generates an output in the form of text or an image\cite{wadekar2024evolution} as we can see in the figure below: 
 \begin{figure}[H]
     \centering
@@ -453,7 +454,7 @@ There are several multimodal large language models capable of solving these task
     \item \textbf{BLIP-2}
 \end{itemize}
 
-\textbf{GPT-4}\\
+\subsubsection{GPT-4}
 GPT-4 is the latest version of the most popular large language model: GPT. Released in March 2023, it became available to premium users of the ChatGPT platform in three distinct versions: GPT-4, GPT-4 Turbo, and GPT-4o (omni). These versions represent an evolution of the GPT-3 model, enhancing performance, response speed, and processing a higher number of tokens per minute.\cite{insights_gpt4} The multimodal version of GPT-4, known as GPT-4o where the "o" stands for "omni," highlighting the "omniscience" of this model is capable of:
 \begin{itemize}
     \item Real-time voice communication: GPT-4o is able to engage in real-time voice conversations, understanding spoken input and generating natural-sounding voice responses.
@@ -465,11 +466,10 @@ GPT-4 is the latest version of the most popular large language model: GPT. Relea
     \item Data and Chart Reading: GPT-4o can read and interpret data in forms of charts and graphs, giving useful insights.
 \end{itemize}
 These features make GPT-4o a versatile and powerful tool applicable in many sectors, with particular emphasis on programming and data analysis. Details regarding the dataset, number of parameters, and training technique are not disclosed for competitive reasons.
-\textbf{Google Gemini}\\
+\subsubsection{Google Gemini}
 The latest evolution of Google's large language models is Gemini, this model has been introduced in 2023 and it is the evolution of Bard: the chatbot based on PaLM which I discussed in the previous section. Google Gemini, like GPT-4, is not only capable of generating and understanding text but can also interpret images, videos, and audio, accepting multimodal prompts.\cite{gemini_introduction}
-Gemini has proven to be superior to its rival GPT-4 on various benchmarks, achieving results of up to 90\% accuracy.\\ % COMPLETARE !
-
-\textbf{GLaMM}\\
+Gemini has proven to be superior to its rival GPT-4 on various benchmarks, achieving results of up to 90\% accuracy.
+\subsubsection{GLaMM}
 GLaMM (Grounding LLM) is a multimodal large language model that integrates natural language with object segmentation masks in images, combining scene-level, region-level, and pixel-level understanding. 
 The model uses an auto-encoder to process images and an LLM to understand natural language. The encoder is based on ViT-H/14 from CLIP and there are a grounding image encoder, a pixel decoder, and a region encoder inspired by GPT4Rol. The LLM is based on Vicuna with 7 billion parameters, and the vision-language and language-prompt projection layers are implemented using a 2-layer MLP activated with GELU. \cite{rasheed2024glamm}
 \begin{figure}[H]
@@ -478,9 +478,9 @@ The model uses an auto-encoder to process images and an LLM to understand natura
     \caption{GLaMM object segmentation}
     \label{fig:enter-label}
 \end{figure}
-The source code is available on the official GitHub repository:\\ \href{https://github.com/mbzuai-oryx/groundingLMM}{https://github.com/mbzuai-oryx/groundingLMM}\\
+The source code is available on the official GitHub repository:\\ \href{https://github.com/mbzuai-oryx/groundingLMM}{https://github.com/mbzuai-oryx/groundingLMM}
 
-\textbf{BLIP-2}\\
+\subsubsection{BLIP-2}
 BLIP (Bootstrapping Language-Image Pre-training) is a multimodal large language model developed in 2023 by Salesforce: an IT company in the filed of CRMs.
 The model has 188 millions of parameters and the architecture is composed by three principal components:
 \begin{enumerate}

@@ -490,7 +490,7 @@ I have included only the foundational models of the large language models repres
     \end{tabular}
     \caption{Base model subclasses}
 \end{table}
-The class "LLM characteristic" is subclass of both "Base model" and "Capability", each large language model subclass is connected to those two classes using the relations: \textit{has\_capability} and \textit{has\_model\_architecture}. In total there are 33 large language models subclasses of large language model, each subclass represents a type of a llm like GPT, Gemini ecc. The definition of large language models is completed with a label, a description, a link to the paper and a link to the website. Below there are large language models in the prompt engineering ontology with its own capability and architecture.
+The class "LLM characteristic" is subclass of both "Base model" and "Capability", each large language model subclass is connected to those two classes using the relations: \textit{has\_capability} (inverse relation \textit{is\_capability}) and\\ \textit{has\_model\_architecture}. In total there are 33 large language models subclasses of large language model, each subclass represents a type of a llm like GPT, Gemini ecc. The definition of large language models is completed with a label, a description, a link to the paper and a link to the website. Below there are large language models in the prompt engineering ontology with its own capability and architecture.
 \begin{table}[H]
     \centering
     \begin{tabular}{|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}|}
@@ -596,10 +596,191 @@ peo:is_organization_of(?o1, ?o2) ^ peo:develops(?o1, ?llm) -> peo:develops(?o2, 
 \end{lstlisting}
 If an organization $o1$ is organization of another organization $o2$ (for example DeepMind is organization of Google) and $o1$ develops a large language model then $o2$ develops the llm. This was important to specify because different researchers teams rely on other organization that finance them and provide them with resources.
 
-\subsubsection{Definition of prompt engineering and tasks}
+\subsubsection{Definition of task}
+The \textbf{Task} class represents task that are solved by large language models applying prompting techniques, there are five specific subclasses representing the different types of task distinguished based on the type of data to process: image, text, video, audio, or code. Each subclass has other subclasses representing the specific task for example audio generation, text translation ecc as we can see in the table below:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|}
+        \hline
+        \textbf{Task type} & \textbf{Subclasses} \\ \hline
+        Audio task & Audio generation, Audio explanation \\ \hline
+
+        Video task & Video generation, Video explanation \\ \hline
+    \end{tabular}
+    \caption{Types of task with subclasses - part 1}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|}
+        \hline
+        \textbf{Task type} & \textbf{Subclasses} \\ \hline
+        Code task & Code generation, Code explanation \\ \hline
+
+        Image task & Image generation, Image explanation, Image segmentation \\ \hline
+
+        Text task & Emotion classification, Mathematical understanding, Question-Answering, Text explanation, Test generation, Text summarization, Text translation \\ \hline
+    \end{tabular}
+    \caption{Types of task with subclasses - part 2}
+\end{table}
+All of those classes have a label and a description describing shortly the task and they can have one or more instances, each instance represents a specific task of that type that are connected to prompting technique instances.
+
+\subsubsection{Definition of prompt engineering}
+The \textbf{Prompt engineering} class includes all concepts associated with prompts, such as their creation, the context in which they are applied, and the responses they produce. It has four main subclasses, each one with a label and a description:
+\begin{itemize}
+    \item \textbf{Chat:} context in which a prompt is created. 
+    \item \textbf{Prompt:} input to a large language model.
+    \item \textbf{Prompting technique:} technique used to create a prompt.
+    \item \textbf{Response:} response given by a large language model after a prompt.
+\end{itemize}
+The prompting technique is very important because it has all the subclasses representing the different prompting techniques and all instances of those classes are connected using different object properties. All subclasses of Prompting Technique refer to techniques used in tasks that involve processing only textual content. Prompting techniques related to images and source code are specifically addressed by their respective subclasses \textbf{Code prompting technique} and \textbf{Image prompting techniques}, each subclass has subclasses with specific techniques. Prompting techniques for audio and video have not been specified, as the few existing techniques are experimental and not yet well-established. Moreover, for obvious reasons, they would be challenging to represent within the ontology. The prompting techniques are gathered from papers, as seen in the background chapter, each subclass representing the specific technique has a label, a description and a reference. In total there are 24 prompting techniques:
+\begin{itemize}
+    \item Active prompting
+    \item Analogical prompting
+    \item Automatic Chain-of-Thought prompting
+    \item Chain-of-Knowledge prompting
+    \item Chain-of-Note prompting
+    \item Chain-of-Table prompting
+    \item Chain-of-Thought prompting
+    \item Chain-of-Verification prompting
+    \item Decomposed prompting
+    \item Emotion prompting
+    \item Few shot prompting
+    \item Graph of Thoughts prompting
+    \item Least-to-most prompting
+    \item Logical Chain-of-Thought prompting
+    \item Plan-and-Solve prompting
+    \item ReAct prompting
+    \item Rephrase and Respond prompting
+    \item Retrieval Augmented Generation - RAG prompting
+    \item Role prompting
+    \item Self consistency prompting
+    \item System-2-Attention prompting
+    \item Take a step back prompting
+    \item Thread of Thought prompting
+    \item Tree of Thoughts prompting
+    \item Zero shot prompting
+\end{itemize}
+For code, the class Code Prompting Technique has four subclasses:
+\begin{itemize}
+    \item Chain-of-Code prompting
+    \item Program of Thoughts prompting
+    \item Scratchpad prompting
+    \item Structured Chain-of-Thought prompting
+\end{itemize}
+Image prompting technique class has six subclasses:
+\begin{itemize}
+    \item Fix deformed generations prompting
+    \item Lighting
+    \item Quality boosters
+    \item Repetition
+    \item Shot type
+    \item Style modifiers
+\end{itemize}
 
 
 
+
+
+\subsubsection{Ontology population with prompts}
+Populating the ontology with prompts is a complex process as it requires connecting various instances (task, prompting technique, prompt, chat, response, large language model) using the defined object properties. Moreover, each prompt is manually crafted in accordance with the specific prompting technique. Manually populating the ontology with all instances for every task, every version of each large language model, and every prompting technique would be highly time-consuming and beyond the objectives of this thesis. Therefore, a decision was made to populate only a specific subset of the ontology choosing large language model versions, tasks and prompting techniques. Large language models chosed are very popular LLM available to the users and they are represented in the ontology:
+\begin{itemize}
+    \item \textbf{GPT-4}
+    \item \textbf{Mistral-7B}
+    \item \textbf{Gemini Flash}
+\end{itemize}
+Then I chosed five prompting techniques with a criterium for each one:
+\begin{itemize}
+    \item \textbf{Zero-shot prompting:} this technique allows large language models to handle new tasks using only natural language instructions, without requiring examples or any effort by the user.
+
+    \item \textbf{Few-shot prompting:} this technique  enables language models to learn new tasks with few examples, reducing the need for extensive task-specific datasets.
+    
+    \item \textbf{Role prompting:} this technique improves large language models performance on solving tasks by simulating specific roles.
+
+    \item \textbf{Emotion prompting:} this technique enhances large language models by integrating emotions into prompts, improving response generation and performance on tasks.
+
+    \item \textbf{Analogical prompting:} this technique is able to generate automatically task-specific exemplars, reducing manual annotation needs, and improving performance on problem-solving tasks.
+\end{itemize}
+Finally I chosed four task to solve applying prompting techniques and using large language models defined:
+\begin{itemize}
+    \item \textbf{Emotion classification:} classification of the emotion in a given text.
+
+    \item \textbf{Mathematical understanding:} solving a given mathematical problem of medium difficulty. 
+
+    \item \textbf{Text translation:} translation of a text from english to italian.
+
+    \item \textbf{Text summarization:} summarization of the content of a given text.
+\end{itemize}
+Below, I list the prompts created for each task.\\\\
+\textbf{Task 1: Emotion classification}\\     
+The text to classify the emotion is: \textit{"I think the vacation is okay"}
+\begin{itemize}
+    \item \textbf{Zero-shot prompting:} Classify the text into neutral, negative or positive. Text: "I think the vacation is okay." Sentiment:
+    \item \textbf{Few-shot prompting:} Classify the following text into neutral, negative, or positive based on its sentiment. Here are some examples: 
+    Text: "The food was absolutely wonderful!" Sentiment: Positive. 
+    Text: "I did not enjoy the movie at all." Sentiment: Negative. 
+    Text: "It was an average experience." Sentiment: Neutral. 
+    Now, classify this text: Text: "I think the vacation is okay." Sentiment:
+    \item \textbf{Emotion prompting:} Classify the following text into neutral, negative, or positive based on its sentiment. This task is very important to my career. Please provide a well-thought and accurate classification. Text: "I think the vacation is okay." Sentiment:
+    \item \textbf{Role prompting:} From now on, you are an experienced sentiment analyst with deep expertise in understanding human emotions through textual analysis. Your task is to classify the sentiment of texts as neutral, negative, or positive with utmost accuracy and professionalism. Text: "I think the vacation is okay." Sentiment:
+    \item \textbf{Analogical prompting:} Classify the text into neutral, negative or positive. \# Instruction: \# Text: I think the vacation is okay. \# Sentiment:
+\end{itemize}
+\textbf{Task 2: Mathematical understanding}\\
+For the mathematical understanding there is the solving of a simple geometrical problem: the calculation of a square with the four vertices at (-2, 2), (2, -2), (-2, -6), and (-6, -2). 
+\begin{itemize}
+    \item \textbf{Zero-shot prompting:} What is the area of the square with the four vertices at $(-2, 2)$, $(2, -2)$, $(-2, -6)$, and $(-6, -2)$?
+    \item \textbf{Few-shot prompting:} Instruction: Determine the area of a square given the coordinates of its four vertices. 
+    Example 1: Vertices: $(0, 0)$, $(4, 0)$, $(4, 4)$, $(0, 4)$ 
+    Step 1: Identify the side length. Distance between $(0, 0)$ and $(4, 0)$ is $\sqrt{((4 - 0)^2 + (0 - 0)^2)} = 4$. 
+    Step 2: Calculate the area. Area = side length$^2 = 4^2 = 16$. Answer: 16. 
+    Example 2: Vertices: $(-1, 1)$, $(-1, 3)$, $(1, 3)$, $(1, 1)$ 
+    Step 1: Identify the side length. Distance between $(-1, 1)$ and $(-1, 3)$ is $\sqrt{((3 - 1)^2 + (1 - 1)^2)} = 2$. 
+    Step 2: Calculate the area. Area = side length$^2 = 2^2 = 4$. Answer: 4. 
+    Query: Vertices: $(-2, 2)$, $(2, -2)$, $(-2, -6)$, $(-6, -2)$. 
+    Step 1: Identify the side length by calculating the distance between consecutive vertices. 
+    Step 2: Calculate the area of the square. Answer:
+    \item \textbf{Emotion prompting:} Please calculate the area of a square given the coordinates of its vertices. This task is important for building my understanding of geometry and improving my analytical skills, so I truly value a thorough and accurate solution. Vertices: $(-2, 2)$, $(2, -2)$, $(-2, -6)$, $(-6, -2)$.
+    \item \textbf{Role prompting:} From now on, you are a brilliant geometry teacher. You always explain geometry problems thoroughly and ensure your students understand every step of the process. I have a question for you: I have four vertices of a square: $(-2, 2)$, $(2, -2)$, $(-2, -6)$, and $(-6, -2)$. Can you help me calculate the area of the square step by step? Please provide a detailed explanation of how to verify the shape, calculate the side length, and determine the area.
+    \item \textbf{Analogical prompting:} What is the area of the square with the four vertices at $(-2, 2)$, $(2, -2)$, $(-2, -6)$, and $(-6, -2)$? \# Instruction: \#\# Recall relevant exemplars: \#\# Solve the initial problem:
+\end{itemize}
+\textbf{Task 3: Text translation}\\
+For text translation task I chosed a citation of Lewis Carol \cite{carol} to translate form english to italian: \textit{"Sometimes, I've believed as many as six impossible things before breakfast."}
+\begin{itemize}
+    \item \textbf{Zero-shot prompting:} Translate the English text to Italian. Text: "Sometimes, I've believed as many as six impossible things before breakfast." Translation:
+    \item \textbf{Few-shot prompting:} Translate the following English sentences into Italian: 
+    1. English: "Sometimes, I've believed as many as six impossible things before breakfast." Italian: "A volte, ho creduto a ben sei cose impossibili prima di colazione." 
+    2. English: "I think, therefore I am." Italian: "Penso, quindi sono." 
+    3. English: "All the world's a stage, and all the men and women merely players." Italian: "Tutto il mondo è un palcoscenico e tutti gli uomini e le donne sono solo attori." 
+    Now translate this sentence: English: "Sometimes, I've believed as many as six impossible things before breakfast." Italian:
+    \item \textbf{Emotion prompting:} Translate the following text to Italian. It's very important for me to understand this translation accurately as it could affect my professional progress: "Sometimes, I've believed as many as six impossible things before breakfast."
+    \item \textbf{Role prompting:} From now on, you are an excellent literary translation teacher who accurately explains the meaning and tone of complex sentences. Translate the following sentence from English to Italian, preserving its meaning and tone: "Sometimes, I've believed as many as six impossible things before breakfast."
+    \item \textbf{Analogical prompting:} \# Problem: "Sometimes, I've believed as many as six impossible things before breakfast." 
+    \# Relevant Problems: 
+    1. Translating a complex sentence from English to Italian. 
+    - Question: How to translate the sentence "To be or not to be, that is the question" into Italian? 
+    - Answer: The sentence "To be or not to be, that is the question" translates into Italian as "Essere o non essere, questo è il problema." 
+    2. Translating a sentence with idiomatic expressions. 
+    - Question: How to translate "Break a leg!" into Italian? 
+    - Answer: The idiomatic expression "Break a leg!" translates into Italian as "In bocca al lupo!" 
+    3. Translating a sentence with abstract concepts. 
+    - Question: How to translate "The only limit is your imagination" into Italian? 
+    - Answer: The sentence "The only limit is your imagination" translates into Italian as "L'unico limite è la tua immaginazione." 
+    \# Translation of the initial problem: The sentence "Sometimes, I've believed as many as six impossible things before breakfast" translates into Italian as:
+\end{itemize}
+\textbf{Task 4: Text summarization}\\
+The last task is the summarization of the following text about permaculture: \textit{"Permaculture is a design process mimicking the diversity, functionality and resilience of natural ecosystems. The principles and practices are drawn from traditional ecological knowledge of indigenous cultures combined with modern scientific understanding and technological innovations. Permaculture design provides a framework helping individuals and communities develop innovative, creative and effective strategies for meeting basic needs while preparing for and mitigating the projected impacts of climate change."}\cite{permaculture}
+\begin{itemize}
+    \item \textbf{Zero-shot prompting:} Permaculture is a design process mimicking the diversity, functionality and resilience of natural ecosystems. The principles and practices are drawn from traditional ecological knowledge of indigenous cultures combined with modern scientific understanding and technological innovations. Permaculture design provides a framework helping individuals and communities develop innovative, creative and effective strategies for meeting basic needs while preparing for and mitigating the projected impacts of climate change. Write a summary of the above text. Summary:
+    \item \textbf{Few-shot prompting:} You are an expert at creating concise summaries. Below are some examples of summaries based on texts.
+    Example 1: Text: The Earth orbits the Sun in an elliptical pattern, taking approximately 365.25 days to complete one orbit. This forms the basis of the Gregorian calendar year. Summary: The Earth completes an orbit around the Sun in roughly 365 days, defining the calendar year.
+    Example 2: Text: Sustainable agriculture incorporates practices that maintain productivity and minimize environmental impact, such as crop rotation and organic farming. Summary: Sustainable agriculture uses eco-friendly practices like crop rotation and organic methods to maintain productivity.
+    Task: Text: Permaculture is a design process mimicking the diversity, functionality, and resilience of natural ecosystems. The principles and practices are drawn from traditional ecological knowledge of indigenous cultures combined with modern scientific understanding and technological innovations. Permaculture design provides a framework helping individuals and communities develop innovative, creative, and effective strategies for meeting basic needs while preparing for and mitigating the projected impacts of climate change. Summary:
+    \item \textbf{Emotion prompting:} Summarize the essence of permaculture, focusing on its innovative design process inspired by natural ecosystems. Highlight how it combines traditional ecological knowledge with modern science and technology to address climate change. This understanding is vital to my research and the future of sustainable living. Please ensure the summary is concise yet comprehensive.
+    \item \textbf{Role prompting:} From now on, you are an environmental scientist who specializes in explaining complex ecological concepts in an accessible and engaging manner. Your task is to provide a concise summary of permaculture principles and their importance in addressing climate challenges.
+    \item \textbf{Analogical prompting:} Problem: Summarize the definition and essence of permaculture using principles that mirror natural ecosystems and combine traditional ecological knowledge with modern science. Instruction: Recall three relevant and distinct problems or topics related to summarizing processes that focus on mimicking complex systems. Provide detailed exemplars for each recalled instance, including how the principles were extracted and utilized effectively. Use the recalled insights to structure and write the final summary.
+\end{itemize}
+The responses for each prompt from the three large language models have been saved in the ontology, and a chat has been created for each prompt, including a title, start time, and end time resulting in a total of 60 distinct chats.\\\\
+The population of the ontology is the last step in the ontology encoding, after this the resulting ontology produced can be evaluated and published online.
 \newpage
 \subsection{Ontology evaluation}
 
