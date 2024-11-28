@@ -44,7 +44,12 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{float}
 \usepackage{listings}
 \lstset{
-breaklines=true
+  basicstyle=\ttfamily\small,
+  keywordstyle=\bfseries,
+  breaklines=true,            
+  frame=none,               
+  numbers=none,
+  commentstyle=\color{green}
 }
 
 \usepackage[backend=bibtex,style=numeric,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)

@@ -379,6 +379,7 @@ The second ontology took into account is the Artificial Intelligence Ontology\ci
 
 \newpage
 \subsection{Ontology encoding}
+\subsubsection{Software in ontology encoding and the Protégé editor}
 The ontology encoding phase is where the ontology is actually implemented. During this stage, the concepts and relationships defined in the conceptualization phase are formalized into a specific machine-readable language. Several tools are available to assist developers with this task. The main software tools for implementing ontologies include:
 \begin{itemize}
     \item \href{https://protege.stanford.edu/}{Protégé}
@@ -402,16 +403,15 @@ To begin, I chose the software for my project and opted for \href{https://proteg
 
     \item SWRL support: Protégé has the SWRL Tab which allows to define complex rules on concepts.
 \end{itemize}
-Only a limited number of ontology editors provide an extensive set of features tailored for developers. Moreover, several editors have remained outdated for years and suffer from lots of bugs. During the ontology development process, \href{https://git-scm.com/}{Git} was also used: a version control software to track changes made to the ontology. These changes were then synchronized with the \href{https://github.com/simonegramegna/peo_ontology}{GitHub repository}.\\
+Only a limited number of ontology editors provide an extensive set of features tailored for developers. Moreover, several editors have remained outdated for years and suffer from lots of bugs. During the ontology development process, \href{https://git-scm.com/}{Git} was also used: a version control software to track changes made to the ontology changes that are synchronized with the \href{https://github.com/simonegramegna/peo_ontology}{GitHub repository}.
+\subsubsection{Encoding beginning PEO ontology}
 Starting from an empty page, the first thing to do is the definition of the ontology IRI (International Resource Identifier): which has to be unique and it has to refer to a standard organization. The ontology IRI of the PEO ontology is: \textit{https://w3id.org/peo\#}, this IRI will be in every entity created inside the ontology.
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\linewidth]{Figures/fig_29.png}
     \caption{PEO ontology main page}
     \label{fig:enter-label}
 \end{figure}
-
 Once created the IRI, I defined the five annotations to properly describe the ontology:
 \begin{table}[H]
     \centering
@@ -431,6 +431,7 @@ Once created the IRI, I defined the five annotations to properly describe the on
     \end{tabular}
     \caption{Ontology annotations in the main page}
 \end{table}
+
 Starting from the concepts outlined in the conceptualization phase, I define the primary classes of the ontology, which include:
 \begin{itemize}
     \item \textbf{Base model}
@@ -464,7 +465,10 @@ The Capability has five subclasses, each subclass has a label and a description:
     \end{tabular}
     \caption{Capability subclasses}
 \end{table}
-Each subclass has an individual with the same name, those individuals are created with the aim of assigning a capability to the instances of large language models that possess it, this aspect will be discussed later.\\
+Each subclass has an individual with the same name, those individuals are created with the aim of assigning a capability to the instances of large language models that possess it, this aspect will be discussed later.
+
+\subsubsection{Definition of large language models and characteristics}
+
 The class "Base model" represents the models at the base of the architecture of large language models, it has six subclasses each one with label, description and reference and a subclass can have another subclass representing a more specific architecture, for example the subclass "Decoder" has inside the subclasses "Decoder only" and "Pixel decoder". 
 I have included only the foundational models of the large language models represented in the ontology, excluding other base models as they fall outside the scope of this ontology. The subclasses included are: 
 \begin{table}[H]
@@ -505,7 +509,6 @@ The class "LLM characteristic" is subclass of both "Base model" and "Capability"
         FLAN & Text processing & LAMDA PT \\ \hline
         Gemini & Audio processing, Code processing, Image Processing, Text processing, Video processing & Transformer\\ \hline
         Gemma & Text processing & Transformer \\ \hline
-        GLaMM & Image processing & Global Image Encoder, Grounding Image Encoder \\ \hline
     \end{tabular}
     \caption{Large language models in PEO ontology - part 1}
 \end{table}
@@ -515,6 +518,7 @@ The class "LLM characteristic" is subclass of both "Base model" and "Capability"
     \begin{tabular}{|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}|}
         \hline
         \textbf{LLM} & \textbf{Capability} & \textbf{Base model} \\ \hline
+        GLaMM & Image processing & Global Image Encoder, Grounding Image Encoder \\ \hline
         LLaMA & Text processing & Transformer \\ \hline
         Midjourney & Image processing & Diffusion model  \\ \hline
         Minerva & Text processing & Transformer \\ \hline
@@ -536,11 +540,65 @@ The class "LLM characteristic" is subclass of both "Base model" and "Capability"
     \end{tabular}
     \caption{Large language models in PEO ontology - part 2}
 \end{table}
+There is a relation \textit{based\_on} between two subclasses of large language model (with inverse relation \textit{basis\_for}) where a large language model is developed starting from the base of another large language model. For example Alpaca is based on LLaMA (another family of large language models).\\
+Each type of large language model has a capability, this capability is common for all instances of the large language model then if a specific version of a LLM has a new capability, the single LLM can be connected to that specific capability. For example GPT has capability text processing but GPT-3.5 has also the capability of code processing so this version has two capabilities (text processing and code processing). Same goes for GPT-4 which is an evolution of GPT-3.5 an it has the image processing capability, so it has three capabilities (text processing, code, processing and image processing). This approach is very flexible an efficient because there is no need to divide into categorical classes each version of large language model by simply connecting the version with the specific instance oof the capability. There are three relations between versions of the same large language model: 
+\begin{itemize}
+    \item \textit{has\_variant:} relation between two large language models (x and y), where x has y as another version.
+
+    \item \textit{evolves:} transitive relation between two large language models (x and y), where y is an evolution of x. 
+
+    \item \textit{evolved\_from:} transitive inverse relation of \textit{evolves} between two large language models x and y.
+\end{itemize}
+While the relation \textit{has\_variant} does not express an evolution but just a different version of the model, the relation \textit{evolves} implies also the relation \textit{has\_variant}, for example if GPT-3.5 evolves GPT-4 then GPT-3.5 has variant GPT-4, this cannot be expressed using relation but using SWRL rules. SWRL rules are are logical expressions that extend OWL ontologies by allowing the definition of conditional "if-then" rules for reasoning, those rules are processed by a reasoner during the inference. The chosed reasoner is the Hermit reasoner\cite{glimm2014hermit}: a reasoner already included in Protégé which does not require the installation of any additional plug-in. The reasoner ensures the ontology consistency, inferring new axioms and processing SWRL rules. SWRL rules are widely applied in the ontology, the first application is the creation of a new relation \textit{has\_variant} if there is the \textit{evolves} relation, the rule is expressed in this way:
+\begin{lstlisting}
+peo:evolves(?x, ?y) -> peo:has_variant(?x, ?y)
+\end{lstlisting}
+$?x$ and $?y$ express the two instances involved in the relations and the rules is applied to all instances that satisfy the condition in the body of the rule. If a model evolves into another model, the evolved model has the capabilities of the previous model, this concept is expressed using this SWRL rule:
+\begin{lstlisting}
+peo:evolves(?x, ?y) ^ peo:has_capability(?x, ?c) -> peo:has_capability(?y, ?c)
+\end{lstlisting}
+These two relations are not explicitly defined in the ontology but are inferred by the reasoner during the reasoning process, making them visible at that stage.
+Each instance of large language model has two data properties associated 
+\begin{itemize}
+    \item \textit{has\_number\_parameters:} number of parameters of the model.
+
+    \item \textit{has\_release\_year:} year of release of the model
+\end{itemize}
+Those two data properties are functional, assigning a single value of each property to the instance of the llm.\\
+Large language models are developed by organizations that can be universities, research institutions and companies for business purpose, the class \textbf{Organization} contains those three subclasses (with label  and description) and each subclass has instances representing the specific organization.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|}
+        \hline
+        \textbf{Subclass or organization} & \textbf{Number of entities} \\ \hline
+        
+        University & 2 \\ \hline
+ 
+        Research institution & 8 \\ \hline
+        
+        Company & 13 \\ \hline
+    \end{tabular}
+    \caption{Number of organization entities}
+\end{table}
+Every instance of organization has two associated data properties:
+\begin{itemize}
+    \item \textit{registered\_name:} the official name of the organization.
+
+    \item \textit{official\_website:} the official website of the organization.
+\end{itemize}
+Organization instances and large language models are connected using the \textit{develops} relation, connecting an instance of organization with an instance of large language models. We well know that an organization does not develop a single version of an LLM but the entire family (represented by the different subclasses of the large language model class) but it is not possible to have a relation between an instance and a subclass. A possible solution could be putting manually the develops relation between the company and all version developed but it would be too long. Instead of doing this process, using the \textit{has\_variant} relation previously defined, I created the following swrl rule:
+\begin{lstlisting}
+peo:develops(?c, ?x) ^ peo:has_variant(?x, ?y) -> peo:develops(?c, ?y)    
+\end{lstlisting}
+If a company $c$ develops a large language model $?x$ and the large language model $x$ has variant another large language model (of the same type) $y$ then the company $c$ develops the llm $y$. This rule requires that the relationship \textit{has\_variant} exists among all versions of large language models or the relation \textit{evolves} should exist, in order to infer \textit{has\_variant}. For example if OpenAI develops GPT-1, GPT-1 evolves GPT-2 (has variant GPT-2) then OpenAI develops GPT-2. This process during the inference is automatic because the \textit{evolves} relation is transitive. Another swrl rule that involves the \textit{develops} relation is the following:
+\begin{lstlisting}
+peo:is_organization_of(?o1, ?o2) ^ peo:develops(?o1, ?llm) -> peo:develops(?o2, ?llm)
+\end{lstlisting}
+If an organization $o1$ is organization of another organization $o2$ (for example DeepMind is organization of Google) and $o1$ develops a large language model then $o2$ develops the llm. This was important to specify because different researchers teams rely on other organization that finance them and provide them with resources.
+
+\subsubsection{Definition of prompt engineering and tasks}
 
 
-
-
-Versions of each large language model are the instances of each subclass, those versions can be connected using the relations \textit{evolves} and \textit{has\_variant.}
 
 \newpage
 \subsection{Ontology evaluation}
