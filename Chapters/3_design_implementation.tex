@@ -727,8 +727,22 @@ If a prompt $?x$ is followed by another prompt $?y$ and $?y$ has a response $?r$
 \begin{lstlisting}
 peo:prompt_followedby_prompt(?x, ?y) ^ peo:has_context(?y, ?c) -> peo:has_context(?x, ?c)
 \end{lstlisting}
-If a prompt $x$ is followed by another prompt $y$ and $y$ has context the chat $c$ then $x$ has context $c$.
-
+If a prompt $x$ is followed by another prompt $y$ and $y$ has context the chat $c$ then $x$ has context $c$. Also each response is connected the chat using the object property \textit{is\_response\_of} (inverse property \textit{has\_response}) created using the SWRL rule:
+\begin{lstlisting}
+peo:response_followedby_prompt(?r, ?p) ^ peo:has_context(?p, ?c) -> peo:is_response_of(?r, ?c)
+\end{lstlisting}
+If a response $?r$ is followed by a prompt $?p$ and the prompt $?p$ has the context the chat $?c$ then the response $?r$ is response of $?c$. The last SWRL rule connects the response with the model that has generated it creating the object property \textit{response\_generated\_using} with inverse property \textit{generates\_response}:
+\begin{lstlisting}
+peo:response_followedby_prompt(?r, ?p) ^ peo:processed_by(?p, ?m) -> peo:response_generated_using(?r, ?m) 
+\end{lstlisting}
+If a response $?r$ is followed by a prompt $?p$ and the prompt $?p$ is processed by the large language model $?m$ then the response $?r$ is generated using $?m$.\\
+All these object properties may seem unclear so below is a diagram that shows all the relationships involved in creating a chat.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{Figures/fig_31.png}
+    \caption{Chat scheme}
+    \label{fig:enter-label}
+\end{figure}
 
 
 
