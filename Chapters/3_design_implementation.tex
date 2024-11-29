@@ -586,11 +586,11 @@ Every instance of organization has two associated data properties:
 
     \item \textit{official\_website:} the official website of the organization.
 \end{itemize}
-Organization instances and large language models are connected using the \textit{develops} relation, connecting an instance of organization with an instance of large language models. We well know that an organization does not develop a single version of an LLM but the entire family (represented by the different subclasses of the large language model class) but it is not possible to have a relation between an instance and a subclass. A possible solution could be putting manually the develops relation between the company and all version developed but it would be too long. Instead of doing this process, using the \textit{has\_variant} relation previously defined, I created the following swrl rule:
+Organization instances and large language models are connected using the \textit{develops} relation, connecting an instance of organization with an instance of large language models. We well know that an organization does not develop a single version of an LLM but the entire family (represented by the different subclasses of the large language model class) but it is not possible to have a relation between an instance and a subclass. A possible solution could be putting manually the develops relation between the company and all version developed but it would be too long. Instead of doing this process, using the \textit{has\_variant} relation previously defined, I created the following SWRL rule:
 \begin{lstlisting}
 peo:develops(?c, ?x) ^ peo:has_variant(?x, ?y) -> peo:develops(?c, ?y)    
 \end{lstlisting}
-If a company $c$ develops a large language model $?x$ and the large language model $x$ has variant another large language model (of the same type) $y$ then the company $c$ develops the llm $y$. This rule requires that the relationship \textit{has\_variant} exists among all versions of large language models or the relation \textit{evolves} should exist, in order to infer \textit{has\_variant}. For example if OpenAI develops GPT-1, GPT-1 evolves GPT-2 (has variant GPT-2) then OpenAI develops GPT-2. This process during the inference is automatic because the \textit{evolves} relation is transitive. Another swrl rule that involves the \textit{develops} relation is the following:
+If a company $c$ develops a large language model $?x$ and the large language model $x$ has variant another large language model (of the same type) $y$ then the company $c$ develops the llm $y$. This rule requires that the relationship \textit{has\_variant} exists among all versions of large language models or the relation \textit{evolves} should exist, in order to infer \textit{has\_variant}. For example if OpenAI develops GPT-1, GPT-1 evolves GPT-2 (has variant GPT-2) then OpenAI develops GPT-2. This process during the inference is automatic because the \textit{evolves} relation is transitive. Another SWRL rule that involves the \textit{develops} relation is the following:
 \begin{lstlisting}
 peo:is_organization_of(?o1, ?o2) ^ peo:develops(?o1, ?llm) -> peo:develops(?o2, ?llm)
 \end{lstlisting}
@@ -623,7 +623,7 @@ The \textbf{Task} class represents task that are solved by large language models
     \end{tabular}
     \caption{Types of task with subclasses - part 2}
 \end{table}
-All of those classes have a label and a description describing shortly the task and they can have one or more instances, each instance represents a specific task of that type that are connected to prompting technique instances.
+All of those classes have a label and a description describing shortly the task and they can have one or more instances, each instance represents a specific task of that type, it has a data property called \textit{has\_description} to specify the description of the task.
 
 \subsubsection{Definition of prompt engineering}
 The \textbf{Prompt engineering} class includes all concepts associated with prompts, such as their creation, the context in which they are applied, and the responses they produce. It has four main subclasses, each one with a label and a description:
@@ -677,6 +677,58 @@ Image prompting technique class has six subclasses:
     \item Shot type
     \item Style modifiers
 \end{itemize}
+To ensure the accurate and consistent representation of prompts generated using the listed techniques, instances of the Prompting Technique class are connected to instances of other Prompt Engineering subclasses via dedicated object properties, defined explicitly or inferred by the reasoner using SWRL rules. To illustrate all instances along with their associated object properties and data properties, I propose a simple task: translating the phrase \textit{"Ciao, come va?"} from Italian to English using a zero-shot prompt as input to GPT-4.\\
+The first step is to create, if it does not already exist, an instance of the "Text translation" subclass of Task, which we will name \textit{"translation\_1"} assigning the data property \textit{has\_description} the string value: \textit{"Translation of the text: Ciao, come va?"}. Now I create the instance of the prompting technique that is going to solve the task, in this case we create an instance of the subclass "Zero shot prompting" called \textit{"zs\_prompting\_1"}. This instance is connected to \textit{"translation\_1"} using the object property \textit{solves\_task} with the inverse property \textit{"solved\_by"} connecting the two instances in both directions. Before creating the prompt, we create an instance of the chat class, calling it \textit{"gpt4\_chat\_1"} and connecting to the instance \textit{GPT-4} of the GPT class using the object property \textit{uses\_model} with inverse property \textit{is\_used\_in\_chat}. The chat instance has three data properties associated:
+\begin{itemize}
+    \item \textit{has\_chat\_title:} title of the chat, I assign it "Translation GPT-4 italian to english 1".
+
+    \item \textit{start\_time\_chat:} start time of the chat, I assign to it the currant time while I'm writing this chapter: "29/11/2024 - 10:37"
+
+    \item \textit{end\_time\_chat:} end time of the chat, the chat has the duration of two minutes and I assign the value: "29/11/2024 - 10:39"
+\end{itemize}
+Obviously those values assigned without any criteria can be modified later. Now that a context is established, the chat \textit{"gpt4\_chat\_1"}, I proceed to create the instance of the Prompt. I specify that the prompt called \textit{"zs\_1"} is created using the instance of Zero shot prompting previously defined using the object property \textit{prompt\_generated\_using} with inverse property \textit{is\_used\_in\_prompt}, in our case \textit{"zs\_1"} is generated using \textit{"zs\_prompting\_1"}. A prompt instance can have three associated data properties:
+\begin{itemize}
+    \item \textit{has\_instruction:} main instruction of the prompt.
+
+    \item \textit{has\_input\_data:} data given as input to the prompt. 
+
+    \item \textit{has\_output\_indicator:} indicator that indicates the format of the response.
+\end{itemize}
+For simplicity, I assign only the instruction \textit{"Translate the English text to Italian. Text: Ciao, come va? Translation:"} to the prompt, other data properties values can be added later. Now I connect the prompt with its context, the \textit{"gpt4\_chat\_1"} using the object property \textit{has\_context} with inverse relation \textit{has\_prompt} and after the creation of this relation using an SWRL rule I connect the prompt with the large language model that takes it in input. 
+\begin{lstlisting}
+peo:has_context(?p, ?c) ^ peo:uses_model(?c, ?m) -> peo:processed_by(?p, ?m)   
+\end{lstlisting}
+If a prompt $?p$ has a context the chat $?c$ and it uses the model $?m$ then $?p$ is processed by the model $?m$. This rule creates automatically during the reasoning the relation \textit{processed\_by} with inverse relation \textit{processes}. After a prompt, the llm generates a response, in PEO ontology is instance of the Response class, the value is associated using the data property \textit{has\_response\_value} and it is connected to the prompt that generated it using the object property \textit{response\_followedby\_prompt}. In order to model the "chain" prompt-responses-prompt I created the following object properties:
+\begin{itemize}
+    \item \textit{response\_followedby\_prompt:} the response is after a prompt.
+
+    \item \textit{prompt\_follows\_response:} after the prompt there is a response, inverse property of \textit{response\_followedby\_prompt}.
+
+    \item \textit{prompt\_follows\_prompt:} after the prompt there is another prompt.
+
+    \item \textit{prompt\_followedby\_prompt:} before the prompt there is another prompt, inverse property of {prompt\_follows\_prompt}.
+
+    \item \textit{response\_follows\_prompt:} after the response there is a prompt.
+
+    \item \textit{prompt\_followedby\_response:} before the prompt there is a response, inverse relation of \textit{response\_follows\_prompt}. 
+\end{itemize}
+We can graphically see this concatenation in the following scheme:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_30.png}
+    \caption{Chain prompt-response}
+    \label{fig:enter-label}
+\end{figure}
+Of course, most of these relationships are automatically created during the inference process. To connect a response with the next prompt, I created this SWRL rule:
+\begin{lstlisting}
+peo:prompt_followedby_prompt(?x, ?y) ^ peo:prompt_follows_response(?y, ?r) -> peo:prompt_followedby_response(?x, ?r)
+\end{lstlisting}
+If a prompt $?x$ is followed by another prompt $?y$ and $?y$ has a response $?r$ then $?x$ is followed by $?r$. The context next prompt is assigned automatically using the object property \textit{prompt\_followedby\_prompt} ant this SWRL rule:
+\begin{lstlisting}
+peo:prompt_followedby_prompt(?x, ?y) ^ peo:has_context(?y, ?c) -> peo:has_context(?x, ?c)
+\end{lstlisting}
+If a prompt $x$ is followed by another prompt $y$ and $y$ has context the chat $c$ then $x$ has context $c$.
+
 
 
 
