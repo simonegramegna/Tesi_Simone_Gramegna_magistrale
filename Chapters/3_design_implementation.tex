@@ -745,9 +745,6 @@ All these object properties may seem unclear so below is a diagram that shows al
 \end{figure}
 
 
-
-
-
 \subsubsection{Ontology population with prompts}
 Populating the ontology with prompts is a complex process as it requires connecting various instances (task, prompting technique, prompt, chat, response, large language model) using the defined object properties. Moreover, each prompt is manually crafted in accordance with the specific prompting technique. Manually populating the ontology with all instances for every task, every version of each large language model, and every prompting technique would be highly time-consuming and beyond the objectives of this thesis. Therefore, a decision was made to populate only a specific subset of the ontology choosing large language model versions, tasks and prompting techniques. Large language models chosed are very popular LLM available to the users and they are represented in the ontology:
 \begin{itemize}
@@ -845,10 +842,23 @@ The last task is the summarization of the following text about permaculture: \te
     \item \textbf{Role prompting:} From now on, you are an environmental scientist who specializes in explaining complex ecological concepts in an accessible and engaging manner. Your task is to provide a concise summary of permaculture principles and their importance in addressing climate challenges.
     \item \textbf{Analogical prompting:} Problem: Summarize the definition and essence of permaculture using principles that mirror natural ecosystems and combine traditional ecological knowledge with modern science. Instruction: Recall three relevant and distinct problems or topics related to summarizing processes that focus on mimicking complex systems. Provide detailed exemplars for each recalled instance, including how the principles were extracted and utilized effectively. Use the recalled insights to structure and write the final summary.
 \end{itemize}
-The responses for each prompt from the three large language models have been saved in the ontology, and a chat has been created for each prompt, including a title, start time, and end time resulting in a total of 60 distinct chats.\\\\
-The population of the ontology is the last step in the ontology encoding, after this the resulting ontology produced can be evaluated and published online.
+The responses for each prompt from the three large language models have been saved in the ontology, and a chat has been created for each prompt, including a title, start time, and end time resulting in a total of 60 distinct chats.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Figures/fig_32.png}
+    \caption{Example of chat with relations inferred}
+    \label{fig:enter-label}
+\end{figure}
 \newpage
 \subsection{Ontology evaluation}
+
+\subsubsection{Ontology consistency check}
+
+\subsubsection{SPARQL queries}
+
+\subsubsection{OOPS! validation}
+
+\subsubsection{OnToology validation}
 
 \newpage
 \section{Ontology publication and maintenance}
