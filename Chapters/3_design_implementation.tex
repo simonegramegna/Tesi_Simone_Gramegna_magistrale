@@ -172,7 +172,7 @@ This is the scope of the PEO ontology.
 In general, the goal of the project and the ontology is to create a resource accessible to everyone on a recently introduced topic, for which there are not many available resources. This resource aims to support not only the learning but also the application of prompt engineering techniques and large language models.
 
 \subsection{Functional ontology requirements specification}
-The LOT methodology provides for the specification of requirements in one of three ways: through competency questions, through natural language statements, or through tabular information containing concepts, relations, and attributes. As seen in the background chapter, competency questions are widely used in ontology engineering and allow for clearly expressing the functional requirements of an ontology. In the case of the prompt engineering ontology, based on the use cases and the purpose and scope identification described earlier, I have identified eighteen competency questions, which are:
+The LOT methodology provides for the specification of requirements in one of three ways: through competency questions, through natural language statements, or through tabular information containing concepts, relations, and attributes. As seen in the background chapter, competency questions are widely used in ontology engineering and allow for clearly expressing the functional requirements of an ontology. In the case of the prompt engineering ontology, based on the use cases and the purpose and scope identification described earlier, I have identified sixteen competency questions:
 \begin{itemize}
     \item \textbf{CQ1:} What is prompt engineering?
 
@@ -188,28 +188,25 @@ The LOT methodology provides for the specification of requirements in one of thr
 
     \item \textbf{CQ7:} Which prompts are generated using a prompting technique?
 
-    \item \textbf{CQ8:} What are responses of each prompt?
+    \item \textbf{CQ8:} What are the responses that follow each prompt?
 
     \item \textbf{CQ9:} What are possible tasks?
 
     \item \textbf{CQ10:} Which tasks are related to the text?
 
-    \item \textbf{CQ11:} What chats does each large language model have?
+    \item \textbf{CQ11:} What is a chat?
 
     \item \textbf{CQ12:} What is a large language model?
 
     \item \textbf{CQ13:} What types of large language models are available?
 
-    \item \textbf{CQ14:} What are the available versions of each large language model?
+    \item \textbf{CQ14:} What are large language models architectures?
 
-    \item \textbf{CQ15:} What are large language models architectures?
+    \item \textbf{CQ15:} What are large language models capabilities?
 
-    \item \textbf{CQ16:} What are large language models capabilities?
-
-    \item \textbf{CQ17:} What companies develop large language models?
-
-    \item \textbf{CQ18:} What is the first version of each large language model developed by each company?
+    \item \textbf{CQ16:} What companies develop large language models?
 \end{itemize}
+
 Competency questions are saved into an excel file, the template is available in the \href{https://github.com/oeg-upm/LOT-resources}{official Github repository}. The Excel file not only contains the competency questions but also specifies for each one: the identifier, the domain, the answer, the status (Proposed, Accepted, Rejected, Pending, Deprecated), comments, and priority (high, medium, and low). All the competency questions have a high priority, as they form the foundation for the design of the prompt engineering ontology, covering both the prompt engineering and large language models domain in order to produce a complete ontology.
 
 \subsection{ORSD formalization}
@@ -849,16 +846,19 @@ The responses for each prompt from the three large language models have been sav
     \caption{Example of chat with relations inferred}
     \label{fig:enter-label}
 \end{figure}
+
+\subsubsection{Automatic ontology population}
+
 \newpage
 \subsection{Ontology evaluation}
 
 \subsubsection{Ontology consistency check}
 
-\subsubsection{SPARQL queries}
-
 \subsubsection{OOPS! validation}
 
-\subsubsection{OnToology validation}
+\subsubsection{SPARQL queries}
+
+
 
 \newpage
 \section{Ontology publication and maintenance}
