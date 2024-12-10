@@ -849,7 +849,55 @@ The responses for each prompt from the three large language models have been sav
 
 \subsubsection{Automatic ontology population}
 Populating an ontology with various instances can be a time-consuming task for developers, as the ontology's domain of interest often involves numerous entities requiring manual insertion. To streamline this process and reduce the developer's effort, automation can be employed. There are different researches dedicated to the automatic population of ontologies, one of the most recent is \textit{"Ontology Population using LLMs"} \cite{norouzi2024ontology}, it proposes a methodology to semi-automatically populate modular ontologies using Large Language Models (LLMs). It focuses on leveraging the strengths of LLMs, such as GPT-4 and Llama-3, for extracting structured knowledge from natural language texts. The method is divided into three main stages: data preprocessing, relevant text retrieval, and ontology population. In the first stage, the data is cleaned, organized, and aligned with simplified ontology modules to facilitate processing. The second stage employs text summarization and Retrieval-Augmented Generation (RAG) techniques to identify and extract relevant information aligned with the ontology schema. Finally, in the third stage, predefined module files guide the LLMs to populate the ontology with accurate triples by using structured prompts. Despite the good results, the methodology still requires effort, as documents need to be selected and preprocessed to create a dataset that serves as input for the large language model used to populate the ontology. Implementing this process demands skills that go beyond those of an ontology engineer, effectively shifting the workload to another task.\\ 
-Another approach is proposed in the paper \textit{"Financial Product Ontology Population with Large Language Models"} \cite{saetia2024financial}, it leverages Large Language Models (LLMs), such as GPT-3.5 and GPT-4, to populate financial ontologies by extracting structured data from unstructured texts. It combines several prompting techniques to improve accuracy and scalability. Few-shot prompting provides positive and negative examples to guide the model's understanding. Chain-of-Thought (CoT) reasoning encourages sequential reasoning, while schema.org definitions are included to contextualize fields and properties. Prompts are carefully designed to generate structured outputs in JSON format for easy integration and evaluating performance using F1 scores, with the best results achieved when combining examples, CoT, and definitions. Like the previous one, this approach requires a lot of job on gathering necessary docs to pre-process that can be time consuming
+Another approach is proposed in the paper \textit{"Financial Product Ontology Population with Large Language Models"} \cite{saetia2024financial}, it leverages Large Language Models (LLMs), such as GPT-3.5 and GPT-4, to populate financial ontologies by extracting structured data from unstructured texts. It combines several prompting techniques to improve accuracy and scalability. Few-shot prompting provides positive and negative examples to guide the model's understanding. Chain-of-Thought (CoT) reasoning encourages sequential reasoning, while schema.org definitions are included to contextualize fields and properties. Prompts are carefully designed to generate structured outputs in JSON format for easy integration and evaluating performance using F1 scores, with the best results achieved when combining examples, CoT, and definitions. Like the previous one, this approach requires a lot of job on gathering necessary docs to pre-process and this process can be time-consuming, also the quality of the output depends on the prompts.\\ These tasks divert attention from the main objective and increase the developer's workload. Rather than using the methodologies outlined in the literature, I opted for a more straightforward and pragmatic approach to populating the ontology. Starting from the sixteen competency questions defined in the \textit{Ontology requirements specification} section, I input them, together with the ontology, into a large language model to generate an automatically populated version of the prompt engineering ontology. The large language model chosed is GPT-4o: the latest and most powerful version of GPT available in its web interface \href{https://chatgpt.com/}{ChatGPT} and used previously in the manual ontology population. This time instead of giving as input a specific prompt created with one of prompt engineering techniques, I write this prompt, providing the ontology and a text file containing the competency questions.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_34.png}
+    \caption{Prompt for automatic ontology population}
+    \label{fig:enter-label}
+\end{figure}
+After this prompt the LLM begins a reasoning process, first it explains the approach followed by the model:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_35.png}
+    \caption{First GPT-4 output in the automatic population}
+    \label{fig:enter-label}
+\end{figure}
+Then the model analyses the ontology structure encoded in the RDF file, listing simple classes and sample object properties found:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{Figures/fig_36.png}
+    \caption{Structure analysis of the ontology}
+    \label{fig:enter-label}
+\end{figure}
+Finally it produces the downloadable RDF file containing the ontology populated by the model:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_37.png}
+    \caption{Final LLM output}
+    \label{fig:enter-label}
+\end{figure}
+After downloading the RDF file, I open it using the Protegé editor to see the final result. At a first glance, the obtained result seems rather poor, as four new classes have been created again without considering the classes already present in the ontology:
+\begin{itemize}
+    \item \textbf{PromptEngineering}
+    \item \textbf{Prompt}
+    \item \textbf{PromptingTechnique}
+    \item \textbf{Task}
+\end{itemize}
+without considering the hierarchy defined in the ontology as we can see:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_38.png}
+    \caption{PEO ontology populated automatically}
+    \label{fig:enter-label}
+\end{figure}
+Just two classes have a definition: Prompt and PromptEngineering with no individuals created while the PromptingTechnique class has no defintion and three individuals created:
+\begin{itemize}
+    \item ChainOfThoughtPrompting
+    \item FewShotPrompting
+    \item ZeroShotPrompting
+\end{itemize}
+There is no new instance of chat and all the mechanism defined to link a prompting technique with a chat is completely ignored. No new object properties or data properties have been created by GPT-4o, just an annotation property called \textit{hasDefinition}. Any other useful information is not created, the three entities are not linked with any object property and they do not have any data property. Additional prompts would clearly be needed as input for the large language model to improve the result, which is currently poor and adds no useful information compared to the original, manually populated version of the prompt engineering ontology.
 
 \newpage
 \subsection{Ontology evaluation}
