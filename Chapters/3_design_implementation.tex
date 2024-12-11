@@ -901,10 +901,204 @@ There is no new instance of chat and all the mechanism defined to link a prompti
 
 \newpage
 \subsection{Ontology evaluation}
-
 \subsubsection{Ontology consistency check}
+The ontology consistency check consists in running the reasoner in order to check the consistency of declared and inferenced classes and axioms, inferences are made using also SWRL rules described in the encoding section. Running the reasoner ensures also the declaration of disjointness among disjoint classes. I run the HermiT reasoner on both version of the PEO ontology: the version populated manually and the updated version made by GPT-4.\\
+On the original version of the PEO ontology, the reasoner does not give any inconsistency and all the axioms are inferred correctly as we cans see below:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_39.png}
+    \caption{PEO ontology with HermiT reasoner}
+    \label{fig:enter-label}
+\end{figure}
+The reasoner infers correctly that the class "Alpaca" is disjoint with the classes "Task", "Base model", "Prompt engineering", "Organization" and "Capability" because the superclass "Large language model" is declared disjoint with that list of classes. The ten SWRL rules declared work properly and inference the correct object properties for individuals:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_40.png}
+    \caption{Inference on prompt individual}
+    \label{fig:enter-label}
+\end{figure}
+The consistency check of the other version of the PEO ontology, the one populated using GPT-4 has given the exact results, this because as said in the previous section no additional significant information has been added to the ontology. The inserted classes have no link with other classes so there are no other new inferences.
 
 \subsubsection{OntoMetrics}
+The calculation of metrics is done using OntoMetrics: a web-based tool developed by the University of Rostock that validates and provides statistical analyses of ontologies.\cite{lantow2016ontometrics}
+Given the ontology in form of RDF file or code, it calculates automatically:
+\begin{itemize}
+    \item Base metrics: these include simple counts of ontology elements such as classes, axioms, and objects, providing a quantitative overview of the ontology's components.
+
+    \item Schema Metrics: these metrics evaluate the structure of the ontology's schema, considering aspects like attribute richness and inheritance richness.
+
+    \item Knowledge base Metrics: these assess the ontology's knowledge base, focusing on the population of instances within the ontology.
+
+    \item Class Metrics: these metrics analyse individual classes within the ontology, examining factors such as class connectivity and fullness.
+
+    \item Graph Metrics: these evaluate the ontology's taxonomy as a graph, measuring properties like depth and breadth.
+\end{itemize}
+For PEO ontology, I will calculate base metrics, schema metrics and graph metrics.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_41.png}
+    \caption{OntoMetrics interface}
+    \label{fig:enter-label}
+\end{figure}
+
+Values computed for \textbf{base metrics} are:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Property} & \textbf{Value} \\ \hline
+        Axioms & 2684 \\ \hline
+        Logical axioms count & 1695 \\ \hline
+        Class count & 126 \\ \hline
+        Total classes count & 126 \\ \hline
+        Object property count & 34 \\ \hline
+        Total object properties count & 34 \\ \hline
+        Data property count & 13 \\ \hline
+        Total data properties count & 13 \\ \hline
+        Properties count & 47 \\ \hline
+        Individual count & 352 \\ \hline
+        Total individuals count & 352 \\ \hline
+        DL expressivity & SRIF(D) \\ \hline
+    \end{tabular}
+    \caption{PEO ontology base metrics statistics}
+    \label{tab:ontology-stats}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Class Axiom Type} & \textbf{Count} \\ \hline
+        SubClassOf axioms count & 199 \\ \hline
+        Equivalent classes axioms count & 1 \\ \hline
+        Disjoint classes axioms count & 3 \\ \hline
+        GCICount & 0 \\ \hline
+        HiddenGCICount & 0 \\ \hline
+    \end{tabular}
+    \caption{PEO ontology Class Axioms statistics}
+    \label{tab:class-axioms}
+\end{table}
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Object Property Axiom Type} & \textbf{Count} \\ \hline
+        SubObjectPropertyOf axioms count & 33 \\ \hline
+        Equivalent object properties axioms count & 0 \\ \hline
+        Inverse object properties axioms count & 16 \\ \hline
+        Disjoint object properties axioms count & 0 \\ \hline
+        Functional object properties axioms count & 0 \\ \hline
+        Inverse functional object properties axioms count & 0 \\ \hline
+        Transitive object property axioms count & 2 \\ \hline
+        Symmetric object property axioms count & 0 \\ \hline
+        Asymmetric object property axioms count & 0 \\ \hline
+        Reflexive object property axioms count & 0 \\ \hline
+        Irreflexive object property axioms count & 1 \\ \hline
+        Object property domain axioms count & 33 \\ \hline
+        Object property range axioms count & 33 \\ \hline
+        SubPropertyChainOf axioms count & 0 \\ \hline
+    \end{tabular}
+    \caption{PEO ontology Object Property Axioms Statistics}
+    \label{tab:object-property-axioms}
+\end{table}
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Data Property Axiom Type} & \textbf{Count} \\ \hline
+        SubDataPropertyOf axioms count & 12 \\ \hline
+        Equivalent data properties axioms count & 0 \\ \hline
+        Disjoint data properties axioms count & 0 \\ \hline
+        Functional data property axioms count & 7 \\ \hline
+        Data property domain axioms count & 11 \\ \hline
+        Data property range axioms count & 12 \\ \hline
+    \end{tabular}
+    \caption{PEO ontology Data Property Axioms Statistics}
+    \label{tab:data-property-axioms}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Individual Axiom Type} & \textbf{Count} \\ \hline
+        Class assertion axioms count & 352 \\ \hline
+        Object property assertion axioms count & 390 \\ \hline
+        Data property assertion axioms count & 580 \\ \hline
+        Negative object property assertion axioms count & 0 \\ \hline
+        Negative data property assertion axioms count & 0 \\ \hline
+        Same individuals axioms count & 0 \\ \hline
+        Different individuals axioms count & 0 \\ \hline
+    \end{tabular}
+    \caption{PEO ontology Individual Axioms Statistics}
+    \label{tab:individual-axioms}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Annotation Axiom Type} & \textbf{Count} \\ \hline
+        Annotation axioms count & 5 \\ \hline
+        Annotation assertion axioms count & 459 \\ \hline
+        Annotation property domain axioms count & 0 \\ \hline
+        Annotation property range axioms count & 0 \\ \hline
+    \end{tabular}
+    \caption{PEO ontology Annotation Axioms Statistics}
+    \label{tab:annotation-axioms}
+\end{table}
+
+The \textbf{Schema metrics} computed for PEO ontology are: 
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Metric} & \textbf{Value} \\ \hline
+        Attribute richness & 0.103175 \\ \hline
+        Inheritance richness & 1.579365 \\ \hline
+        Relationship richness & 0.160338 \\ \hline
+        Attribute class ratio & 0.0 \\ \hline
+        Equivalence ratio & 0.007937 \\ \hline
+        Axiom/class ratio & 21.301587 \\ \hline
+        Inverse relations ratio & 0.390244 \\ \hline
+        Class/relation ratio & 0.531646 \\ \hline
+    \end{tabular}
+    \caption{PEO ontology Schema Metrics}
+    \label{tab:ontology-metrics}
+\end{table}
+
+The \textbf{Graph metrics} for PEO ontology are:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Metric} & \textbf{Value} \\ \hline
+        Absolute root cardinality & 7 \\ \hline
+        Absolute leaf cardinality & 109 \\ \hline
+        Absolute sibling cardinality & 126 \\ \hline
+        Absolute depth & 318 \\ \hline
+        Average depth & 2.52381 \\ \hline
+        Maximal depth & 4 \\ \hline
+        Absolute breadth & 126 \\ \hline
+        Average breadth & 7.0 \\ \hline
+        Maximal breadth & 33 \\ \hline
+        Ratio of leaf fan-outness & 0.865079 \\ \hline
+        Ratio of sibling fan-outness & 1.0 \\ \hline
+        Tangledness & 0.269841 \\ \hline
+        Total number of paths & 126 \\ \hline
+        Average number of paths & 31.5 \\ \hline
+    \end{tabular}
+    \caption{PEO ontology Graph Metrics}
+    \label{tab:cardinality-depth-metrics}
+\end{table}
+
+% commento sulle metriche ottenute
 
 \subsubsection{OOPS! validation}
 
@@ -927,3 +1121,5 @@ There is no new instance of chat and all the mechanism defined to link a prompti
     \caption{Ontology maintenance workflow}
     \label{fig:enter-label}
 \end{figure}
+
+
