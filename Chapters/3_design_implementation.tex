@@ -420,7 +420,7 @@ Once created the IRI, I defined the five annotations to properly describe the on
          
          creator & Simone Gramegna\\ \hline
          
-         description & The PEO ontology is a modern ontology that covers state-of-art prompt engineering techniques and large language models. The ontology is designed to support students, researchers and developers who want to know more about prompt engineering, applying prompting techniques in solving tasks. \\ \hline
+         rdfs:comment & The PEO ontology is a modern ontology that covers state-of-art prompt engineering techniques and large language models. The ontology is designed to support students, researchers and developers who want to know more about prompt engineering, applying prompting techniques in solving tasks. \\ \hline
          
          language & English \\ \hline
          
@@ -444,12 +444,12 @@ Starting from the concepts outlined in the conceptualization phase, I define the
     \item \textbf{Task}
 \end{itemize}
 All these classes are mutually disjoint, as they represent distinct entities with no overlapping properties. The only exception is the relationship between "Base model" and "Capability", which are not disjoint. Both represent attributes of large language models and are collectively grouped under the \textbf{"LLM characteristic"} class, formed by the union of the two classes. \\
-The Capability has five subclasses, each subclass has a label and a description:
+The Capability has five subclasses, each subclass has a label and a comment:
 \begin{table}[H]
     \centering
     \begin{tabular}{|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|}
         \hline
-        \textbf{Label} & \textbf{Description} \\ \hline
+        \textbf{Label} & \textbf{Comment} \\ \hline
          Audio processing &  Capability to process audio files. \\ \hline
          
          Code processing & Capability to process source code written in any programming language. \\ \hline
@@ -646,9 +646,7 @@ The prompting technique is very important because it has all the subclasses repr
     \item Graph of Thoughts prompting
     \item Least-to-most prompting
     \item Logical Chain-of-Thought prompting
-    \item Plan-and-Solve prompting
     \item ReAct prompting
-    \item Rephrase and Respond prompting
     \item Retrieval Augmented Generation - RAG prompting
     \item Role prompting
     \item Self consistency prompting
@@ -1101,6 +1099,13 @@ The \textbf{Graph metrics} for PEO ontology are:
 % commento sulle metriche ottenute
 
 \subsubsection{OOPS! validation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_42.png}
+    \caption{OOPS! web interface}
+    \label{fig:enter-label}
+\end{figure}
 
 \subsubsection{SPARQL queries}
 
