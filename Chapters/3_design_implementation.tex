@@ -1348,16 +1348,21 @@ We can see the implementation below:
     \label{fig:enter-label}
 \end{figure}
 Once this is done, I can translate each of the sixteen competency questions into SPARQL queries to be executed.\\
-\begin{itemize}
-    \item \textbf{CQ1: What is prompt engineering?} it is translated into:
-    \begin{lstlisting}
+The first competency question \textbf{CQ1: What is prompt engineering?} is translated into:
+\begin{lstlisting}
     SELECT DISTINCT ?property ?value
     WHERE {
         <https://w3id.org/peo#prompt_engineering> ?property ?value .
     }
-    \end{lstlisting}
-    
-\end{itemize}
+\end{lstlisting}
+Getting the following result:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_47.png}
+    \caption{CQ1 sparql query results}
+    \label{fig:enter-label}
+\end{figure}
+
 
 \newpage
 \section{Ontology publication and maintenance}
