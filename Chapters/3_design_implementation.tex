@@ -962,6 +962,7 @@ Values computed for \textbf{base metrics} are:
     \caption{PEO ontology base metrics statistics}
     \label{tab:ontology-stats}
 \end{table}
+This table provides a high-level overview of the ontology’s structure and complexity. With 2684 axioms, the ontology is rich in detail and represents a substantial body of knowledge. Among these, 1695 logical axioms indicate a strong focus on enabling inference and reasoning. The 126 classes show that the ontology has a robust framework for organizing concepts, while 34 object properties and 13 data properties highlight the ontology’s emphasis on relationships over attribute-driven modeling. The inclusion of 352 individuals suggests that the ontology is well-populated, demonstrating practical applicability. The expressivity of SRIF(D) indicates that the ontology supports features like inverse roles and data ranges, balancing computational efficiency with expressive capability. This ontology is comprehensive but may require optimization to handle its inherent complexity effectively.
 
 \begin{table}[H]
     \centering
@@ -977,6 +978,8 @@ Values computed for \textbf{base metrics} are:
     \caption{PEO ontology Class Axioms statistics}
     \label{tab:class-axioms}
 \end{table}
+
+This table details how classes are defined and interrelated within the ontology. The 199 SubClassOf axioms form a strong hierarchical backbone, enabling inheritance of properties and constraints. However, the limited use of equivalent classes (1) and disjoint classes (3) suggests that the ontology may not fully capture nuanced relationships or enforce strict separations between certain concepts. The absence of GCIs (Global Cardinality Restrictions) and Hidden GCIs could indicate missed opportunities to model constraints and relationships that extend across the ontology as a whole. While the current setup simplifies reasoning, incorporating more advanced axioms could enhance the ontology's semantic richness and utility.
 
 
 \begin{table}[H]
@@ -1002,7 +1005,7 @@ Values computed for \textbf{base metrics} are:
     \caption{PEO ontology Object Property Axioms Statistics}
     \label{tab:object-property-axioms}
 \end{table}
-
+Object properties are the backbone of the ontology's relational structure. With 33 SubObjectPropertyOf axioms, the ontology defines a clear hierarchy of relationships, which helps maintain organization and reasoning efficiency. The 16 inverse object properties highlight a good use of bidirectional relationships, enhancing navigability within the graph. However, the lack of functional, inverse functional, symmetric, or asymmetric properties may limit the ontology’s ability to capture specific constraints, such as unique or one-to-one relationships. The two transitive properties and one irreflexive property add some complexity but are underused. Domains and ranges are well-defined for all object properties, which is a strong point, as it ensures consistency and logical soundness in property usage.
 
 \begin{table}[H]
     \centering
@@ -1019,6 +1022,8 @@ Values computed for \textbf{base metrics} are:
     \caption{PEO ontology Data Property Axioms Statistics}
     \label{tab:data-property-axioms}
 \end{table}
+
+Data properties focus on attributes of individuals. The 12 SubDataPropertyOf axioms indicate some level of organization, but the absence of equivalent or disjoint data properties suggests limited semantic relationships among these properties. Seven functional data properties point to a partial emphasis on ensuring that certain attributes have unique values (e.g., “hasID”), but this aspect could be expanded. Domains and ranges are defined for most properties, which improves clarity and reasoning, but the relatively low overall count of data property axioms might limit the ontology's ability to model detailed attributes of classes or individuals.
 
 \begin{table}[H]
     \centering
@@ -1037,6 +1042,8 @@ Values computed for \textbf{base metrics} are:
     \label{tab:individual-axioms}
 \end{table}
 
+This table reflects how individuals are represented and connected within the ontology. The 352 class assertions and 390 object property assertions indicate that the ontology’s individuals are well-categorized and interlinked. The 580 data property assertions further show that these individuals have descriptive attributes. However, the absence of negative assertions (both object and data properties) and no axioms for declaring individuals as equivalent or distinct may limit the ontology's ability to handle complex scenarios, such as resolving conflicts or managing redundancy.
+
 \begin{table}[H]
     \centering
     \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
@@ -1050,7 +1057,7 @@ Values computed for \textbf{base metrics} are:
     \caption{PEO ontology Annotation Axioms Statistics}
     \label{tab:annotation-axioms}
 \end{table}
-
+Annotations are crucial for documentation and understanding. With 459 annotation assertions, the ontology appears well-documented, providing metadata that can improve usability and comprehension. However, the absence of domain and range axioms for annotation properties suggests that these annotations are not constrained formally, which could lead to inconsistencies or reduced clarity in large-scale applications. Better structuring of annotation properties could enhance the ontology’s maintainability.\\
 The \textbf{Schema metrics} computed for PEO ontology are: 
 
 \begin{table}[H]
@@ -1070,7 +1077,7 @@ The \textbf{Schema metrics} computed for PEO ontology are:
     \caption{PEO ontology Schema Metrics}
     \label{tab:ontology-metrics}
 \end{table}
-
+This table evaluates the structural aspects of the ontology. The attribute richness (0.103175) indicates that relatively few classes have associated attributes, which could limit the detail available for each class. The inheritance richness (1.579365) shows that most classes are part of meaningful hierarchies, a positive sign of structure. However, the relationship richness (0.160338) is relatively low, suggesting that the ontology focuses more on defining concepts than on interconnecting them. The axiom-to-class ratio (21.301587) highlights a dense ontology, meaning each class has substantial associated information, which can be both a strength and a source of complexity. Finally, the inverse relations ratio (0.390244) indicates a good but incomplete use of inverse properties to enhance navigability.\\
 The \textbf{Graph metrics} for PEO ontology are:
 \begin{table}[H]
     \centering
@@ -1095,17 +1102,227 @@ The \textbf{Graph metrics} for PEO ontology are:
     \caption{PEO ontology Graph Metrics}
     \label{tab:cardinality-depth-metrics}
 \end{table}
+Graph metrics provide insights into the topology of the ontology. The absolute root cardinality (7) and absolute leaf cardinality (109) indicate a moderately deep hierarchy with good granularity at the leaf level. The maximal depth (4) and average depth (2.52381) suggest a shallow graph, which can make the ontology easier to understand but may oversimplify complex domains. The tangledness (0.269841) is moderate, indicating a graph structure that is connected but not overly complex. The high sibling fan-out ratio (1.0) shows that sibling classes are evenly distributed, while the ratio of leaf fan-outness (0.865079) implies a balanced spread of subclasses from intermediate nodes.\\
+Despite there being no significant differences between the original version of the PEO ontology and the version populated using GPT-4, I proceed to calculate metrics.\\
+Values computed for base metrics are:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Property} & \textbf{Value} \\ \hline
+        Axioms & 2705 \\ \hline
+        Logical axioms count & 1710 \\ \hline
+        Class count & 128 \\ \hline
+        Total classes count & 128 \\ \hline
+        Object property count & 34 \\ \hline
+        Total object properties count & 34 \\ \hline
+        Data property count & 13 \\ \hline
+        Total data properties count & 13 \\ \hline
+        Properties count & 47 \\ \hline
+        Individual count & 359 \\ \hline
+        Total individuals count & 359 \\ \hline
+        DL expressivity & SRIF(D) \\ \hline
+    \end{tabular}
+    \caption{PEO ontology updated base metrics statistics}
+    \label{tab:ontology-stats-updated}
+\end{table}
 
-% commento sulle metriche ottenute
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Class Axiom Type} & \textbf{Count} \\ \hline
+        SubClassOf axioms count & 197 \\ \hline
+        Equivalent classes axioms count & 1 \\ \hline
+        Disjoint classes axioms count & 3 \\ \hline
+        GCICount & 0 \\ \hline
+        HiddenGCICount & 0 \\ \hline
+    \end{tabular}
+    \caption{PEO ontology updated Class Axioms Statistics}
+    \label{tab:class-axioms-updated}
+\end{table}
 
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Object Property Axiom Type} & \textbf{Count} \\ \hline
+        SubObjectPropertyOf axioms count & 33 \\ \hline
+        Equivalent object properties axioms count & 0 \\ \hline
+        Inverse object properties axioms count & 16 \\ \hline
+        Disjoint object properties axioms count & 0 \\ \hline
+        Functional object properties axioms count & 0 \\ \hline
+        Inverse functional object properties axioms count & 0 \\ \hline
+        Transitive object property axioms count & 8 \\ \hline
+        Symmetric object property axioms count & 1 \\ \hline
+        Asymmetric object property axioms count & 0 \\ \hline
+        Reflexive object property axioms count & 0 \\ \hline
+        Irreflexive object property axioms count & 1 \\ \hline
+        Object property domain axioms count & 33 \\ \hline
+        Object property range axioms count & 33 \\ \hline
+        SubPropertyChainOf axioms count & 0 \\ \hline
+    \end{tabular}
+    \caption{PEO ontology updated Object Property Axioms Statistics}
+    \label{tab:object-property-axioms-updated}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Data Property Axiom Type} & \textbf{Count} \\ \hline
+        SubDataPropertyOf axioms count & 12 \\ \hline
+        Equivalent data properties axioms count & 0 \\ \hline
+        Disjoint data properties axioms count & 0 \\ \hline
+        Functional data property axioms count & 7 \\ \hline
+        Data property domain axioms count & 12 \\ \hline
+        Data property range axioms count & 12 \\ \hline
+    \end{tabular}
+    \caption{PEO ontology updated Data Property Axioms Statistics}
+    \label{tab:data-property-axioms-updated}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Individual Axiom Type} & \textbf{Count} \\ \hline
+        Class assertion axioms count & 358 \\ \hline
+        Object property assertion axioms count & 393 \\ \hline
+        Data property assertion axioms count & 580 \\ \hline
+        Negative object property assertion axioms count & 0 \\ \hline
+        Negative data property assertion axioms count & 0 \\ \hline
+        Same individuals axioms count & 0 \\ \hline
+        Different individuals axioms count & 0 \\ \hline
+    \end{tabular}
+    \caption{PEO ontology updated Individual Axioms Statistics}
+    \label{tab:individual-axioms-updated}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Annotation Axiom Type} & \textbf{Count} \\ \hline
+        Annotation axioms count & 5 \\ \hline
+        Annotation assertion axioms count & 456 \\ \hline
+        Annotation property domain axioms count & 0 \\ \hline
+        Annotation property range axioms count & 0 \\ \hline
+    \end{tabular}
+    \caption{PEO ontology updated Annotation Axioms Statistics}
+    \label{tab:annotation-axioms-updated}
+\end{table}
+
+The schema metrics for the update version of PEO ontology are:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Metric} & \textbf{Value} \\ \hline
+        Attribute richness & 0.101563 \\ \hline
+        Inheritance richness & 1.539063 \\ \hline
+        Relationship richness & 0.161702 \\ \hline
+        Attribute class ratio & 0.0 \\ \hline
+        Equivalence ratio & 0.007813 \\ \hline
+        Axiom/class ratio & 21.132813 \\ \hline
+        Inverse relations ratio & 0.390244 \\ \hline
+        Class/relation ratio & 0.544681 \\ \hline
+    \end{tabular}
+    \caption{PEO ontology Schema Metrics}
+    \label{tab:ontology-metrics-updated}
+\end{table}
+
+The graph metrics for updated version of PEO ontology are:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{8cm}|>{\raggedright\arraybackslash}p{4cm}|}
+        \hline
+        \textbf{Metric} & \textbf{Value} \\ \hline
+        Absolute root cardinality & 11 \\ \hline
+        Absolute leaf cardinality & 111 \\ \hline
+        Absolute sibling cardinality & 128 \\ \hline
+        Absolute depth & 316 \\ \hline
+        Average depth & 2.46875 \\ \hline
+        Maximal depth & 4 \\ \hline
+        Absolute breadth & 128 \\ \hline
+        Average breadth & 7.111111 \\ \hline
+        Maximal breadth & 33 \\ \hline
+        Ratio of leaf fan-outness & 0.867188 \\ \hline
+        Ratio of sibling fan-outness & 1.0 \\ \hline
+        Tangledness & 0.265625 \\ \hline
+        Total number of paths & 128 \\ \hline
+        Average number of paths & 32.0 \\ \hline
+    \end{tabular}
+    \caption{PEO ontology updated Graph Metrics}
+    \label{tab:cardinality-depth-metrics-updated}
+\end{table}
+
+% conclusione ontometrics
+
+\newpage
 \subsubsection{OOPS! validation}
+The methods discussed so far are widely used in ontology evaluation; however, they are not capable of capturing modelling errors in greater detail. These errors can compromise not only the quality and usability of the ontology but also lead to potential inconsistencies. Therefore, it is necessary to adopt a different approach from those previously examined, OntoMetrics and the HermiT reasoner because they have the following issues:
+\begin{itemize}
+    \item OntoMetrics: it provides a quantitative measure of ontology's structural characteristics without analysing qualitative aspects, so it is not able to detect semantic and usability issues in the ontology.
 
+    \item HermiT reasoner (reasoners in general): reasoners are designed to check the logical consistency of an ontology and perform inferencing identifying inconsistencies in axioms. But reasoners are not able to detect errors outside logical inconsistencies, such as missing domain or range definitions and they cannot check best-practice violation and usability issues.
+\end{itemize}
+These limitations highlight the need for a tool that can go beyond structural and logical evaluation, addressing both semantic and usability dimensions of ontology quality. \textbf{OOPS!} (Ontology Pitfall Scanner) is an online tool for ontology evaluation \cite{poveda2014oops} that automates the evaluation process without requiring any effort by the developer. 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{Figures/fig_42.png}
     \caption{OOPS! web interface}
     \label{fig:enter-label}
 \end{figure}
+Given the input ontology, OOPS is able to detect 40 different pitfall that are classified into three categories: critical, important and minor by parsing the RDF code and generating a complete response using the OOPS! scanner. Pitfalls in the scanner include:
+\begin{itemize}
+    \item Structural pitfalls: these involve issues related to the ontology's formal structure and syntax like cycles in hierarchy and unconnected ontology elements.
+
+    \item Functional pitfalls: these involve issues to the intended use and functionality of the ontology like missing domain or incorrectly defined inverse relationships.
+
+    \item Usability and Profiling Pitfalls: these involve issues  affecting the ontology's clarity, maintainability, and human-readability like missing annotations, inconsistent naming and ambiguous terms.
+\end{itemize}
+I will use OOPS! scanner on both versions of the PEO ontology detecting and explaining found pitfalls. 
+For the first version of PEO ontology there are just three pitfalls:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_43.png}
+    \caption{Detected pitfalls PEO ontology}
+    \label{fig:enter-label}
+\end{figure}
+The explanation of detected pitfall is:
+\begin{itemize}
+    \item \textbf{P04 (Creating unconnected ontology elements):} this pitfall involves ontology elements (classes, object properties and datatype properties) are created isolated, with no relation to the rest of the ontology. In the case of PEO ontology, the \textit{prompt\_engineering} class has no relation: this because the prompt engineering class is intended as a theoretical concept with no relations with other classes.
+
+    \item \textbf{P34 (Untyped class):} this pitfalls involves all ontology elements that are used as a class without having explicitly declared. This pitfall involves four elements in PEO ontology: \\ \textit{http://www.w3.org/2003/11/swrl\#IndividualPropertyAtom},\\ \textit{http://www.w3.org/2003/11/swrl\#Variable},\\ \textit{http://www.w3.org/2003/11/swrl\#Imp} and \\\textit{http://www.w3.org/2003/11/swrl\#AtomList}.
+    This pitfall depends in the declaration of SWRL rules using the Protegé editor and it does not depend on the developer.
+
+    \item \textbf{P41 (No license declared):} there is no license in the ontology metadata. The license of PEO ontology is specified in the Github repository.
+    
+\end{itemize}
+Overall, the report is satisfactory, as no critical pitfalls have been identified, nor any issues found in the main classes or object properties of the ontology. The complete report is available \href{https://github.com/simonegramegna/peo/blob/main/evaluation/oops_report_peo.xml}{here}. After detecting pitfalls in the original version of the PEO ontology, I also examined the populated version generated using GPT-4 nonetheless, no significant differences were observed between the two versions. Compared to the three pitfalls identified in the previous version, OOPS detects five pitfalls:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Figures/fig_44.png}
+    \caption{Detected pitfalls second version PEO ontology}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\begin{itemize}
+    \item \textbf{P04 (Creating unconnected ontology elements):} this pitfall, as said before, involves unconnected ontology elements. This time the pitfall involves not only the \textit{prompt\_engineering} class but also the new classes created by GPT-4: \textit{Task}, \textit{PromptingTechnique}, \textit{Prompt} and \textit{PromptEngineering}. Those classes have no relations with other classes.
+
+    \item \textbf{P08 (Missing annotations):} this pitfall involves elements that lack annotation properties that label them ( \textit{rdfs:label}) or that define them\\ (\textit{rdfs:comment}). This pitall involves the four classes created by GPT-4 with no comment provided: \textit{Task}, \textit{PromptingTechnique}, \textit{Prompt} and \textit{PromptEngineering}.  
+
+    \item \textbf{P22 (Using different naming conventions in the ontology):} this pitfall involves ontology elements are not named following the same convention (for example CamelCase or use of delimiters as "-" or "\_"). This pitfall is given by the new classes created by GPT-4 that do not follow the naming convention used in the ontology (with the "\_" separator) by creating classes declared in camel case.
+
+    \item \textbf{P34 (Untyped class):} this is the same pitfall detected before.
+
+    \item \textbf{P41 (No license declared):} this is the same pitfall detected before.
+\end{itemize}
+In general, the detected pitfalls are caused by GPT-4's lack of understanding of the ontology's structure. Additionally, they are not numerous, as the modifications made by the LLM are minimal, the oops report is available \href{https://github.com/simonegramegna/peo/blob/main/evaluation/oops_report_peo_gpt4.xml}{here}.
+
 
 \subsubsection{SPARQL queries}
 
