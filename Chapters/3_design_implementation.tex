@@ -1324,8 +1324,40 @@ In general, the detected pitfalls are caused by GPT-4's lack of understanding of
 
 
 \subsubsection{SPARQL queries}
-The final step of ontology evaluation is converting competency questions (CQ) defined in the \textit{Ontology requirements specification} section into SPARQL queries in order to compare the expected result to the actual result of each competency question. SPARQL queries are generated manually and ran using Jupyter notebook \cite{jupyter}: an enviroment for running python code and the rdflib python library \cite{rdflib}: a library to access rdf files and run SPARQL queries inside python. The code is available on the \href{https://github.com/simonegramegna/peo/tree/main/evaluation}{Github repository} and the evaluation is mode for both versions of the ontology.
+The final step of ontology evaluation is converting competency questions (CQ) defined in the \textit{Ontology requirements specification} section into SPARQL queries in order to compare the expected result to the actual result of each competency question. SPARQL queries are generated manually and ran using Jupyter notebook \cite{jupyter}: an enviroment for running python code and the rdflib python library \cite{rdflib}: a library to access rdf files and run SPARQL queries inside python. The code is available on the \href{https://github.com/simonegramegna/peo/tree/main/evaluation}{Github repository} and the evaluation is mode for both versions of the ontology.\\
+First I open the ontology using rdflib:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_45.png}
+    \caption{Jupyter notebook SPARQL}
+    \label{fig:enter-label}
+\end{figure}
+The pandas library is used to display query results in data-frames, for query and display I created three support functions: 
+\begin{itemize}
+    \item \textit{execute\_query:} it takes as input the SPARQL query string and returns a list of results.
 
+    \item \textit{results\_to\_df:} it takes as input as input the list of results ad creates and returns a dataframe with results inside which columns' names are the label names.
+
+    \item \textit{print\_results:} it iterates on the list of results and prints each element.
+\end{itemize}
+We can see the implementation below:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_46.png}
+    \caption{Support python functions}
+    \label{fig:enter-label}
+\end{figure}
+Once this is done, I can translate each of the sixteen competency questions into SPARQL queries to be executed.\\
+\begin{itemize}
+    \item \textbf{CQ1: What is prompt engineering?} it is translated into:
+    \begin{lstlisting}
+    SELECT DISTINCT ?property ?value
+    WHERE {
+        <https://w3id.org/peo#prompt_engineering> ?property ?value .
+    }
+    \end{lstlisting}
+    
+\end{itemize}
 
 \newpage
 \section{Ontology publication and maintenance}
