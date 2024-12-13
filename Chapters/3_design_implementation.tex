@@ -1593,6 +1593,31 @@ WHERE {
     OPTIONAL { ?type rdfs:label ?label . }
 }
 \end{lstlisting}
+Getting the following results:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Figures/fig_61.png}
+    \caption{CQ15 SPARQL query results}
+    \label{fig:enter-label}
+\end{figure}
+As expected, the results is the collection of all the capabilities represented in the ontology.\\
+
+The sixteenth and last competency question \textbf{CQ16: What companies develop large language models?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?company ?label
+WHERE {
+    ?company rdf:type <https://w3id.org/peo#company> .
+    OPTIONAL { ?company rdfs:label ?label . }
+}
+\end{lstlisting}
+Getting the following results:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Figures/fig_62.png}
+    \caption{CQ16 SPARQL query results}
+    \label{fig:enter-label}
+\end{figure}
+The result, as expected, is the collection of companies that develop large language models.
 
 
 \newpage
