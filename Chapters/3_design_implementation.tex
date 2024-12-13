@@ -1622,6 +1622,13 @@ The result, as expected, is the collection of companies that develop large langu
 
 \newpage
 \section{Ontology publication and maintenance}
+The last step after the Ontology implementation in the LOT methodology is the Ontology publication phase, which scope is to provide an online ontology accessible both as human-readable documentation and a machine-readable documentation from its URI. This phase is divided into three sub-activities:
+\begin{enumerate}
+    \item \textbf{Propose release candidate}
+    \item \textbf{Ontology documentation}
+    \item \textbf{Online publication}
+\end{enumerate}
+as we can see in the figure below:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{Figures/fig_25.png}
@@ -1629,11 +1636,37 @@ The result, as expected, is the collection of companies that develop large langu
     \label{fig:enter-label}
 \end{figure}
 
+\subsection{Propose release candidate}
+After all the implementation and evaluation, in this step there is the decision about which version of the ontology is going to be published. It is a quite easy choice because, as said in pervious sections, the version populated automatically did not added any useful information from the original version. Moreover it added, according the OOPS! report, more pitfalls (five vs three) so the ontology that is going to be published is the 1.0 version of PEO ontology, populated manually without any llm intervention.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{Figures/fig_33.png}
-    \caption{Ontology maintenance workflow}
+    \includegraphics[width=0.36\linewidth]{Figures/fig_64.jpg}
+    \caption{Ontology version choosing}
     \label{fig:enter-label}
 \end{figure}
+
+\subsection{Ontology documentation}
+The ontology documentation is generated using Protegé and the OWLdoc plug-in which automatically generate HTML documentation starting from ontology code. The output of OWLdoc is the following:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_63.png}
+    \caption{OWLdoc output}
+    \label{fig:enter-label}
+\end{figure}
+The OWLdoc is available in the Github repository \href{https://github.com/simonegramegna/peo/tree/main/docs}{here} in the \textit{/docs} folder and it can be consulted online \href{https://peoontology.vercel.app/}{here}. The documentation is made accessible for everyone using Vercel: a cloud platform for hosting web applications and static sites. This free service using an integrated Github action, takes as input the documentation in the repository and publishes online automatically without requiring any effort by the developer. The \textit{official documentation website} is:
+\href{https://peoontology.vercel.app/}{https://peoontology.vercel.app/}.
+
+\subsection{Online publication}
+
+\subsubsection{W3id.org}
+
+\subsubsection{BioPortal}
+
+
+
+
+
+
+
 
 
