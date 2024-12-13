@@ -1359,9 +1359,240 @@ Getting the following result:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{Figures/fig_47.png}
-    \caption{CQ1 sparql query results}
+    \caption{CQ1 SPARQL query results}
     \label{fig:enter-label}
 \end{figure}
+The output from the query matches the expected result, which is the definition of prompt engineering.\\
+
+The second competency question \textbf{CQ2: What is a prompt?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?property ?value
+WHERE {
+    <https://w3id.org/peo#prompt> ?property ?value .
+}
+\end{lstlisting}
+Getting the following results:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_48.png}
+    \caption{CQ2 SPARQL query results}
+    \label{fig:enter-label}
+\end{figure}
+
+The output also in this case matches the expected result, which is the definition of prompt.\\
+
+The third competency question \textbf{CQ3: What are prompting techniques?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?subclass ?label
+WHERE {
+    ?subclass rdfs:subClassOf <https://w3id.org/peo#prompting_technique> .
+    OPTIONAL { ?subclass rdfs:label ?label . }
+}
+\end{lstlisting}
+Getting the following results:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_49.png}
+    \caption{CQ3 SPARQL query results}
+    \label{fig:enter-label}
+\end{figure}
+The complete table contains, as expected, all the prompting techniques in the ontology.\\
+
+The fourth competency question \textbf{CQ4: What are image prompting techniques?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?subclass ?label
+WHERE {
+    ?subclass rdfs:subClassOf <https://w3id.org/peo#image_prompting> .
+    OPTIONAL { ?subclass rdfs:label ?label . }
+}
+\end{lstlisting}
+Getting the following results:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_50.png}
+    \caption{CQ4 SPARQL query results}
+    \label{fig:enter-label}
+\end{figure}
+As expected, we get all the image prompting techniques in the ontology.\\
+
+The fifth competency question \textbf{CQ5: What are code prompting techniques?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?subclass ?label
+WHERE {
+    ?subclass rdfs:subClassOf <https://w3id.org/peo#code_prompting> .
+    OPTIONAL { ?subclass rdfs:label ?label . }
+}  
+\end{lstlisting}
+Getting the following results:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_51.png}
+    \caption{CQ5 SPARQL query results}
+    \label{fig:enter-label}
+\end{figure}
+The table contains, as expected, all the code prompting techniques in the ontology.\\
+
+The sixth competency question \textbf{CQ6: Which task does a prompt solve?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?prompt ?task ?taskLabel
+WHERE {
+    ?prompt <https://w3id.org/peo#solves> ?task .
+    OPTIONAL { ?task rdfs:label ?taskLabel . }
+}
+\end{lstlisting}
+Getting the following results:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_52.png}
+    \caption{CQ6 SPARQL query results}
+    \label{fig:enter-label}
+\end{figure}
+The table contains, as expected, all the prompts that solve tasks.\\
+
+The seventh competency question \textbf{CQ7: Which prompts are generated using a prompting technique?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?prompt ?technique ?techniqueLabel
+WHERE {
+    ?prompt <https://w3id.org/peo#prompt_generated_using> ?technique .
+    OPTIONAL { ?technique rdfs:label ?techniqueLabel . }
+}
+\end{lstlisting}
+Getting the following results:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_53.png}
+    \caption{CQ7 SPARQL query results}
+    \label{fig:enter-label}
+\end{figure}
+The complete table, as expected, contains all the prompt instances generated using instances of prompting techniques.\\
+
+The eighth competency question \textbf{CQ8: What are the responses that follow each prompt?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?prompt ?response
+WHERE {
+    ?response <https://w3id.org/peo#response_followedby_prompt> ?prompt .
+}    
+\end{lstlisting}
+Getting the following results:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_54.png}
+    \caption{CQ8 SPARQL query results}
+    \label{fig:enter-label}
+\end{figure}
+The complete table contains, as expected, all the responses of all prompt instances.\\
+
+The ninth competency question \textbf{CQ9: What are possible tasks?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?task ?label
+WHERE {
+    ?task rdf:type owl:Class .
+    ?task rdfs:subClassOf* <https://w3id.org/peo#task> .
+    OPTIONAL { ?task rdfs:label ?label . }
+}    
+\end{lstlisting}
+Getting the following results:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_55.png}
+    \caption{CQ9 SPARQL query results}
+    \label{fig:enter-label}
+\end{figure}
+As expected, in the completed table we get all the possible task represented in the ontology.\\
+
+The tenth competency question \textbf{CQ10: Which tasks are related to the text?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?task ?label
+WHERE {
+    ?task rdf:type owl:Class .
+    ?task rdfs:subClassOf* <https://w3id.org/peo#text_task> .
+    OPTIONAL { ?task rdfs:label ?label . }
+}
+\end{lstlisting}
+Getting the following results:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_56.png}
+    \caption{CQ10 SPARQL query results}
+    \label{fig:enter-label}
+\end{figure}
+
+The resulting table, as expected, contains, all the task related to text.\\
+
+The eleventh competency question \textbf{CQ11: What is a chat?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?property ?value
+WHERE {
+    <https://w3id.org/peo#chat> ?property ?value .
+}
+\end{lstlisting}
+Getting the following results:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_57.png}
+    \caption{CQ11 SPARQL query results}
+    \label{fig:enter-label}
+\end{figure}
+The result, as expected, is the definition of Chat.\\
+
+The twelfth competency question \textbf{CQ12: What is a large language model?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?property ?value
+WHERE {
+    <https://w3id.org/peo#large_language_model> ?property ?value .
+}
+\end{lstlisting}
+Getting the following results:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_58.png}
+    \caption{CQ12 SPARQL query results}
+    \label{fig:enter-label}
+\end{figure}
+The result, as expected, is the definition of Large Language Model.\\
+
+The thirteenth competency question \textbf{CQ13: What types of large language models are available?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?type ?label
+WHERE {
+    ?type rdfs:subClassOf <https://w3id.org/peo#large_language_model> .
+    OPTIONAL { ?type rdfs:label ?label . }
+}
+\end{lstlisting}
+Getting the following results:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_59.png}
+    \caption{CQ13 SPARQL query results}
+    \label{fig:enter-label}
+\end{figure}
+The resulting complete table, as expected, is the collection of all large language models represented in the ontology.\\
+
+The fourteenth competency question \textbf{CQ14: What are large language models architectures?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?type ?label
+WHERE {
+    ?type rdfs:subClassOf <https://w3id.org/peo#base_model> .
+    OPTIONAL { ?type rdfs:label ?label . }
+}   
+\end{lstlisting}
+Getting the following results:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_60.png}
+    \caption{CQ14 SPARQL query results}
+    \label{fig:enter-label}
+\end{figure}
+The result, as expected, is the collection of main large language models architectures.\\
+
+The fifteenth competency question \textbf{CQ15: What are large language models capabilities?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?type ?label
+WHERE {
+    ?type rdfs:subClassOf <https://w3id.org/peo#capability> .
+    OPTIONAL { ?type rdfs:label ?label . }
+}
+\end{lstlisting}
 
 
 \newpage
