@@ -1657,11 +1657,59 @@ The OWLdoc is available in the Github repository \href{https://github.com/simone
 \href{https://peoontology.vercel.app/}{https://peoontology.vercel.app/}.
 
 \subsection{Online publication}
+Once the ontology documentation is ready, the ontology can be published online on major vocabularies repository, by accessing the ontology using its URI. I will consider two most known repositories for ontology publishing: \href{https://w3id.org/}{w3id.org} and \href{https://bioportal.bioontology.org/}{BioPortal}.
 
 \subsubsection{W3id.org}
+W3id.org a permanent identifier service that provides stable, persistent, and HTTP-resolvable URIs for web resource. The creation of a new identifier for publishing a new ontology is made using Github and the official W3id.org Github repository. The procedure followed is straightforward, first I fork the W3id.org Github repository on my Github, creating a "copy" of the repository. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_65.png}
+    \caption{Forked W3id.org repository}
+    \label{fig:enter-label}
+\end{figure}
+Then I create a new branch and I create a new directory with the intended permanent identifier name, in my case I create a directory called \textit{"peo"}. Inside this directory I create two files:
+\begin{itemize}
+    \item \textit{README.md:} contains more identifier info and contact info, for human to read.
+    \item \textit{.htaccess:} contains redirection rules, for computer to read and perform.
+\end{itemize}
+In the case of PEO ontology, the \textit{README.md} contains all my contact information with the link to the peo Github repository while the \textit{.htaccess} contains the following redirections rules:
+\begin{lstlisting}
+# Activates Rewrite Engine
+RewriteEngine On
+
+# Content negotiation for RDF/XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^$ https://raw.githubusercontent.com/simonegramegna/peo/refs/heads/main/peo_ontology.rdf [R=303,L]
+
+# Content negotiation for Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^$ https://raw.githubusercontent.com/simonegramegna/peo/refs/heads/main/peo_ontology.ttl [R=303,L]
+
+# Default: serves HTML for browser or client not RDF-aware
+RewriteRule ^$ https://peoontology.vercel.app/ [R=303,L]
+
+# Blocks directory indexing
+Options -Indexes
+\end{lstlisting}
+Once the two files are completed, I submitted a pull request to the main branch that is approved by one of repository administrators. As soon the merge of the created branch, it is possible to access to the ontology using its URI, in the case of PEO ontology the URI is: \href{https://w3id.org/peo}{https://w3id.org/peo} bringing the user with an HTTP request to the online ontology documentation.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_66.png}
+    \caption{W3id.org repository main directory}
+    \label{fig:enter-label}
+\end{figure}
 
 \subsubsection{BioPortal}
 
+\newpage
+\section{Ontology maintenance}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Figures/fig_33.png}
+    \caption{Ontology maintenance workflow}
+    \label{fig:enter-label}
+\end{figure}
 
 
 
