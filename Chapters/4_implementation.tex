@@ -1,265 +1,4 @@
-\chapter{Ontology design and implementation}
-This chapter details the design and the implementation phase of the prompt engineering ontology, starting from an ontology engineering methodology chosen based on specific motivations.\\
-In the background chapter, in particular in the sections \textit{"Ontology engineering methodologies"} and \textit{"LOT methodologies"} the main state-of-art ontology engineering methodologies have been illustrated:
-\begin{itemize}
-    \item \textbf{Methontology}
-    \item \textbf{NeOn}
-    \item \textbf{eXtreme design}
-    \item \textbf{LOT - Linked Open Terms}
-\end{itemize}
-Additionally, in the section \textit{"Ontology engineering using large language models"} two experimental methodologies were analyzed, including \textbf{NeOnGPT}, which employs large language models. Each methodology has its features and defines a workflow in order to develop successfully an ontology. The choice of the methodology to follow during the design and development phase is based on an analysis of the pros and cons of each, considering not only their features but also the available resources and the related projects provided by each one. \\
-In the state-of-the-art study, the most recent and comprehensive methodology is the \textbf{LOT methodology}, which I have decided to choose and according to which the development of the prompt engineering ontology will be carried out. Compared to other methodologies analyzed, this is a recent methodology, introduced in 2022, and has been used in various projects such as the 'Ciudades Abiertas' project \cite{ciudad} for the construction of a set of ontologies used for sharing open data, and the BIMERR project \cite{bimerr}, in which ontologies for sustainable construction were developed \cite{bountouni2021bimerr}, among many others available on the LOT methodology website: \href{https://lot.linkeddata.es/}{https://lot.linkeddata.es/}. The LOT methodology has not only been successfully applied in industrial projects but also in the development of various research ontologies, as seen in the background chapter, as it provides a straightforward and iterative method for designing and developing ontologies. Another reason for choosing this methodology is its ease of learning, as it is inspired by the agile methodology in software development. Moreover, the Linked Open Terms project not only provides very useful examples of ontologies to draw inspiration from but also offers a Github repository \cite{lot_github} with all the necessary resources to be used in the specification of requirements. This last aspect is very important because the main drawback of the other methodologies analyzed is the lack of concrete guidelines and the relevant tools to use, tools that, when mentioned, are often obsolete or inaccessible. This complicates the work of a developer who is approaching ontology engineering for the first time, as he needs to understand the fundamentals of the methodology but also figures out which development, validation, and testing software to use. The LOT methodology, thanks not only to the numerous available resources but also to the clear and precise description of the method and the recent tools to be used, resolves these issues and simplifies the developer's work. The LOT methodology has an inherently iterative nature and is oriented towards the publication of ontologies according to the FAIR principles \cite{fair_eu} (Findable, Accessible, Interoperable, Reusable) including specific recommendations, tips and potential
-tools that can be helpful to ontology developers moreover the methodology extends the state-of-art methodologies like NeOn and Methontology with a modern approach.
-The LOT methodology was preferred over recently introduced techniques that involve the use of large language models in the construction of ontologies and knowledge graphs, such as NeOnGPT. Although these techniques automate the work of the ontology engineer by using large language models, they are computationally expensive and require numerous checks to verify the syntactic and semantic correctness of the produced artifact. Another downside is the lack of actual ontology projects implemented using large language models, as these are very recent techniques that have not been tested on real projects but only on experimental cases.\\
-In the following sections, the application of the LOT methodology to the design and implementation of the prompt engineering ontology will be described, following the workflow outlined and described in the background chapter.
-
-\newpage
-
-\section{Ontology requirements specification}
-The LOT methodology includes six mandatory phases (plus one optional) in the ontology requirements specification. At the end of each phase, a document is produced containing the analyzed aspect of the specifications, as shown in the following figure:
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\linewidth]{Figures/fig_13.PNG}
-    \caption{Ontology requirements specification workflow}
-    \label{fig:enter-label}
-\end{figure}
-In detail the phases are the following:
-\begin{enumerate}
-    \item Use case specification
-    \item Data exchange identification
-    \item Purpose and scope identification
-    \item Functional ontology requirements proposal
-    \item Functional ontology requirements completion
-    \item ORSD formalization 
-    \item Functional ontology requirements formalization (optional)
-\end{enumerate}
-
-\subsection{Use case specification}
-The first step in the design of the prompt engineering ontology is the use case specification, this phase involves domain experts, ontology developers and users and it has the goal to imagine and specify how the ontology can be used in real life by real users. Taking into account the domain, the possible use and the possible users I decided to specify ten use cases. Each use case has a name, a description, a list of actors and a flow.\\
-
-\textbf{Use case 1:}
-\begin{itemize}
-    \item Name: Optimizing LLM Responses
-    \item Description: Researchers use PEO ontology to design optimized prompts that improve LLM response quality.
-    \item Actors: Researcher, PEO ontology, LLM.
-    \item Flow: The researcher uses the ontology to identify appropriate prompts for different types of tasks creating a set of selected prompts. Selected prompts are given as input to the large language model and responses are evaluated according to specific metrics on consistency, completeness and quality decided by the researcher.
-\end{itemize}
-The use case is aimed at researchers in the field of artificial intelligence and large language models who want to use the ontology as a support for creating prompts through the various techniques represented. The prompts can be input into one or more large language models (possibly selected from those represented in the ontology), and the responses obtained are evaluated according to metrics chosen by the researchers.\\
-
-\textbf{Use case 2:}
-\begin{itemize}
-    \item Name: Bias analysis
-    \item Description: Researchers use PEO ontology to generate responses and detect bias in large language models considered.
-    \item Actors: Researcher, PEO ontology, LLMs
-    \item Flow: The researcher uses the ontology to generate prompts on sensitive topics (gender, ethnicity …) and prompts are tested on one or more large language models. Responses are collected using bias and fairness metrics and results are collected in order to improve prompts and considered models. 
-\end{itemize}
-The use case is aimed at researchers who may want to understand the presence of bias in a selected large language model, such as gender bias. To detect the presence or absence of these biases, they generate prompts on sensitive topics using techniques like zero-shot prompting or chain-of-thoughts. The prompting techniques represented in the ontology can be applied for various purposes in text generation. \\
-
-\textbf{Use case 3:}
-\begin{itemize}
-    \item Name: Code generation
-    \item Description: Developers use prompt engineering techniques applied to a chosen large language model to generate source code in a specific programming language for a specific task.
-    \item Actors: Developers, PEO ontology, LLM
-    \item Flow: The developer is working on an Android application written in Java and needs code to control the actions on a button. Using the ontology, he chooses the most appropriate prompt engineering technique and applies it to the creation of the prompt to a large language model of his choice,  resulting in Java code as output. The code is tested and integrated into the application. 
-\end{itemize}
-This use case is aimed at software developers who need assistance in generating a piece of source code in a programming language. The developer can use techniques like few-shot prompting or Auto-CoT to generate code using a large language model selected from those represented in the ontology. \\ 
-
-\textbf{Use case 4:}
-\begin{itemize}
-    \item Name: Prompt engineering lesson
-    \item Description: The teacher uses PEO ontology to teach prompt engineering techniques exploring different techniques and prompt described. 
-    \item Actors: Teacher, students, PEO ontology. 
-    \item Flow: The teacher opens the ontology and shows with proper explanation different prompt engineering techniques represented in the ontology.
-\end{itemize}
-The prompt engineering ontology can be used for learning prompt engineering techniques, thanks to the classes and relations present, and serves as a valuable support for a computer science instructor during lessons.\\
-
-\textbf{Use case 5:}
-\begin{itemize}
-    \item Name: Large language models lesson
-    \item Description: The teacher uses PEO ontology to teach different large language models available.
-    \item Actors: Teacher, students, PEO ontology.
-    \item Flow: The teacher opens the ontology and shows with proper explanation different large language models represented in the ontology. 
-\end{itemize}
-Similar to the previous use case, the ontology of prompt engineering represents state-of-the-art large language models and their relations. This representation can be useful for an instructor to explain large language models during lessons. \\
-
-\textbf{Use case 6:}
-\begin{itemize}
-    \item Name: Social media content creation
-    \item Description: The content creator uses PEO ontology to generate prompts that optimize the creation of articles, social media posts and other textual content.
-    \item Actors:  Content creator, PEO ontology, LLM
-    \item Flow: The content creator opens the ontology and chooses the appropriate technique in order to generate text for a post on social media using a specific large language model. The content creator adapts the response according to his target.
-\end{itemize}
-This use case is aimed at content creators and copywriters who want to create textual content for major social platforms and need support in writing effective content. They can select one of the prompt engineering techniques represented, such as Retrieval Augmented Generation (RAG) or few-shot prompting and by starting from examples of previous articles or posts, they can create a prompt capable of generating text that meets the content creator's request.\\
-
-\textbf{Use case 7:}
-\begin{itemize}
-    \item Name: Image generation
-    \item Description: The content creator uses PEO ontology to create a prompt to be given as input to a specific large language model capable of generating an image.
-    \item Actors: Content creator, PEO ontology, LLM.
-    \item Flow: The content creator wants to create an AI-generated image for a video and he uses the ontology to choose the best large language models able to generate image, he chooses the prompt engineering technique to create the prompt in order to generate image. He watches the output and he continues to use the ontology to generate prompts in order to refine the image.
-\end{itemize}
-In the PEO ontology, not only are techniques for generating text represented, but there are also techniques for generating images using generative models like DALL-E or Midjourney. This allows a user to utilize the ontology not only to understand which model to use but also to choose the appropriate technique for writing the prompt to obtain an image that meets their preferences.\\
-
-\textbf{Use case 8:}
-\begin{itemize}
-    \item Name: Prompt engineering experiments
-    \item Description: Students use PEO ontology to explore and create effective prompts to improve language model responses.
-    \item Actors: Students, PEO ontology, LLM.
-    \item Flow: Students explore the ontology in order to understand different prompting techniques applying them to a chosen large language model.
-\end{itemize}
-As seen in the previous use cases, the ontology can be used for educational purposes by instructors as a support for explaining prompt engineering techniques and large language models. At the same time, it can be used by students to clearly learn these concepts. In this particular case, students learn and experiment with various techniques represented in the ontology by writing different prompts using a large language model like ChatGPT.\\
-
-\textbf{Use case 9:}
-\begin{itemize}
-    \item Name: Large language models learning
-    \item Description: Students use PEO ontology to learn different types of large language models.
-    \item Actors: Students, PEO ontology
-    \item Flow: Students explore different large language models represented in the ontology and the relations among them, learning all the features of each large language model.
-\end{itemize}
-This use case is similar to the previous one, where students use the ontology to learn about state-of-the-art large language models by exploring their relations with tasks and the prompt engineering techniques represented.\\
-
-\textbf{Use case 10:}
-\begin{itemize}
-    \item Name: Explanation computer science topics
-    \item Description: Student wants to generate a prompt using PEO ontology in order to explain a computer science topic.
-    \item Actors: Student, PEO ontology, LLM
-    \item Flow: The student uses the ontology to choose the most appropriate prompt engineering technique in order to generate using large language models. The student reads the obtained LLM response and can create a new prompt using another technique represented in the ontology.
-\end{itemize}
-In the two previous use cases, the ontology is used as a support to learn concepts related to large language models and prompt engineering. However, it is also possible to use the ontology to generate prompts using techniques like zero-shot prompting or ReAct Prompting, in order to explain a specific topic with an LLM represented in the ontology.\\
-The use cases have been designed with the idea of creating an ontology that is not just an encyclopedic resource for students and teachers but also a practical tool for professionals and researchers in writing effective prompts suited to their goals. The narrative description of each use case flow helps to embody each user, aiming to better understand their needs and requirements that the prompt engineering ontology will need to meet.
-
-\subsection{Data exchange identification}
-The goal of the data exchange identification activity is to provide the necessary documentation
-about the domain to be modeled. Essentially, this phase involves gathering heterogeneous sources of information, such as scientific papers, websites, datasets, and similar existing ontologies. The LOT methodology does not provide a clear indication of how to represent this documentation, so for simplicity and clarity, I have decided to collect the links to the scientific papers and web pages containing information to be represented in the ontology in a dedicated file. The list of papers chosen as a source for the prompt engineering ontology is as follows:
-\begin{itemize}
-\item A Systematic Survey of Prompt Engineering in Large Language Models: Techniques and Applications \cite{sahoo2024systematic}
-
-\item Pre-train, Prompt, and Predict: A Systematic Survey
-of Prompting Methods in Natural Language Processing \cite{liu2023pre}
-
-\item A Survey of Large Language Models \cite{zhao2023survey}
-
-\item Investigating Prompt Engineering in Diffusion
-Models \cite{witteveen2022investigating}
-
-\item A Survey on Large Language Models: Applications,
-Challenges, Limitations, and Practical Usage \cite{hadi2023survey}
-
-\item Large Language Models: A Survey \cite{minaee2024large}
-\end{itemize}
-The list of website chosen is the following:
-\begin{itemize}
-    \item \href{https://www.promptingguide.ai/}{Prompting Guide}
-    
-    \item \href{https://github.com/Hannibal046/Awesome-LLM}{Awesome-LLM}
-
-    \item \href{https://llmmodels.org/}{List of LLMs}
-
-    \item \href{https://learnprompting.org/}{Learn prompting}
-\end{itemize}
-Unfortunately, the resources found and deemed useful for developing the ontology are not many, as the topic is very recent. Additionally, no datasets containing prompts generated with specific techniques were found, only datasets with generic prompts for text generation, such as the dataset available on Huggingface, "awesome-gpt-prompts" \cite{awesome_gpt}, and the "diffusion-db" dataset \cite{diffusion_db}, which, although it contains over 16 million prompts for image generation, does not specify the prompt engineering technique used.
-
-\subsection{Purpose and scope identification}
-From use cases and the domain documentation provided in the data exchange identification task, in this phase there is the specification of the purpose: what is the objective of the prompt engineering ontology and the specification of the scope of the ontology: what it is going to be represented in the ontology. The PEO ontology aims to formalize knowledge about the creation and various types of prompts for the different large language models (LLMs) available by making it accessible to both experienced and less experienced users. This is the purpose of the PEO ontology.
-The PEO ontology is going to cover:
-\begin{itemize}
-    \item Large language models (LLMs) available to users
-    \item Prompt engineering techniques
-    \item Task that can be solved using a large language model
-    \item Examples of prompts specific to the large language model
-\end{itemize}
-This is the scope of the PEO ontology.
-In general, the goal of the project and the ontology is to create a resource accessible to everyone on a recently introduced topic, for which there are not many available resources. This resource aims to support not only the learning but also the application of prompt engineering techniques and large language models.
-
-\subsection{Functional ontology requirements specification}
-The LOT methodology provides for the specification of requirements in one of three ways: through competency questions, through natural language statements, or through tabular information containing concepts, relations, and attributes. As seen in the background chapter, competency questions are widely used in ontology engineering and allow for clearly expressing the functional requirements of an ontology. In the case of the prompt engineering ontology, based on the use cases and the purpose and scope identification described earlier, I have identified sixteen competency questions:
-\begin{itemize}
-    \item \textbf{CQ1:} What is prompt engineering?
-
-    \item \textbf{CQ2:} What is a prompt?
-
-    \item \textbf{CQ3:} What are prompting techniques?
-
-    \item \textbf{CQ4:} What are image prompting techniques?
-
-    \item \textbf{CQ5:} What are code prompting techniques?
-
-    \item \textbf{CQ6:} Which task does a prompt solve?
-
-    \item \textbf{CQ7:} Which prompts are generated using a prompting technique?
-
-    \item \textbf{CQ8:} What are the responses that follow each prompt?
-
-    \item \textbf{CQ9:} What are possible tasks?
-
-    \item \textbf{CQ10:} Which tasks are related to the text?
-
-    \item \textbf{CQ11:} What is a chat?
-
-    \item \textbf{CQ12:} What is a large language model?
-
-    \item \textbf{CQ13:} What types of large language models are available?
-
-    \item \textbf{CQ14:} What are large language models architectures?
-
-    \item \textbf{CQ15:} What are large language models capabilities?
-
-    \item \textbf{CQ16:} What companies develop large language models?
-\end{itemize}
-
-Competency questions are saved into an excel file, the template is available in the \href{https://github.com/oeg-upm/LOT-resources}{official Github repository}. The Excel file not only contains the competency questions but also specifies for each one: the identifier, the domain, the answer, the status (Proposed, Accepted, Rejected, Pending, Deprecated), comments, and priority (high, medium, and low). All the competency questions have a high priority, as they form the foundation for the design of the prompt engineering ontology, covering both the prompt engineering and large language models domain in order to produce a complete ontology.
-
-\subsection{ORSD formalization}
-The final step in the specification of ontology requirements is the writing of the ORSD (Ontology Requirements Specification Document), a document that gathers the main information defined in the previous phase, namely the purpose and scope of the ontology, the use cases, the functional requirements (expressed through competency questions), and the non-functional requirements. First introduced by the NeOn methodology, which I discussed in the previous chapter, the writing of the ORSD follows a specific sequence of tasks to ensure its correctness and completeness. The workflow is described in the paper \textit{How to Write and Use the Ontology Requirements Specification Document}\cite{suarez2009write} and involves a sequence of eight tasks, starting from ontological needs: 
-\begin{enumerate}
-    \item Identify purpose, scope and implementation language.
-    \item Identify intended end-users
-    \item Identify intended uses
-    \item Identify requirements
-    \item Group requirements
-    \item Validate the set of requirements
-    \item Prioritize requirements
-    \item Extract terminology and its frequency
-\end{enumerate}
-
-The LOT methodology adopted the ORSD introduced by NeOn but adapted it with appropriate modifications. Unlike NeOn, it does not consider the "user" field as mandatory, and the glossary of terms is built starting from the competency questions.\\
-In writing the ORSD for the PEO ontology, the \href{https://github.com/oeg-upm/LOT-resources/tree/master/templates%20for%20ORSD}{template from the official LOT repository}\cite{template_orsd} was used. 
-In the document, the information obtained in the previous phases has been included, namely purpose and scope identification and ontology requirements in the form of competency questions. Additionally, further information that emerged during the requirements gathering phase has also been included:
-\begin{itemize}
-    \item Implementation language 
-    \item Intended End-Users 
-    \item Intended Uses
-    \item Non-Functional Requirements
-\end{itemize}
-In detail the implementation language is OWL (Ontology Web Language) using the Protegé software\cite{protege_sw}, an open-source popular software released by Stanford univerisity. As seen in the use case the intended end-users of the prompt engineering ontology are:
-\begin{itemize}
-    \item Researchers in the field of artificial intelligence using LLMs for research purpose.
-    \item Software engineers and developers.
-    \item Educators and trainers teaching students or professionals about AI and prompt engineering, using the ontology as a learning and instructional tool.
-    \item Content Creators using LLMs for generating content.
-    \item Undergraduate and high school students learning about AI, LLMs and prompt engineering, using the ontology to understand core concepts and experiment with language models.
-\end{itemize}
-Starting from the use cases, it is possible to easily deduce the intended uses:
-\begin{itemize}
-    \item Prompt generation
-    \item Large language models learning
-    \item Prompt engineering learning
-    \item Prompt generation for a specific task
-\end{itemize}
-Regarding non-functional requirements, the characteristics, qualities and general aspects not related to the ontology content that the ontology should satisfy, I have identified six non-functional requirements:
-\begin{itemize}
-    \item \textbf{NFR1:} The ontology must be easy to use.
-    \item \textbf{NFR2:} The ontology must cover most used LLMs.
-    \item \textbf{NFR3:} The ontology must cover modern prompt engineering techniques.
-    \item \textbf{NFR4:} The ontology must have exhaustive documentation.
-    \item \textbf{NFR5:} The ontology must be easy to update. 
-    \item \textbf{NFR6:} The ontology must cover most popular tasks. 
-\end{itemize}
-Those non-functional requirements match with the desired properties of the prompt engineering ontology, since the ontology will be used by both expert users (researchers, developers) and less experienced users (students), it must be easy to use, meaning it should include classes, relations, and entities that are easily understandable by everyone. Given that the ontology must represent prompt engineering techniques and LLMs, it should cover the most up-to-date techniques and models, as outdated ones would render it useless. The same applies to the tasks: the ontology must represent the main tasks that large language models can be applied to and where prompt engineering techniques can be used. Since the domain represented by the ontology is continuously and rapidly evolving, the ontology must be easily updatable and well-documented to simplify the work for other developers.
-
-
-\newpage
-\section{Ontology implementation}
+\chapter{Ontology implementation}
 I this phase there is the actual implementation of prompt engineering ontology, starting from functional and non-functional requirements defined in the previous phase. The LOT methodology includes four steps: 
 \begin{enumerate}
     \item Ontology conceptualization
@@ -279,7 +18,8 @@ as we can see in the figure below:
 \end{figure}
 At the end of this phase, the output is an ontology read y to be published and to be made available online.
 
-\subsection{Ontology conceptualization}
+\newpage
+\section{Ontology conceptualization}
 The first step in the ontology implementation is the ontology conceptualization. In this phase there is the definition of all main concepts in the ontology with the relations among them. I used \href{draw.io}{https://app.diagrams.net/} software : a free easy-to-use diagramming tool that allows to represent UML diagrams and many more. I chose this software over other diagramming tools because it is intuitive, easy to use, and frequently updated moreover with draw.io it is possible to export diagrams in other formats like: svg, pdf and png in high resolution.\\
 Starting from competency questions I chosed a top-down strategy in order to model the domain of prompt engineering and large language models, modeling first major concepts and then going more into detail. The idea behind the conceptualization of large language models is  taking the user's perspective: what informations are useful and meaningful to a user about large language models? From this perspective, I decided not to dwell too much on theoretical details but to focus on concepts that are useful for users in selecting the most suitable large language model for their purposes. A large language model is represented using four dimensions:
 \begin{enumerate}
@@ -351,13 +91,19 @@ The conceptualization of prompt engineering domain is represented in the below d
 \end{figure}
 After completing the conceptualization phase, the process can proceed to ontology reuse and ontology encoding. This involves first identifying similar ontologies within the domain of interest for potential reuse, followed by implementing and encoding the defined concepts using dedicated software tools.
 
-\subsection{Ontology reuse}
+\newpage
+\section{Ontology reuse}
 Before proceeding with ontology encoding, it is necessary to consider any similar ontologies that can be reused in the creation of the prompt engineering ontology. There are two types of reuse:
 \begin{itemize}
     \item \textbf{Hard reuse:} it involves directly importing an entire ontology, rigidly incorporating it. Classes and properties are used without modification, ensuring semantic consistency but creating strong dependency on the original ontology.
 
     \item \textbf{Soft reuse:} it involves adapting or copying specific concepts without importing the complete ontology. This approach offers more flexibility, allowing customization, but it may introduce semantic inconsistencies or redundancies 
 \end{itemize}
+
+\subsection{Ontology design patterns reuse}
+
+
+\subsection{State-of-art ontologies reuse}
 I considered two ontologies that can be reused for the implementation of prompt engineering ontology:
 \begin{enumerate}
     \item HALO ontology
@@ -375,8 +121,8 @@ This was sufficient to conclude that the HALO ontology would not be reused in th
 The second ontology took into account is the Artificial Intelligence Ontology\cite{aio}, an ontology that covers machine learning methods, deep learning networks and their components. This ontology is particularly intriguing, as it stands out as one of the few, if not the only, ontologies focused on the field of artificial intelligence. The ontology is available on \href{https://github.com/berkeleybop/artificial-intelligence-ontology}{Github} in owl, json and csv format. Even in this case, despite the thorough study conducted, the ontology seems, in my opinion, incomplete in several aspects. Similar to the previous ontology, it includes only class labels without any additional annotations to clarify the represented concepts. The ontology is essentially a hierarchical structure, a taxonomy of concepts related to machine learning and deep learning, lacking both object properties and instances to populate the classes. The ontology, therefore, is not only useless in and of itself but, due to its lack of completeness, would not contribute any valuable information or serve as a meaningful reference for the prompt engineering ontology.\\ Prompt engineering and large language models represent a very recent field, and, as we have observed, only a few ontologies address it, often in a superficial and incomplete way. Therefore, I have chosen not to reuse any existing ontologies and to develop the prompt engineering ontology entirely from scratch. This approach allows me to represent the domain in the best possible way, without any limitations, and in a complete and clear manner.
 
 \newpage
-\subsection{Ontology encoding}
-\subsubsection{Software in ontology encoding and the Protégé editor}
+\section{Ontology encoding}
+\subsection{Software in ontology encoding and the Protégé editor}
 The ontology encoding phase is where the ontology is actually implemented. During this stage, the concepts and relationships defined in the conceptualization phase are formalized into a specific machine-readable language. Several tools are available to assist developers with this task. The main software tools for implementing ontologies include:
 \begin{itemize}
     \item \href{https://protege.stanford.edu/}{Protégé}
@@ -401,11 +147,11 @@ To begin, I chose the software for my project and opted for \href{https://proteg
     \item SWRL support: Protégé has the SWRL Tab which allows to define complex rules on concepts.
 \end{itemize}
 Only a limited number of ontology editors provide an extensive set of features tailored for developers. Moreover, several editors have remained outdated for years and suffer from lots of bugs. During the ontology development process, \href{https://git-scm.com/}{Git} was also used: a version control software to track changes made to the ontology changes that are synchronized with the \href{https://github.com/simonegramegna/peo}{GitHub repository}.
-\subsubsection{Encoding beginning PEO ontology}
+\subsection{Encoding beginning PEO ontology}
 Starting from an empty page, the first thing to do is the definition of the ontology IRI (International Resource Identifier): which has to be unique and it has to refer to a standard organization. The ontology IRI of the PEO ontology is: \textit{https://w3id.org/peo\#}, this IRI will be in every entity created inside the ontology.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1.0\linewidth]{Figures/fig_29.png}
+    \includegraphics[width=0.8\linewidth]{Figures/fig_29.png}
     \caption{PEO ontology main page}
     \label{fig:enter-label}
 \end{figure}
@@ -464,7 +210,7 @@ The Capability has five subclasses, each subclass has a label and a comment:
 \end{table}
 Each subclass has an individual with the same name, those individuals are created with the aim of assigning a capability to the instances of large language models that possess it, this aspect will be discussed later.
 
-\subsubsection{Definition of large language models and characteristics}
+\subsection{Definition of large language models and characteristics}
 
 The class "Base model" represents the models at the base of the architecture of large language models, it has six subclasses each one with label, description and reference and a subclass can have another subclass representing a more specific architecture, for example the subclass "Decoder" has inside the subclasses "Decoder only" and "Pixel decoder". 
 I have included only the foundational models of the large language models represented in the ontology, excluding other base models as they fall outside the scope of this ontology. The subclasses included are: 
@@ -593,7 +339,7 @@ peo:is_organization_of(?o1, ?o2) ^ peo:develops(?o1, ?llm) -> peo:develops(?o2, 
 \end{lstlisting}
 If an organization $o1$ is organization of another organization $o2$ (for example DeepMind is organization of Google) and $o1$ develops a large language model then $o2$ develops the llm. This was important to specify because different researchers teams rely on other organization that finance them and provide them with resources.
 
-\subsubsection{Definition of task}
+\subsection{Definition of task}
 The \textbf{Task} class represents task that are solved by large language models applying prompting techniques, there are five specific subclasses representing the different types of task distinguished based on the type of data to process: image, text, video, audio, or code. Each subclass has other subclasses representing the specific task for example audio generation, text translation ecc as we can see in the table below:
 \begin{table}[H]
     \centering
@@ -622,7 +368,7 @@ The \textbf{Task} class represents task that are solved by large language models
 \end{table}
 All of those classes have a label and a description describing shortly the task and they can have one or more instances, each instance represents a specific task of that type, it has a data property called \textit{has\_description} to specify the description of the task.
 
-\subsubsection{Definition of prompt engineering}
+\subsection{Definition of prompt engineering}
 The \textbf{Prompt engineering} class includes all concepts associated with prompts, such as their creation, the context in which they are applied, and the responses they produce. It has four main subclasses, each one with a label and a description:
 \begin{itemize}
     \item \textbf{Chat:} context in which a prompt is created. 
@@ -740,7 +486,7 @@ All these object properties may seem unclear so below is a diagram that shows al
 \end{figure}
 
 
-\subsubsection{Ontology population with prompts}
+\subsection{Ontology population with prompts}
 Populating the ontology with prompts is a complex process as it requires connecting various instances (task, prompting technique, prompt, chat, response, large language model) using the defined object properties. Moreover, each prompt is manually crafted in accordance with the specific prompting technique. Manually populating the ontology with all instances for every task, every version of each large language model, and every prompting technique would be highly time-consuming and beyond the objectives of this thesis. Therefore, a decision was made to populate only a specific subset of the ontology choosing large language model versions, tasks and prompting techniques. Large language models chosed are very popular LLM available to the users and they are represented in the ontology:
 \begin{itemize}
     \item \textbf{GPT-4}
@@ -845,7 +591,7 @@ The responses for each prompt from the three large language models have been sav
     \label{fig:enter-label}
 \end{figure}
 
-\subsubsection{Automatic ontology population}
+\subsection{Automatic ontology population}
 Populating an ontology with various instances can be a time-consuming task for developers, as the ontology's domain of interest often involves numerous entities requiring manual insertion. To streamline this process and reduce the developer's effort, automation can be employed. There are different researches dedicated to the automatic population of ontologies, one of the most recent is \textit{"Ontology Population using LLMs"} \cite{norouzi2024ontology}, it proposes a methodology to semi-automatically populate modular ontologies using Large Language Models (LLMs). It focuses on leveraging the strengths of LLMs, such as GPT-4 and Llama-3, for extracting structured knowledge from natural language texts. The method is divided into three main stages: data preprocessing, relevant text retrieval, and ontology population. In the first stage, the data is cleaned, organized, and aligned with simplified ontology modules to facilitate processing. The second stage employs text summarization and Retrieval-Augmented Generation (RAG) techniques to identify and extract relevant information aligned with the ontology schema. Finally, in the third stage, predefined module files guide the LLMs to populate the ontology with accurate triples by using structured prompts. Despite the good results, the methodology still requires effort, as documents need to be selected and preprocessed to create a dataset that serves as input for the large language model used to populate the ontology. Implementing this process demands skills that go beyond those of an ontology engineer, effectively shifting the workload to another task.\\ 
 Another approach is proposed in the paper \textit{"Financial Product Ontology Population with Large Language Models"} \cite{saetia2024financial}, it leverages Large Language Models (LLMs), such as GPT-3.5 and GPT-4, to populate financial ontologies by extracting structured data from unstructured texts. It combines several prompting techniques to improve accuracy and scalability. Few-shot prompting provides positive and negative examples to guide the model's understanding. Chain-of-Thought (CoT) reasoning encourages sequential reasoning, while schema.org definitions are included to contextualize fields and properties. Prompts are carefully designed to generate structured outputs in JSON format for easy integration and evaluating performance using F1 scores, with the best results achieved when combining examples, CoT, and definitions. Like the previous one, this approach requires a lot of job on gathering necessary docs to pre-process and this process can be time-consuming, also the quality of the output depends on the prompts.\\ These tasks divert attention from the main objective and increase the developer's workload. Rather than using the methodologies outlined in the literature, I opted for a more straightforward and pragmatic approach to populating the ontology. Starting from the sixteen competency questions defined in the \textit{Ontology requirements specification} section, I input them, together with the ontology, into a large language model to generate an automatically populated version of the prompt engineering ontology. The large language model chosed is GPT-4o: the latest and most powerful version of GPT available in its web interface \href{https://chatgpt.com/}{ChatGPT} and used previously in the manual ontology population. This time instead of giving as input a specific prompt created with one of prompt engineering techniques, I write this prompt, providing the ontology and a text file containing the competency questions.
 \begin{figure}[H]
@@ -898,8 +644,8 @@ Just two classes have a definition: Prompt and PromptEngineering with no individ
 There is no new instance of chat and all the mechanism defined to link a prompting technique with a chat is completely ignored. No new object properties or data properties have been created by GPT-4o, just an annotation property called \textit{hasDefinition}. Any other useful information is not created, the three entities are not linked with any object property and they do not have any data property. Additional prompts would clearly be needed as input for the large language model to improve the result, which is currently poor and adds no useful information compared to the original, manually populated version of the prompt engineering ontology.
 
 \newpage
-\subsection{Ontology evaluation}
-\subsubsection{Ontology consistency check}
+\section{Ontology evaluation}
+\subsection{Ontology consistency check}
 The ontology consistency check consists in running the reasoner in order to check the consistency of declared and inferenced classes and axioms, inferences are made using also SWRL rules described in the encoding section. Running the reasoner ensures also the declaration of disjointness among disjoint classes. I run the HermiT reasoner on both version of the PEO ontology: the version populated manually and the updated version made by GPT-4.\\
 On the original version of the PEO ontology, the reasoner does not give any inconsistency and all the axioms are inferred correctly as we cans see below:
 \begin{figure}[H]
@@ -917,7 +663,7 @@ The reasoner infers correctly that the class "Alpaca" is disjoint with the class
 \end{figure}
 The consistency check of the other version of the PEO ontology, the one populated using GPT-4 has given the exact results, this because as said in the previous section no additional significant information has been added to the ontology. The inserted classes have no link with other classes so there are no other new inferences.
 
-\subsubsection{OntoMetrics}
+\subsection{OntoMetrics}
 The calculation of metrics is done using OntoMetrics: a web-based tool developed by the University of Rostock that validates and provides statistical analyses of ontologies.\cite{lantow2016ontometrics}
 Given the ontology in form of RDF file or code, it calculates automatically:
 \begin{itemize}
@@ -1260,7 +1006,7 @@ The graph metrics for updated version of PEO ontology are:
 The new values calculated by OntoMetrics on the updated version of the ontology do not differ significantly from the previously calculated values, as the large language model GPT-4 has only added four new classes and three new instances. All results for PEO ontology and its second version are on \href{https://github.com/simonegramegna/peo/tree/main/evaluation}{Github}.
 
 \newpage
-\subsubsection{OOPS! validation}
+\subsection{OOPS! validation}
 The methods discussed so far are widely used in ontology evaluation; however, they are not capable of capturing modelling errors in greater detail. These errors can compromise not only the quality and usability of the ontology but also lead to potential inconsistencies. Therefore, it is necessary to adopt a different approach from those previously examined, OntoMetrics and the HermiT reasoner because they have the following issues:
 \begin{itemize}
     \item OntoMetrics: it provides a quantitative measure of ontology's structural characteristics without analysing qualitative aspects, so it is not able to detect semantic and usability issues in the ontology.
@@ -1323,7 +1069,7 @@ Overall, the report is satisfactory, as no critical pitfalls have been identifie
 In general, the detected pitfalls are caused by GPT-4's lack of understanding of the ontology's structure. Additionally, they are not numerous, as the modifications made by the LLM are minimal, the oops report is available \href{https://github.com/simonegramegna/peo/blob/main/evaluation/oops_report_peo_gpt4.xml}{here}.
 
 
-\subsubsection{SPARQL queries}
+\subsection{SPARQL queries}
 The final step of ontology evaluation is converting competency questions (CQ) defined in the \textit{Ontology requirements specification} section into SPARQL queries in order to compare the expected result to the actual result of each competency question. SPARQL queries are generated manually and ran using Jupyter notebook \cite{jupyter}: an enviroment for running python code and the rdflib python library \cite{rdflib}: a library to access rdf files and run SPARQL queries inside python. The code is available on the \href{https://github.com/simonegramegna/peo/tree/main/evaluation}{Github repository} and the evaluation is mode for both versions of the ontology.\\
 First I open the ontology using rdflib:
 \begin{figure}[H]
@@ -1728,7 +1474,8 @@ In cases where the necessary changes significantly alter the structure of the on
     \label{fig:enter-label}
 \end{figure}
 
-
+\newpage
+\section{Results discussion}
 
 
 
