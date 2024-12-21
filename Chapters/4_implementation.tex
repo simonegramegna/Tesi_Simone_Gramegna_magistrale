@@ -1038,13 +1038,11 @@ For the first version of PEO ontology there are just three pitfalls:
 \end{figure}
 The explanation of detected pitfall is:
 \begin{itemize}
-    \item \textbf{P04 (Creating unconnected ontology elements):} this pitfall involves ontology elements (classes, object properties and datatype properties) are created isolated, with no relation to the rest of the ontology. In the case of PEO ontology, the \textit{prompt\_engineering} class has no relation: this because the prompt engineering class is intended as a theoretical concept with no relations with other classes.
+    \item \textbf{P04 (Creating unconnected ontology elements):} this pitfall involves ontology elements (classes, object properties and datatype properties) are created isolated, with no relation to the rest of the ontology. 
 
     \item \textbf{P34 (Untyped class):} this pitfalls involves all ontology elements that are used as a class without having explicitly declared. This pitfall involves four elements in PEO ontology: \\ \textit{http://www.w3.org/2003/11/swrl\#IndividualPropertyAtom},\\ \textit{http://www.w3.org/2003/11/swrl\#Variable},\\ \textit{http://www.w3.org/2003/11/swrl\#Imp} and \\\textit{http://www.w3.org/2003/11/swrl\#AtomList}.
-    This pitfall depends in the declaration of SWRL rules using the Protegé editor and it does not depend on the developer.
 
-    \item \textbf{P41 (No license declared):} there is no license in the ontology metadata. The license of PEO ontology is specified in the Github repository.
-    
+    \item \textbf{P41 (No license declared):} there is no license in the ontology metadata.    
 \end{itemize}
 Overall, the report is satisfactory, as no critical pitfalls have been identified, nor any issues found in the main classes or object properties of the ontology and I will discuss in more detail in Results discussion section. The complete report is available \href{https://github.com/simonegramegna/peo/blob/main/evaluation/oops_report_peo.xml}{here}. After detecting pitfalls in the original version of the PEO ontology, I also examined the populated version generated using GPT-4 nonetheless, no significant differences were observed between the two versions. Compared to the three pitfalls identified in the previous version, OOPS detects five pitfalls:
 \begin{figure}[H]
