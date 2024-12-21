@@ -1046,7 +1046,7 @@ The explanation of detected pitfall is:
     \item \textbf{P41 (No license declared):} there is no license in the ontology metadata. The license of PEO ontology is specified in the Github repository.
     
 \end{itemize}
-Overall, the report is satisfactory, as no critical pitfalls have been identified, nor any issues found in the main classes or object properties of the ontology. The complete report is available \href{https://github.com/simonegramegna/peo/blob/main/evaluation/oops_report_peo.xml}{here}. After detecting pitfalls in the original version of the PEO ontology, I also examined the populated version generated using GPT-4 nonetheless, no significant differences were observed between the two versions. Compared to the three pitfalls identified in the previous version, OOPS detects five pitfalls:
+Overall, the report is satisfactory, as no critical pitfalls have been identified, nor any issues found in the main classes or object properties of the ontology and I will discuss in more detail in Results discussion section. The complete report is available \href{https://github.com/simonegramegna/peo/blob/main/evaluation/oops_report_peo.xml}{here}. After detecting pitfalls in the original version of the PEO ontology, I also examined the populated version generated using GPT-4 nonetheless, no significant differences were observed between the two versions. Compared to the three pitfalls identified in the previous version, OOPS detects five pitfalls:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Figures/fig_44.png}
@@ -1066,7 +1066,7 @@ Overall, the report is satisfactory, as no critical pitfalls have been identifie
 
     \item \textbf{P41 (No license declared):} this is the same pitfall detected before.
 \end{itemize}
-In general, the detected pitfalls are caused by GPT-4's lack of understanding of the ontology's structure. Additionally, they are not numerous, as the modifications made by the LLM are minimal, the oops report is available \href{https://github.com/simonegramegna/peo/blob/main/evaluation/oops_report_peo_gpt4.xml}{here}.
+In general, the detected pitfalls are caused by GPT-4's lack of understanding of the ontology's structure and I will discuss in more detail in the Results discussion section. The oops report is available \href{https://github.com/simonegramegna/peo/blob/main/evaluation/oops_report_peo_gpt4.xml}{here}.
 
 
 \subsection{SPARQL queries}
@@ -1093,7 +1093,8 @@ We can see the implementation below:
     \caption{Support python functions}
     \label{fig:enter-label}
 \end{figure}
-Once this is done, I can translate each of the sixteen competency questions into SPARQL queries to be executed.\\
+
+Once this is done, I can translate each of the sixteen competency questions into SPARQL queries to be executed on PEO.\\
 The first competency question \textbf{CQ1: What is prompt engineering?} is translated into:
 \begin{lstlisting}
     SELECT DISTINCT ?property ?value
@@ -1363,7 +1364,73 @@ Getting the following results:
     \caption{CQ16 SPARQL query results}
     \label{fig:enter-label}
 \end{figure}
-The result, as expected, is the collection of companies that develop large language models.
+The result, as expected, is the collection of companies that develop large language models.\\
+I proceed also, to execute SPARQL queries on the second version of PEO, the one that has been populated automatically using GPT-4. For obvious reasons, I am going to translate only competency questions that match changes introduced by the LLM. This because, as seen in the previous sections, GPT-4 does not introduce in the new version so much difference from the original version of PEO populated manually and if I execute all the competency questions, on the majority of them I would get the same results. Competency questions chosed for translation are four: CQ1, CQ2, CQ3 and CQ9.\\
+The first competency question \textbf{CQ1: What is prompt engineering?} is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?property ?value
+WHERE {
+    <https://w3id.org/peo#PromptEngineering> ?property ?value .
+} 
+\end{lstlisting}
+Getting the following result:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_69.png}
+    \caption{CQ1 SPARQL query results - PEO updated}
+    \label{fig:enter-label}
+\end{figure}
+
+The second competency question \textbf{CQ2: What is a prompt?} is translated
+into:
+\begin{lstlisting}
+SELECT DISTINCT ?property ?value
+WHERE {
+    <https://w3id.org/peo#Prompt> ?property ?value .
+}
+\end{lstlisting}
+Getting the following result:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_70.png}
+    \caption{CQ2 SPARQL query results - PEO updated}
+    \label{fig:enter-label}
+\end{figure}
+
+The third competency question \textbf{CQ3: What are prompting techniques?}
+is translated into:
+\begin{lstlisting}
+SELECT DISTINCT ?instance
+WHERE {
+  ?instance <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/peo#PromptingTechnique> .
+}
+\end{lstlisting}
+Getting the following result:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Figures/fig_71.png}
+    \caption{CQ3 SPARQL query results - PEO updated}
+    \label{fig:enter-label}
+\end{figure}
+
+The ninth competency question \textbf{CQ9: What are possible tasks?} is translated
+into:
+\begin{lstlisting}
+SELECT DISTINCT ?instance
+WHERE {
+  ?instance <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/peo#Task> .
+}
+\end{lstlisting}
+Getting the following result:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Figures/fig_72.png}
+    \caption{CQ9 SPARQL query results - PEO updated}
+    \label{fig:enter-label}
+\end{figure}
+
+I specifically crafted the SPARQL queries to request the classes and instances added by ChatGPT in order to obtain different results; otherwise, I would have obtained the same results as before, since all the instances and classes added by the model are already present in the ontology.
+
 
 
 \newpage
