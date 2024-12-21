@@ -101,7 +101,42 @@ Before proceeding with ontology encoding, it is necessary to consider any simila
 \end{itemize}
 
 \subsection{Ontology design patterns reuse}
+During the design of the PEO ontology I decided to use three design patterns:
+\begin{itemize}
+    \item \textbf{Description pattern}
+    \item \textbf{Sequence pattern}
+    \item \textbf{Task Execution}
+\end{itemize}
+those design patterns are useful to represent better concepts in the ontology without inventing anything from zero.
 
+\subsubsection{Description pattern}
+This pattern is used in the definition of subclasses of \textit{large language model} class, where its subclasses describe the large language model class. In fact this ontology design pattern allows the designer to represent both a (descriptive) context and the elements that characterize and are involved in that context\cite{description_pattern} as we can see in the figure below:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Figures/fig_73.png}
+    \caption{Description pattern}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsubsection{Sequence pattern}
+This pattern is used in the ontology to represent evolutionary aspects, specifically among instances of large language models, involving the relationships \textit{evolves} and \textit{evolves\_from}. This ontology design pattern allows to represent and reason over transitive or intransitive sequences of any kind\cite{sequence_pattern} as we can see in the figure below:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Figures/fig_74.png}
+    \caption{Sequence pattern}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsubsection{Task Execution}
+This pattern is partially used in the representation of task instances executed (solved) by an instance of a prompting technique. More in general, this ontology design allows designers to make assertions on roles played by agents without involving the agents that play that roles, and vice versa\cite{task_execution} as we can see in the figure below:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Figures/fig_75.png}
+    \caption{Task Execution}
+    \label{fig:enter-label}
+\end{figure}
 
 \subsection{State-of-art ontologies reuse}
 I considered two ontologies that can be reused for the implementation of prompt engineering ontology:
