@@ -245,26 +245,26 @@ But there are some disadvantages:
 The \textit{LOT Methodology} (Linked Open Terms) \cite{poveda2022lot} introduces a lightweight industrial-oriented method for developing ontologies. The methodology is compatible with software development techniques, in fact it is inspired by the agile methodology and it defines a basic workflow consisting in four steps:
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{Figures/fig_3.png}
+    \includegraphics[width=0.7\linewidth]{Figures/fig_3.png}
     \caption{LOT methodology base workflow}
     \label{fig:enter-label}
 \end{figure}
 
 
-\textbf{1 - Ontology requirements specification}\\
+\subsubsection{Ontology requirements specification}
 In this phase there is the definition of of the domain that the ontology should model, the goal of the ontology and the implementation language. In detail there are seven steps as shown below:
 Initially, use case specifications are created in collaboration with domain experts, users, and ontology engineers. These use cases describe scenarios in which the ontology will be utilized, expressed in natural language. Next, data exchange identification is carried out, where the necessary documentation and resources related to the domain are gathered and compiled into a set of documents. This provides a foundation for understanding the context and requirements of the ontology. The purpose and scope of the ontology are then identified with input from users and domain experts. The purpose clarifies the reason for creating the ontology, while the scope defines the aspects of the domain that will be represented. Subsequently, a set of functional ontological requirements is proposed, often in the form of competency questions (CQs) or natural language statements. These requirements outline what the ontology should be able to answer or represent. Ontology experts then review these functional requirements to ensure their correctness and completeness, addressing any ambiguities and verifying consistency with the defined purpose and scope. Following this, the Ontology Requirements Specification Document (ORSD) is formalized. This document consolidates all the information, competency questions, and functional requirements defined in the earlier phases, serving as a comprehensive reference for the ontology development. In some cases, an optional activity is conducted where the functional ontology requirements are further formalized into test cases, expressed in SPARQL queries. This step helps in validating that the ontology meets the specified requirements through structured testing.
 
-\textbf{2 - Ontology implementation}\\
-In this phase the ontology is implemented using a formal language, first there is the conceptualization in which there is the definition of classes, sub-classes, relationships and axioms. In the encoding phase there is the actual creation of the ontology using an implementation language, in this phase is useful to take into account other similar ontologies that could be reused. Once the whole ontology is completed it can be evaluated according different evaluation criteria. \\
-\textbf{3 - Ontology publication}\\
-In this phase the ontology is published online, making it accessible and searchable by users. Before publishing the ontology online, it is necessary to identify the version to be released, document the ontology using human-readable HTML pages, and finally publish the ontology online according to W3C guidelines.\cite{ontology_online}\\
+\subsubsection{Ontology implementation}
+In this phase the ontology is implemented using a formal language, first there is the conceptualization in which there is the definition of classes, sub-classes, relationships and axioms. In the encoding phase there is the actual creation of the ontology using an implementation language, in this phase is useful to take into account other similar ontologies that could be reused. Once the whole ontology is completed it can be evaluated according different evaluation criteria. 
 
+\subsubsection{Ontology publication}
+In this phase the ontology is published online, making it accessible and searchable by users. Before publishing the ontology online, it is necessary to identify the version to be released, document the ontology using human-readable HTML pages, and finally publish the ontology online according to W3C guidelines.\cite{ontology_online}
 
-\textbf{4 - Ontology maintenance}\\
-The last step is the ontology maintenance, in this phase once the ontology is published online there is bug detection but it also useful in order to update the ontology according new requirements.\\
+\subsubsection{Ontology maintenance}
+The last step is the ontology maintenance, in this phase once the ontology is published online there is bug detection but it also useful in order to update the ontology according new requirements.
 
-\textbf{Application of LOT methodology}\\
+\subsubsection{Application of LOT methodology}
 Despite being introduced recently, the LOT methodology has been successful and has been applied in several projects, both in research and in the industrial field, for the development of ontologies. In the industrial and manufacturing sector, the ontology \textit{SAREF4INMA} \cite{de2020saref4inma} has been developed to describe equipment, materials, products, factories and manufacturing processes in a structured way. The industry is not the only sector where an ontology developed with the LOT method can be applied. In Spain, specifically in Madrid, an ontology has been developed to represent the Bus Public Transport system. \cite{ruckhaus2023applying} The ontology represents information on lines, routes, journey patterns and their timetables, stops on each route, information on expected bus arrival times for each stop, and information on planned and unplanned incidents that may affect the bus routes and their journeys. Still in Spain the LOT methodology has been successfully used in the development of a noise pollution ontology.\cite{espinoza2020using} The ontology integrates data from IoT sensors in the city and establishes semantic relationships between them. The LOT methodology has been used also in artificial intelligence research field, the \textit{HALO ontology} \cite{nananukul2024halo} has been creating for representing hallucinations in large language models. In the ontology there are classes for representing LLMs, hallucinations (with subclasses), prompts and responses. The ontology consists of two modules and was created from a dataset of 40 known prompts designed to generate hallucinations. Each prompt was given as input to three large language models: ChatGPT, BARD, and Claude.
 \begin{figure}[H]
     \centering
@@ -301,6 +301,7 @@ Another approach for ontology learning using large language models is NeOn-GPT.\
 ChatGPT can be used not only for the creation of ontologies but also for the creation of more complex knowledge graphs, specifically Hyper-Relational Knowledge Graphs, as discussed in the study "Construction of hyper-relational knowledge graph using pre-trained large language models".\cite{datta2024construction} Hyper-relational knowledge graphs unlike the normal knowledge graphs incorporate additional qualifiers or attribute-value pairs\cite{hyper}, in the study starting from HyperRED dataset, a dataset about different topics , the hyper relational knowledge graph is built including in prompts the data from the dataset. Prompts are generated using Chain-of-Thoughts prompt engineering technique (CoT) and in order to evaluate the result generated, BERTScore is choose as a metric. The results obtained were not satisfactory, as the other algorithm(CubeRE)for extracting hyper-relational information was not surpassed.\\
 In general, large language models have shown promising potential  in automating and enhancing the processes of ontology and knowledge graph construction replacing the ontology engineer in different tasks.
 
+\newpage
 \subsection{Ontology design patterns}
 
 \newpage
