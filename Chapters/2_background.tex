@@ -303,6 +303,63 @@ In general, large language models have shown promising potential  in automating 
 
 \newpage
 \subsection{Ontology design patterns}
+In ontology engineering, ontology design patterns (ODPs) are a powerful approach, design to address recurring problems in the development of ontologies.\cite{hitzler2016ontology}
+According to the official definition given in the paper \textit{"Ontology Design Patterns"}, an ontology design pattern is: a modelling solution to solve a recurrent ontology design problem.\cite{gangemi2009ontology} These patterns encapsulate best practices, enabling ontology engineers to draw from proven solutions when confronted with similar challenges and enabling them to optimize time and costs during the development process. According to the paper \textit{Ontology Patterns: Clarifying Concepts and Terminology}\cite{falbo2013ontology} there are five types of ontology design patterns:
+\begin{enumerate}
+    \item \textbf{Structural Ontology Design Patterns}
+
+    \item \textbf{Reasoning Ontology Design Patterns}
+
+    \item \textbf{Correspondence Ontology Design Patterns}
+
+    \item \textbf{Presentation Ontology Design Patterns}
+
+    \item \textbf{Lexico-Syntactic Ontology Design Patterns}
+
+    \item \textbf{Content Ontology Design Patterns}
+\end{enumerate}
+each type of ontology design pattern is analysed below. 
+
+\subsubsection{Structural OPs}
+Structural Ontology Design Patterns (Structural OPs) are high-level modelling solutions that address architectural and logical challenges in ontology design. They include two main subtypes:
+\begin{itemize}
+    \item \textbf{Logical OPs:} these are combinations of logical constructs that resolve expressivity issues in ontology languages. They operate independently of specific content domains and are designed to bridge gaps where a representation language lacks built-in constructs. For example, Logical OPs help model n-ary relations in OWL, which only supports binary relations.
+
+    \item \textbf{Architectural OPs:} these patterns influence the overall shape and structure of an ontology. They can be internal, focusing on consistent use of Logical OPs within an ontology (e.g., adopting a specific OWL species), or external, involving meta-level constructs like modular networks connecting multiple ontologies.
+\end{itemize}
+
+So, Logical OPs are for overcoming the limitations of ontology languages like OWL while Architectural OPs establish overarching frameworks for ontologies, ensuring they adhere to desired computational, organizational, or modular structures.
+
+\subsubsection{Reasoning OPs}
+Reasoning Operations (Reasoning OPs) are applications of Logical Operations specifically designed to achieve certain reasoning outcomes, leveraging the functionality implemented within a reasoning engine. Examples of Reasoning OPs include classification, subsumption, inheritance, materialization, de-anonymization, and others. When applied to an ontology, Reasoning OPs provide insights into the state of the ontology and enable a system to determine the type of reasoning required to perform tasks such as queries, evaluations, and more. 
+
+\subsubsection{Correspondence OPs}
+Correspondence Ontology Design Patterns (OPs) are a type of ontology design pattern that focuses on addressing relationships and transformations between ontologies or between ontologies and non-ontological resources. They are divided into two main types:
+\begin{itemize}
+    \item \textbf{Re-engineering OPs:} these provide guidelines for transforming non-ontological models, such as database schemas or thesauri, into ontologies. They address schema transformations and refactoring, enabling seamless integration into ontology frameworks.
+
+    \item \textbf{Mapping OPs:} These focus on creating semantic associations between elements of different ontologies without altering their structure. They help define equivalence, containment, and overlap relations, which are essential for tasks like ontology alignment and interoperability.
+\end{itemize}
+Both types aim to ensure consistent and reusable methods for ontology design and integration in diverse contexts. 
+
+\subsubsection{Presentation OPs}
+Presentation Ontology Patterns (Presentation OPs) focus on improving the usability and readability of ontologies from a user perspective. They serve as best practices to enhance reusability by making ontologies easier to evaluate and select. Key types include:
+\begin{itemize}
+    \item \textbf{Naming Patterns:} provide conventions for naming ontology elements (classes, properties, files, namespaces). These ensure consistency and improve human readability and understanding.
+
+    \item \textbf{Annotation Patterns:} define annotation properties or schemas that add metadata to ontology elements, enhancing their understandability and context.
+\end{itemize}
+For example, a Naming Pattern might recommend using the base URI of the publishing organization (e.g., http://www.example.org/ontologies/) to ensure clarity and consistency. Annotation Patterns could include descriptive metadata, such as the purpose or scope of a class. These patterns are essential for supporting effective reuse, adaptation, and user accessibility in diverse domains.
+
+\subsubsection{Lexico-Syntactic OPs}
+Lexico-Syntactic OPs are linguistic structures or patterns composed of specific word types arranged in a particular order. These patterns allow for generalization and enable the extraction of conclusions about the meaning they convey. They are particularly useful for linking basic Logical and Content OPs with natural language sentences, such as in educational or instructional contexts.
+
+\subsubsection{Content OPs}
+Content Patterns (CPs) are conceptual design patterns that address domain-specific modelling issues in ontologies. Unlike Logical Ontology Patterns (Logical OPs), which are general and conceptualization-independent, CPs focus on solving content problems by proposing patterns for modelling domain-specific classes and properties. They are instantiations or compositions of Logical OPs with a **non-empty signature**, featuring explicit vocabulary tailored to a specific domain. CPs are reusable through specialization, extension, or composition and impact only the ontology regions addressing particular modelling problems. Although language-independent in theory, CPs require implementation for practical reuse, often using **OWL** in the **Semantic Web** context. By providing domain-specific solutions, CPs enhance the modularity, reusability, and adaptability of ontologies, making them critical for solving domain modelling challenges effectively.
+
+\subsubsection{MODL Modular Ontology Design Library}
+
+
 
 \newpage
 \section{Large language models}
