@@ -1612,13 +1612,52 @@ The evaluation found also the following limitations:
 
     \item \textbf{Underutilized Properties:} object and data property axioms reveal limited use of features such as functional, symmetric, or inverse properties. Incorporating these could enhance the ontology's ability to model constraints and unique relationships.
 
-    \item \textbf{Inconsistencies in Naming Conventions:} the naming conventions of new classes introduced by GPT-4 deviated from the original ontology’s standards, potentially affecting usability and integration.
+    \item \textbf{Inconsistencies in Naming Conventions:} the naming conventions of new classes in the other version of PEO ontology introduced by GPT-4 deviated from the original ontology’s standards, potentially affecting usability and integration.
 \end{itemize}
+In general, the major issues are present in the version of the PEO ontology populated using GPT-4, as, as previously observed, it has not proven capable of correctly populating the original version of the ontology with new instances. Regarding the original version of the PEO ontology, there are solvable pitfalls, which I will discuss in the next section.
 
-\newpage
 \subsection{PEO ontology pitfall correction}
 
+Considering the limitations outlined in the previous section, caused by the pitfalls in the main version of the PEO ontology, I proceed to address and correct the identified pitfalls:
+\begin{itemize}
+    \item \textbf{P04 - Creating unconnected ontology elements:} this pitfall involves the \textit{prompt\_engineering} class which has no relation with any other class in the ontology.
 
+    \item \textbf{P34 - Untyped class:} this pitfall involves elements in SWRL rules.
 
+    \item \textbf{P41 - No license declared:} this pitfall is due to the absence of the license in the ontology.
+\end{itemize}
+The resolution of these pitfalls is essential to enhance the quality of the published ontology.
 
+\subsubsection{P04 resolution}
+This pitfall, as said before, involves the \textit{prompt\_engineering} class which has no relation with any other class in the ontology, this because the \textit{prompt\_engineering} is a sort of "container" of classes related to prompt. In order to connect \textit{prompt\_engineering} I created the object property \textit{applied\_to} (with inverse relation \textit{supports}) which connects \textit{prompt\_engineering} with the \textit{large\_language\_model} class.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Figures/fig_78.png}
+    \caption{Object property between Prompt Engineering class and Large Language Model class}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsubsection{P34 resolution}
+It is impossible to solve this pitfall because the affected elements are automatically created by Protegé when I define a SWRL rule. A possible solution would be removing SWRL rules but this solution leads to the ontology being incomplete during the inference process.
+
+\subsubsection{P41 resolution}
+This pitfall, as said before, s due to the absence of the license in the ontology. In order to solve this pitfall, I created the annotation property \textit{dcterms:license} taking inspiration from the paper \textit{"Malaysian Food Composition Ontology Evaluation"}\cite{yusof2019malaysian} and adding as ontology annotation the link of the license (GNU General Public License v3) as we can see in the figure below:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_79.png}
+    \caption{License annotation in PEO ontology}
+    \label{fig:enter-label}
+\end{figure}
+
+Despite the modification and the correct inclusion of the license, OOPS! still flags the pitfall without offering any explanation as we can see in the figure below:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_80.png}
+    \caption{Detected pitfalls by OOPS}
+    \label{fig:enter-label}
+\end{figure}
+
+This same issue has been reported by other users on GitHub, where OOPS! continued to flag the pitfall despite the addition of the license. The discussion regarding this problem can be found at the following link:\\ \href{https://github.com/emmo-repo/EMMO/issues/23}{https://github.com/emmo-repo/EMMO/issues/23}.
+The issue with OOPS! clearly reflects a malfunction on the part of the tool, not the ontology developers. It is the responsibility of the tool's creators to address and resolve this problem, which has yet to be done. This is especially critical since OOPS! is currently the only tool available for identifying pitfalls in ontologies.\\\\
+Despite these minor issues, the PEO ontology is well-designed, comprehensive, well-documented, and has very few problems. It significantly outperforms state-of-the-art ontologies related to large language models and prompt engineering.
