@@ -1491,8 +1491,6 @@ After all the implementation and evaluation, in this step there is the decision 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.36\linewidth]{Figures/fig_64.jpg}
-    \caption{Ontology version choosing}
-    \label{fig:enter-label}
 \end{figure}
 
 \subsection{Ontology documentation}
@@ -1585,8 +1583,6 @@ The design and implementation phases led the creation of an ontology that is the
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{Figures/fig_77.jpg}
-    \caption{User's choice}
-    \label{fig:enter-label}
 \end{figure}
 
 \subsection{Evaluation results discussion}
@@ -1639,7 +1635,30 @@ This pitfall, as said before, involves the \textit{prompt\_engineering} class wh
 \end{figure}
 
 \subsubsection{P34 resolution}
-It is impossible to solve this pitfall because the affected elements are automatically created by Protegé when I define a SWRL rule. A possible solution would be removing SWRL rules but this solution leads to the ontology being incomplete during the inference process.
+It is impossible to solve this pitfall because the affected elements are automatically created by Protegé when I define a SWRL rule. In fact SWRL is not part of the OWL languages so the types of the variables are not recognized. To address this issue, I have decided to remove the SWRL rules and replace them with property chains available in OWL. In this way, it is possible not only to reduce complexity, as SWRL rules involve a non-negligible computational cost, but also to make the ontology more portable, given that not all reasoners support SWRL rules.\\
+In this case, I replaced the SWRL rule:
+\begin{lstlisting}
+peo:develops(?c, ?x) ^ peo:has_variant(?x, ?y) -> peo:develops(?c, ?y)
+\end{lstlisting}
+with the following object property chain:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Figures/fig_81.png}
+    \caption{Object property chaining for develops}
+    \label{fig:enter-label}
+\end{figure}
+The same approach is applied to the other object properties. A particular case is the SWRL rule S2: 
+\begin{lstlisting}
+peo:evolves(?x, ?y) -> peo:has_variant(?x, ?y)
+\end{lstlisting}
+In which, instead of using the property chain, I define it directly as an object property \textit{evolves} as sub property of \textit{has\_variant} as we can see in the figure below:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_82.png}
+    \caption{evolves object property}
+    \label{fig:enter-label}
+\end{figure}
+When the HermiT reasoner is activated, the inferences derived from the property chains are equivalent to those produced by the SWRL rules.
 
 \subsubsection{P41 resolution}
 This pitfall, as said before, s due to the absence of the license in the ontology. In order to solve this pitfall, I created the annotation property \textit{dcterms:license} taking inspiration from the paper \textit{"Malaysian Food Composition Ontology Evaluation"}\cite{yusof2019malaysian} and adding as ontology annotation the link of the license (GNU General Public License v3) as we can see in the figure below:
@@ -1660,4 +1679,20 @@ Despite the modification and the correct inclusion of the license, OOPS! still f
 
 This same issue has been reported by other users on GitHub, where OOPS! continued to flag the pitfall despite the addition of the license. The discussion regarding this problem can be found at the following link:\\ \href{https://github.com/emmo-repo/EMMO/issues/23}{https://github.com/emmo-repo/EMMO/issues/23}.
 The issue with OOPS! clearly reflects a malfunction on the part of the tool, not the ontology developers. It is the responsibility of the tool's creators to address and resolve this problem, which has yet to be done. This is especially critical since OOPS! is currently the only tool available for identifying pitfalls in ontologies.\\\\
+in the Introduction chapter there were two main questions:
+\begin{enumerate}
+    \item \textbf{Question 1: Is it possible to formalize the knowledge related to large language models and prompting techniques?}
+
+    \item \textbf{ Is it possible to use the model formalization to get additional knowledge?}
+\end{enumerate}
+
+At the end of the experimentation, it is possible to give an answer to those two questions. The answer to the \textbf{question 1}, is: \textbf{yes}. During the whole process of the thesis starting from the state of art to the design and implementation I collected informations from different information sources like: papers, websites, Github repositories and then I gave a structure to all of this information, selecting important informations and entities useful for my scope and ignoring informations that are too specific or anyway useless for my scope. The process of design starting from selected informations added more specific information useful to give the direction of the implementation process of the ontology. During the implementation using Protege and owl it was possible to express all the concept that were defined theoretically or using schemes and the evaluation process gave me the assurance that all the development process produced the desiderated result. So yes, it is possible to formalize the knowledge related to large language models and prompting techniques and it has been successfully made.\\
+Also the answer to the \textbf{question 2} is yes, because using the inference mechanism and property chaining defined in the PEO ontology it is possible to get informations about all the characteristics of each large language model represented and the connections with prompts generated using prompt engineering techniques. Complex rules are encoded into owl property chains so it is possible to get inferences using any reasoner available. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Figures/fig_83.jpg}
+\end{figure}
+
+
 Despite these minor issues, the PEO ontology is well-designed, comprehensive, well-documented, and has very few problems. It significantly outperforms state-of-the-art ontologies related to large language models and prompt engineering.
