@@ -1668,18 +1668,14 @@ This pitfall, as said before, s due to the absence of the license in the ontolog
     \caption{License annotation in PEO ontology}
     \label{fig:enter-label}
 \end{figure}
+To solve this pitfall, instead of using software license like GNU General Public License, I used the Creative Commons license available at this link: \href{https://creativecommons.org/licenses/by/4.0/}{https://creativecommons.org/licenses/by/4.0/}.
 
-Despite the modification and the correct inclusion of the license, OOPS! still flags the pitfall without offering any explanation as we can see in the figure below:
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\linewidth]{Figures/fig_80.png}
-    \caption{Detected pitfalls by OOPS}
-    \label{fig:enter-label}
-\end{figure}
+\subsubsection{Minor changes in PEO ontology}
+During the revision phase, it has been noted that class, object properties and data properties name do not follow the Semantic Web naming conventions that establishes Camel Case for class names, with the first letter in upper case while for object properties and data properties the Camel Case is used but the first letter is in lower case. For example the object property \textit{evolved\_from} with this modification, it becomes \textit{evolvedFrom} and the \textit{large\_language\_model} class becomes \textit{LargeLanguageModel}. This modification took time, because the operation is made manually, but it ensures the quality and the compliance of the ontology to the semantic web standards.
 
-This same issue has been reported by other users on GitHub, where OOPS! continued to flag the pitfall despite the addition of the license. The discussion regarding this problem can be found at the following link:\\ \href{https://github.com/emmo-repo/EMMO/issues/23}{https://github.com/emmo-repo/EMMO/issues/23}.
-The issue with OOPS! clearly reflects a malfunction on the part of the tool, not the ontology developers. It is the responsibility of the tool's creators to address and resolve this problem, which has yet to be done. This is especially critical since OOPS! is currently the only tool available for identifying pitfalls in ontologies.\\\\
-in the Introduction chapter there were two main questions:
+
+\subsubsection{Final thoughts}
+In the Introduction chapter there were two main questions:
 \begin{enumerate}
     \item \textbf{Question 1: Is it possible to formalize the knowledge related to large language models and prompting techniques?}
 
