@@ -1,68 +1,103 @@
 \chapter{Background}
+\label{chapter:background}
 
-\section{Introduction on ontologies and applications}
+In this chapter, we provide the theoretical basis for the development of the ontology.
+Sect.~\ref{section:2_1_ontologies} gives the definition of an ontology, Sect.~\ref{section:2_2_ontology_engineering} defines the ontology engineering and the different ontology engineering methodologies.
+The last two section explain the theoretical bases of the domain of interest of PEO.
+Specifically, Sect.~\ref{section:2_3_llms} describes LLMs, while Sect.~\ref{section:2_4_prompt_engineering} reviews the different approaches in prompt engineering.
 
-\subsection{What is an ontology?}
+\section{Introduction on ontologies and applications}\label{section:2_1_ontologies}
+\subsection{Definition}
+In AI an ontology is a formal explicit description of a domain of interest for a certain purpose, the main components of ontologies are classes that represent concepts, and relationships among them, e.g., class hierarchies, class disjointness and class unions.
+Additionally, each class can be associated with attributes (roles) and restriction rules on the attributes (role restrictions).
+Just as in object-oriented programming, classes are instantiated to create instances (individuals) \cite{protege_ontology}.
 
-In artificial intelligence an ontology is 
-a formal explicit description of concepts in a domain of discourse properties of each concept describing various features and attributes of the concept, and restrictions on slots. 
-The main components of ontologies are classes that represent concepts. Hierarchical relationships exist between classes, meaning a class can have one or more subclasses and super-classes. Additionally, each class is associated with attributes (slots) and restriction rules on the attribute domains (facets). Just as in object-oriented programming, classes are instantiated to create instances that make up the knowledge base.\cite{protege_ontology}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{Figures/fig_0.jpg}
     \caption{Example of a simple ontology in wine domain}
-    \label{fig:enter-label}
+    \label{fig:wine_ontology}
 \end{figure}
+
+Fig.~\ref{fig:wine_ontology} depicts an example of an ontology in wine domain, it represents the relationships between wines, regions, producers, and wine characteristics.
 \subsection{Classification of ontologies}
 
-Ontologies are useful for representing information in a hierarchical manner (through classes and subclasses), depicting the relationships between the represented information. Based on the level of generality used to describe the present domains, there are four types of ontologies:
+In this section, we classify ontologies along multiple dimensions \cite{canfora2004ontologie}, firstly, ontologies can be classified according to the level of generality of the domain of discourse.
+Specifically, they can be classified, from the most general to the most specific domains, as follows:
 \begin{itemize}
-    \item \textbf{High-level ontologies:} High-level ontologies describe very general concepts or common-sense knowledge such as space, time, objects, and actions.
+    \item \textbf{High-level ontologies} describe very general concepts or common-sense knowledge such as space, time, objects, and actions. E.g., DOLCE ontology \cite{borgo2022dolce}.
+    
+    \item \textbf{Domain ontologies} describe the vocabulary, theories, and fundamental principles that govern a specific domain. E.g., tourism ontology \cite{tourismOntology2013}.
 
-    \item \textbf{Domain ontologies:} Domain ontologies describe the vocabulary, theories, and fundamental principles that govern a specific domain.
+    \item \textbf{Task ontologies:} Task ontologies describe the vocabulary related to a specific task or activity, providing a specialization of the terms introduced in the high-level ontology. E.g., planning ontology \cite{taskOntologyPlanning}.
 
-    \item \textbf{Task ontologies:} Task ontologies describe the vocabulary related to a specific task or activity, providing a specialization of the terms introduced in the high-level ontology.
-
-    \item \textbf{Application ontologies:} Application ontologies describe concepts related to a specific domain or task and are often derived through a specialization of domain ontologies and task ontologies.
+    \item \textbf{Application ontologies} describe concepts related to a specific domain or task and are often derived through a specialization of domain ontologies and task ontologies. E.g., OntoWeb \cite{ontoweb2002}.
 \end{itemize}
 Ontologies can differ in the way knowledge is expressed, that is, in the level of formalism used to convey terms and their meanings. Therefore, there is an additional classification:
 \begin{itemize}
-    \item \textbf{Highly informal ontologies:} Highly informal ontologies are expressed in natural language, and the definition of terms may be ambiguous due to the intrinsic ambiguity of natural language.
+    \item \textbf{Highly informal ontologies} are expressed in natural language, thus potentially leading to ambiguous definitions given the inherent ambiguity of natural language.
 
-    \item \textbf{Semi-informal ontologies:} Semi-informal ontologies are expressed in a rigid and structured form of natural language, improving clarity and reducing ambiguities.
+    \item \textbf{Semi-informal ontologies} ontologies are expressed in a rigid and structured form of natural language, improving clarity and reducing ambiguities.
 
-    \item \textbf{Semi-formal ontologies:} Semi-formal ontologies are expressed through formally defined artificial languages.
+    \item \textbf{Semi-formal ontologies} ontologies are expressed through formally defined artificial languages.
 
-    \item \textbf{Strictly formal ontologies} Strictly formal ontologies are ontologies whose terms are precisely defined with formal semantics, theorems, and property proofs.
+    \item \textbf{Strictly formal ontologies} are ontologies whose terms are defined with languages based on formal semantics.
+    
 \end{itemize}
 
 A further classification can be made based on the expressiveness the ontology aims to convey:
 \begin{itemize}
-    \item \textbf{Controlled vocabularies:} Controlled vocabularies are finite lists of terms representing the simplest possible notion of an ontology. A typical example is a catalog that provides only terms with an unambiguous interpretation.
+    \item \textbf{Controlled vocabularies} are finite lists of terms representing the simplest possible notion of an ontology. A typical example is a catalogue that provides only terms with an unambiguous interpretation.
 
-    \item \textbf{Glossaries:} Glossaries are lists of terms and their meanings expressed through natural language statements. Primarily created for human use, they often consist of ambiguous statements that cannot be used by automated agents.
+    \item \textbf{Glossaries} are lists of terms and their meanings expressed through natural language statements. Primarily created for human use, they often consist of ambiguous statements that cannot be used by automated agents.
 
-    \item \textbf{Thesauri:} Thesauri add semantics to glossaries by defining the relationships between terms (such as synonymy relations). Typically, they do not provide an explicit hierarchical structure, although this can be inferred from the specification of the terms.
+    \item \textbf{Thesauri} add semantics to glossaries by defining the relationships between terms (such as synonymy relations). Typically, they do not provide an explicit hierarchical structure, although this can be inferred from the specification of the terms.
 
-    \item \textbf{Informal Is-A hierarchies:} Informal Is-A hierarchies are ontologies in which generalization and specialization are achieved even though there is no strict "sub-class" hierarchy. They include various ontologies available on the Web.
+    \item \textbf{Informal Is-A hierarchies} are ontologies in which generalization and specialization are achieved even though there is no strict "sub-class" hierarchy. They include various ontologies available on the Web.
 
-    \item \textbf{Formal Is-A hierarchies:} Formal Is-A hierarchies are ontologies in which concepts are organized according to a strict subclass hierarchy, and the concept of inheritance can always be applied.
+    \item \textbf{Formal Is-A hierarchies} are ontologies in which concepts are organized according to a strict subclass hierarchy, and the concept of inheritance can always be applied.
 
-    \item \textbf{Frames:} Frames are ontologies in which concepts are described in terms of their characteristic properties. The inclusion of properties in the description of concepts becomes more interesting when inheritance can be applied, allowing properties to be specified for a more general concept and then inherited.
+    \item \textbf{Frames} are ontologies in which concepts are described in terms of their characteristic properties. The inclusion of properties in the description of concepts becomes more interesting when inheritance can be applied, allowing properties to be specified for a more general concept and then inherited.
 
-    \item \textbf{Value restrictions:} Value restrictions allow for applying constraints on the values associated with properties.
-
-    \item \textbf{General logical restrictions:} General logical restrictions are usually written in a highly expressive ontological language that allows for the specification of first-order logic constraints on concepts and properties.
-    
+   \item \textbf{Description Logic ontologies (DL)} based ontologies provide a formal and structured way to represent knowledge, enabling reasoning and inference and they are widely used in AI, Semantic Web (OWL), and knowledge representation to ensure consistency, classification, and automated reasoning.
 \end{itemize}
-The classifications presented, taken from the Italian study "Ontologie e Linguaggi Ontologici per il Web Semantico" \cite{canfora2004ontologie}, are useful for introducing and better understanding the domains and ways in which ontologies are applied.
+
+\subsection{Ontology languages}
+There is a set of languages available for implementing ontologies, with the main standards being Resource Description Framework (RDF) and Web Ontology Language (OWL).
+RDF extends the linking structure of the Web to use IRIs to name the relationship between things as well as the two ends of the link (this is usually referred to as a “triple”).
+For instance, the triple <subject, predicate, object> states that states that there is a relationship of type <predicate> between the entity <subject> and the entity <object>. For example the triple:
+\begin{lstlisting}
+    <http://example.org/person/Alice> <http://xmlns.com/foaf/0.1/name> "Alice" .
+\end{lstlisting}
+it states that the resource identified by "http://example.org/person/Alice" has a name (http://xmlns.com/foaf/0.1/name) with value "Alice".
+We can see the graphic representation in the figure below:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/fig_85.png}
+    \caption{Relation between individual and name}
+    \label{fig:alice}
+\end{figure}
+Fig. \ref{fig:alice} shows what has been discussed before.
+
+OWL is a family of knowledge representation languages for ontologies, the latest version OWL2, born in 2009, is used to build ontologies representing classes, properties, individuals, and data values that are stored as Semantic Web documents \cite{owl2}. OWL languages are based on Description Logics (DL): a family of logic formalism derived from first order logics. In detail, OWL 2 is based on SRQIQ \cite{sroiq}. SROIQ is a more expressive extension of previous description logics, extending SHOIN. Extensions of the expressiveness introduced new features like: inverse properties, cardinality restrictions, property chains and transitivity. Those features allow complex relationships between concepts and individuals to be modelled.
+The main reason for choosing OWL2 is its capacity to support automatic reasoning, inferring new knowledge starting from what is represented in the ontology. Reasoning is important to verify the consistency of the ontology, determine subsumption relations between concepts, check whether an individual belongs to a certain class and retrieve informations. One important aspect is the adoption of the Open World Assumption (OWA) which implies that the absence of information does not imply its falsehood so if data are not declare we don't have informations to establish its truth. This is useful in the semantic web where the knowledge is distributed across different sources and it is impossible to have access to all possible informations.
+
+SPARQL is a semantic query language that allows to retrieve and manipulate data stored in RDF format by using triple patterns, conjunctions and disjunctions. Over the years, various ontology engineering methodologies have been proposed; below, we review the main ones available at the state-of-the-art. It enables querying knowledge graphs, integrating heterogeneous data sources, and performing reasoning over ontologies. Widely used in linked data applications, SPARQL powers knowledge graphs such as Wikidata and DBpedia, allowing for structured and interconnected information retrieval. In artificial intelligence and NLP, it enhances question answering systems, chatbots, and semantic search by leveraging ontological relationships. In healthcare and life sciences, SPARQL enables querying biomedical ontologies like DrugBank and UniProt for drug discovery and clinical research. It also plays a key role in business intelligence, supporting data analytics, customer relationship management, and regulatory compliance. Additionally, geospatial applications benefit from SPARQL through GeoSPARQL, facilitating smart city planning and IoT data integration. An example of SPARQL query is the following:
+\begin{lstlisting}
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+SELECT ?name ?mbox
+WHERE
+  { ?x foaf:name ?name .
+    ?x foaf:mbox ?mbox 
+}    
+\end{lstlisting}
+This SPARQL query selects and returns the names (\texttt{?name}) and email addresses (\texttt{?mbox}) of entities (\texttt{?x}) that have a \texttt{foaf:name} and \texttt{foaf:mbox} property defined in the FOAF vocabulary. It retrieves all persons or entities with a name and email in the queried RDF dataset.
 
 \subsection{Applications of ontologies}
-Ontologies, therefore, offer the possibility to represent information at various levels in a formal and expressive manner, and for these reasons, they are primarily applied in the following domains: \cite{leonels2023ontology}
+Ontologies, offer the possibility to represent information at various levels in a formal and expressive manner.
+Therefore, they can be applied in several domains \cite{leonels2023ontology}, for instance: 
 \begin{itemize}
     \item \textbf{Information retrieval:} Ontologies can be used to improve the accuracy of search results by helping to understand the meaning of terms and relationships between them.
-
-    \item \textbf{Knowledge management:} Ontologies can help organize and manage knowledge in a more structured and systematic way. They can also facilitate the sharing and reuse of knowledge across different systems and applications.
 
     \item \textbf{Semantic web:} Ontologies are a key component of the Semantic Web, which aims to make web content machine-readable and understandable by computers.
 
@@ -74,18 +109,25 @@ Ontologies, therefore, offer the possibility to represent information at various
 
     \item \textbf{E-commerce:} Ontologies can be used to improve product search and recommendation systems by providing a more structured and accurate representation of products and their attributes.
 \end{itemize}
-There are numerous studies and projects in which ontologies and methods for applying ontologies in the mentioned fields have been developed. Regarding information retrieval, the study "The use of ontologies for effective knowledge modelling and information retrieval" \cite{munir2018use} analyzes ontology-based approaches for information retrieval and query formulation on databases. In "Ontology-to-database mapping," a mapping is performed between a relational database and an existing ontology. The mapping is done by representing constructs present in the relational database schema as constructs in the ontology schema and can be achieved using various methods and approaches, including the R2O (Relational to Ontology) language \cite{khan2011r2o}. Another approach described is "Database-to-ontology transformation," where it is assumed that only the relational database exists, and the ontology is created by applying transformation rules. \\
+There are numerous studies and projects in which ontologies and methods for applying ontologies in the mentioned fields have been developed. 
+Regarding information retrieval, the study "The use of ontologies for effective knowledge modelling and information retrieval" \cite{munir2018use} analyses ontology-based approaches for information retrieval and query formulation on databases. 
+In "Ontology-to-database mapping," a mapping is performed between a relational database and an existing ontology. The mapping is done by representing constructs present in the relational database schema as constructs in the ontology schema and can be achieved using various methods and approaches, including the R2O (Relational to Ontology) language \cite{khan2011r2o}. Another approach described is "Database-to-ontology transformation," where it is assumed that only the relational database exists, and the ontology is created by applying transformation rules. \\
 In natural language processing, ontologies can be used to make inferences and to derive rules for semantic interpretation and question-answering systems. In "Natural Language Processing methods and systems for biomedical ontology learning" \cite{liu2011natural} ontologies are applied for the semantic interpretation of clinical documents that is useful to improve questions comprehension and retrieval of correct information.
 The use of ontologies in healthcare can be useful for providing information to doctors and patients, improving the quality of medical services. To this end, the study *"Ontology-based Public Healthcare System in Internet of Things"* \cite{kumar2015ontology} describes the implementation of a healthcare information management system based on the Internet of Things. The ontology represents all the concepts and relationships between them necessary to semantically represent the information. The information pertains to healthcare personnel, disease diagnosis, and patient clinical data.\\
 As seen in the previously mentioned case, ontologies can be used to represent real-time information, one example of application is robotics. In the paper "OntoSLAM: An Ontology for Representing Location and Simultaneous Mapping Information for Autonomous Robots" \cite{cornejo2021ontoslam} the ontology "OntoSLAM" is created to track in real time all the informations related to robots, those informations are gathered from the robot control system, sensors and actuators. Robots in the environment exchange those informations using a web repository.\\
-The presented examples are just a few, but there are thousands of projects where ontologies have been created in a wide range of fields. For this reason, there are online repositories of ontologies, including: \href{https://www.w3.org/wiki/Lists_of_ontologies}{W3.org}, \href{https://archivo.dbpedia.org/list}{DBpedia}, \href{https://agroportal.lirmm.fr/ontologies?search=o}{AgroPortal} and \href{https://bioportal.bioontology.org/ontologies}{BioPortal}. 
+The presented examples are just a few, but there are thousands of projects where ontologies have been created in a wide range of fields.
+For this reason, there are online repositories of ontologies, including: \href{https://www.w3.org/wiki/Lists_of_ontologies}{W3.org}, \href{https://archivo.dbpedia.org/list}{DBpedia}, \href{https://agroportal.lirmm.fr/ontologies?search=o}{AgroPortal} and \href{https://bioportal.bioontology.org/ontologies}{BioPortal}.
+Ontology repositories facilitate the discovery of ontologies and thus their reuse.
 
 \section{Ontology engineering}
-
+\label{section:2_2_ontology_engineering}
 \subsection{Competency questions and ontology conceptualization}
-The definition of requirements and the subsequent conceptualization are two fundamental steps in ontology design, as they are essential for establishing the objectives, scope of the ontology, and the classes within it. To define the scope and the problems that the ontology should be able to address, designers use competency questions (CQs), which are a set of questions written in natural language that the ontology should be able to answer using its axioms. \cite{malheiros2013method}
-In the development of an ontology for noise pollution monitoring \cite{espinoza2020using}, the following competency questions have been defined:
+The definition of requirements and the subsequent conceptualization are two fundamental tasks in ontology engineering.
+They aim at establishing the objectives and scope of the ontology, and the constructs within it, respectively.
+To define the scope and the problems that the ontology should be able to address, Competency Questions (CQs) stand for the state-of-the-art approach.
+They are questions written in natural language that the ontology should be able to answer \cite{malheiros2013method}.
 
+For instance, in the development of an ontology for noise pollution monitoring \cite{espinoza2020using}, the following competency questions have been defined:
 \begin{table}[H]
     \centering
     \begin{tabular}{|>{\raggedright\arraybackslash}p{1cm}|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}|}
@@ -98,44 +140,34 @@ In the development of an ontology for noise pollution monitoring \cite{espinoza2
     \end{tabular}
     \caption{Competency Questions noise pollution ontology}
 \end{table}
+Each CQ must correspond to a natural language answer that "simulates" the response provided by the ontology.
+CQs are translated into SPARQL queries in order to be executed on the ontology.
+The conceptualization of the ontology aims at defining the classes the relationships among them and individuals. 
 
-Each competency question must correspond to a natural language answer that "simulates" the response provided by the ontology. Of course, competency questions are not mandatory for developers but can be used for the creation of methods to translate CQs into ontology queries. An example of a manual translation of a competency question has been done on the African Wildlife Ontology \cite{keet2020african}, where the competency question \textit{"Which plants eat animals?"} was translated into SPARQL-OWL language, resulting in the following code \cite{wisniewski2019analysis}.
-
-\begin{verbatim}
-SELECT DISTINCT ?eats
-WHERE {
-  ?eats rdfs:subClassOf awo:plant, [
-    a owl:Restriction ;
-    owl:onProperty awo:eats;
-    owl:someValuesFrom awo:animal
-  ].
-  FILTER(?eats != owl:Nothing)
-}
-\end{verbatim}
-
-The next step, once the competency questions have been defined, is the conceptualization of the ontology, which is useful for defining the classes and the hierarchy among them. There are three approaches to conceptualization:
+There are three approaches to conceptualization:
 \begin{enumerate}
-    \item \textbf{Top-down:} top-down development process starts with the definition of the most general concepts in the domain and subsequent specialization of the concepts.
-    \item \textbf{Bottom-up:}  bottom-up development process starts with the definition of the most specific classes, the leaves of the hierarchy, with subsequent grouping of these classes into more general concepts.
-    \item \textbf{Combination:} development process is a combination of the top-down and bottom-up approaches: We define the more salient concepts first and then generalize and specialize them appropriately.
+    \item \textbf{Top-down} development process starts with the definition of the most general concepts in the domain and subsequent specialization of the concepts.
+    
+    \item \textbf{Bottom-up} development process starts with the definition of the most specific classes, the leaves of the hierarchy, with subsequent grouping of these classes into more general concepts.
+    
+    \item \textbf{Hybrid} development process is a combination of the top-down and bottom-up approaches: we define the most salient concepts first and then generalize and specialize them appropriately.
+    
 \end{enumerate}
-The conceptualization can be carried out by stating classes in a formal system or can be done using diagrams, in this case is important to defined the notation that will be used. 
-% vedere se devo aggiungere altro
 
-\subsection{Ontology languages}
-Once the requirements have been defined and the classes and entities that make up the ontology have been established, the implementation phase begins. There is a set of languages available for implementing ontologies, with the main standards being RDF (Resource Description Framework) and OWL (Web Ontology Language).\\
-RDF is a standard model for data interchange on the Web, it  has features that facilitate data merging even if the underlying schemas differ, and it specifically supports the evolution of schemas over time without requiring all the data consumers to be changed. RDF extends the linking structure of the Web to use URIs to name the relationship between things as well as the two ends of the link (this is usually referred to as a “triple”). Using this simple model, it allows structured and semi-structured data to be mixed, exposed, and shared across different applications.\cite{rdf}\\ 
-OWL is a family of knowledge representation for ontologies, the latest version OWL2, born in 2009, is used to build ontologies representing classes, properties, individuals, and data values that are stored as Semantic Web documents.\cite{owl2} 
 \subsection{Ontology engineering methodologies}
-The definition of requirements through competency questions and the subsequent conceptualization and implementation fall within the ontology design process, which is studied in ontology engineering. By definition the ontology engineering  is the discipline that investigates the principles, methods and tools for creating and maintaining ontologies. An ontology engineering methodology caters the methodological aspect of ontology development and it gives a set of guidelines and activities to develop ontologies.\cite{iqbal2013analysis}
-Over the years, various ontology engineering methods have been proposed; below, I analyze the main methods available in the state of the art.
-
 \subsubsection{METHONTOLOGY}
-The first methodology analyzed is \textit{METHONTOLOGY} \cite{fernandez1997ontological} that proposes a structured method which consists of six steps: 
-The process begins with the Specification phase, where the goal is to produce an ontology specification document. This document can be informal, semi-formal, or formal, and is written either in natural language or using competency questions to outline the main requirements and scope of the ontology. Next is the Knowledge Acquisition phase, which involves gathering all relevant knowledge related to the domain. This is achieved through various techniques, such as text analysis, brainstorming, interviews, and reviewing existing similar ontologies. The aim is to collect a comprehensive set of information that will serve as the foundation for the ontology. The Conceptualization phase follows, where the acquired knowledge is organized into a conceptual model. This model effectively structures the domain knowledge, describing both the problem and its proposed solution in a coherent manner. During the Integration phase, the methodology encourages reusing and integrating existing ontologies rather than developing new ones from scratch. This step is crucial for ensuring consistency and coherence, as it involves checking libraries of ontologies to find definitions of terms that match the semantics identified in the conceptualization phase. The Implementation phase is where the actual construction of the ontology takes place. Here, the developer selects the appropriate environment and tools to implement the ontology based on the specifications and conceptual model developed in the earlier phases. Finally, the Evaluation phase ensures the quality and correctness of the ontology. This step involves both verification, to confirm that the ontology is technically sound, and validation, to guarantee that the ontology meets the specified requirements. The methodology has the following advantages: 
-\begin{itemize}
-    \item Methontology identifies all the activities required to develop an ontology, including planning, specification, conceptualisation, formalisation, integration, implementation, evaluation and documentation. 
+\textit{METHONTOLOGY} \cite{fernandez1997ontological} proposes a structured method consisting of six steps:  
+Firstly, the \textsf{specification} phase aims at producing the ontology specification document, outlining the main requirements and the scope of the ontology.
+It can be informal, semi-formal, or formal, and is written either in natural language or using CQs to outline the main requirements and scope of the ontology. 
+Next, the Knowledge Acquisition phase involves gathering all relevant knowledge related to the domain. 
+This is achieved through various techniques, such as text analysis, brainstorming, interviews, and reviewing existing similar ontologies.
 
+The \textbf{Conceptualization} phase follows, where the acquired knowledge is organized into a conceptual model.
+During the Integration phase, the methodology encourages reusing and integrating existing ontologies rather than developing new ones from scratch. 
+This step is crucial for ensuring consistency and coherence, as it involves checking libraries of ontologies to find definitions of terms that match the semantics identified in the conceptualization phase.
+The \textbf{Implementation} phase is where the actual construction of the ontology takes place and finally the Evaluation phase ensures the quality and correctness of the ontology.
+This step involves both verification, to confirm that the ontology is semantically sound, by using a reasoner, and validation. The methodology has the following advantages: 
+\begin{itemize}
     \item It proposes the use of an evolutionary prototype life cycle, which allows definitions to be modified, added or removed at any time.
 
     \item It encourages the reuse of already existing ontologies, which can speed up development and ensure consistency with other projects. 
@@ -152,36 +184,39 @@ and the following disadvantages:
 \end{itemize}
 
 \subsubsection{NeOn methodology}
-Another proposed methodology is the \textit{NeOn methodology}\cite{neon1}\cite{neon2} which provides guidance for all key aspects of the ontology engineering process. The concepts underlying this methodology are: scenarios, collaborative ontology development, reuse of ontological and non-ontological resources and evolution of networked ontologies. The ontology design is based on nine scenarios:
-\begin{enumerate}
-    \item \textbf{Scenario 1: From specification to implementation} The ontology network is developed from scratch, developers should specify ontology requirements and search for potential resources to be reused. 
+Another proposed methodology is the \textit{NeOn methodology}\cite{neon1,neon2}, which provides guidance for all key aspects of the ontology engineering process.
+The concepts underlying this methodology are: scenarios, collaborative ontology development, reuse of ontological and non-ontological resources and evolution of networked ontologies. 
 
-    \item \textbf{Scenario 2: Reusing and re- non-ontological resources}  Developers should carry out the NOR reuse process for deciding, according to the ontology requirements, which NORs can be  reused to build the ontology network. 
+The ontology design is based on nine scenarios:
+\begin{itemize}
+    \item \textbf{Scenario 1: From specification to implementation} The ontology network is developed from scratch, engineers should specify ontology requirements and search for potential resources to be reused. 
 
-    \item \textbf{Scenario 3: Reusing ontological resources} Developers use ontological resources, ontology modules and ontology statements to build ontology networks. 
+    \item \textbf{Scenario 2: Reusing ontological resources} Engineers reuse ontological resources, ontology modules and ontology statements to build ontology networks. 
 
-    \item \textbf{Scenario 4: Reusing and re-engineering ontological resources} Ontology developers reuse and re-engineer ontological resources
+    \item \textbf{Scenario 3: Reusing and re-engineering ontological resources} Ontology engineers reuse and re-engineer ontological resources
 
-    \item \textbf{Scenario 5: Reusing and merging ontological resources} This scenario arises when several ontological resources in the same domain are selected for reuse, and developers wish to create a new ontological resource with the selected resources
+    \item \textbf{Scenario 4: Reusing and merging ontological resources} This scenario arises when several ontological resources in the same domain are selected for reuse, and engineers wish to create a new ontological resource with the selected resources
 
-    \item \textbf{Scenario 6: Reusing, merging and re- engineering ontological resources} Ontology developers reuse, merge, and re-engineer ontological resources. This scenario is similar to Scenario 5, but here developers decide to re- engineer the set of merged resources
+    \item \textbf{Scenario 5: Reusing, merging and re- engineering ontological resources} Ontology engineers reuse, merge, and re-engineer ontological resources. This scenario is similar to Scenario 5, but here engineers decide to re- engineer the set of merged resources
 
-    \item  \textbf{Scenario 7: Reusing ontology design patterns (ODPs)} Ontology developers access repositories to reuse ODPs
+    \item  \textbf{Scenario 6: Reusing ontology design patterns (ODPs)} Ontology engineers access repositories to reuse ODPs
 
-    \item \textbf{Scanrio8: Ontology developers access repositories to reuse ODPs} Ontology developers restructure (e.g., modularize, prune, extend, and/or specialize) ontological resources to be  integrated in the ontology network. 
+    \item \textbf{Scenario 7: Ontology engineers access repositories to reuse ODPs} Ontology engineers restructure (e.g., modularize, prune, extend, and/or specialize) ontological resources to be  integrated in the ontology network. 
 
-    \item \textbf{Scenario 9: Localizing ontological resources} Ontology developers adapt an ontology to other languages and culture communities, thus obtaining a multilingual ontology.
+    \item \textbf{Scenario 8: Localizing ontological resources} Ontology engineers adapt an ontology to other languages and culture communities, thus obtaining a multilingual ontology.
 
-\end{enumerate}
-The scenarios presented are not a rigid workflow, they are more like a variety of pathways for developing ontologies and they  cover commonly occurring situations, for example, when available ontologies need to be re-engineered, aligned, modularized, localized to support different languages and cultures, and integrated with ontology design patterns and non-ontological resources, such as folksonomies or thesauri.\cite{suarez2011neon}\\
+\end{itemize}
+The scenarios presented are not a rigid workflow, they are more like a variety of pathways for developing ontologies and they cover commonly occurring situations, for example, when available ontologies need to be re-engineered, aligned, modularized, localized to support different languages and cultures, and integrated with ontology design patterns and non-ontological resources, such as folksonomies or thesauri\cite{suarez2011neon}.
 
-The \href{http://neon-project.org/nw/Welcome_to_the_NeOn_Project.html}{Neon project} offers to developers a tool called \href{http://neon-toolkit.org/wiki/Main_Page.html}{NeOn toolkit}: an open-source multi-platform ontology editor which supports the Web Ontology Language OWL2 and features basic editing and visualization functionality.\cite{erdmann2011overview}\\
+The \href{http://neon-project.org/nw/Welcome_to_the_NeOn_Project.html}{Neon project} offers to engineers a tool called \href{http://neon-toolkit.org/wiki/Main_Page.html}{NeOn toolkit}: an open-source multi-platform ontology editor which supports OWL2 and features basic editing and visualization functionalities \cite{erdmann2011overview}.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{Figures/fig_2.png}
     \caption{NeOn methodology scenarios}
-    \label{fig:enter-label}
+    \label{fig:neon}
 \end{figure}
+Fig.~\ref{fig:neon}
 The NeOn methodology has the following advantages:
 \begin{itemize}
     \item It identifies nine different scenarios for building ontology networks, which can be combined depending on the project’s needs, this contrasts with more rigid methodologies like METHONTOLOGY.
@@ -190,7 +225,7 @@ The NeOn methodology has the following advantages:
 
     \item By basing its structure on real use cases and generalizing from them, the NeOn methodology covers practical needs encountered in ontology development projects.
 \end{itemize}
-But NeOn has the following disadvantages:
+However, NeOn has the following disadvantages:
 \begin{itemize}
     \item The flexibility and comprehensive nature of the methodology can make it more complex to apply, especially for teams without significant prior experience in ontology development. 
 
@@ -200,40 +235,48 @@ But NeOn has the following disadvantages:
 \end{itemize}
 
 \subsubsection{Extreme design}
-While the NeOn methodology is scenario-based, the eXtreme Design methodology \cite{presutti2009extreme} is based on a sequence of tasks inspired by the principles of agile development in software engineering. eXtreme Design involves the client in order to gather complete requirements without making incorrect assumptions. This interaction is useful for defining competency questions and customer stories that detail the use of the ontology, supported by contextual statements that make implicit knowledge explicit. The principles of eXtreme Design not only focus on the client but also provide clear guidelines to designers regarding the design and organization of work. In particular, the design must be modular and task-oriented, focusing on the specifications defined in the competency questions. These competency questions are used in the development of unit tests during the testing phase, verifying the compliance of the ontology with the user stories. Tests are generally conducted using SPARQL queries that encode the competency questions. Throughout the development phase, the designers are organized according to the \textit{pair design}, where the design team is divided into pairs that must collaborate, sharing knowledge and integrating the various parts of the ontology developed. Based on the principles illustrated, eXtreme design defines adisci task: 
+While the NeOn methodology is scenario-based, the eXtreme Design (XD) methodology \cite{presutti2009extreme} is based on a sequence of tasks inspired by the principles of agile development in software engineering.
+XD involves the stakeholders in order to gather complete requirements without making incorrect assumptions.
+This interaction is useful for defining CQs and customer stories that detail the use of the ontology, supported by contextual statements that make implicit knowledge explicit.
+% The principles of XD not only focus on the client but also provide clear guidelines to engineers regarding the design and organization of work.
+The principles of XD not only focus on the customer, but also provide clear guidelines to engineers regarding the design and organization of work.
+In particular, the design must be modular and task-oriented, focusing on the specifications defined in the CQs.
+The CQs are used in the development of unit tests during the testing phase, verifying the compliance of the ontology with the user stories.
+Tests are generally conducted using SPARQL queries that encode the CQs.
+Throughout the development phase, the engineers are organized according to the \textit{pair design}, where the design team is divided into pairs that must collaborate, by sharing knowledge.
+Based on the illustrated principles, XD defines the following tasks: 
 \begin{enumerate}
-    \item \textbf{Task 1. Get into the project context:} The development process begins by aligning the designers and domain experts, who may have different backgrounds and terminologies. The goal is twofold: to familiarize the customer with the project's methods and tools, and to provide the designers with an understanding of the problem, scope, and initial terminology, establishing a collaborative environment for sharing documentation and discussing modeling issues.
+    \item \textbf{Task 1. Get into the project context:} the development process begins by aligning the engineers and domain experts, who may have different backgrounds and terminologies. The goal is twofold: to familiarize the customer with the project's methods and tools, and to provide the engineers with an understanding of the problem, scope, and initial terminology, and establishing a collaborative environment for sharing documentation and discussing modelling issues.
 
-    \item \textbf{Task 2. Collect requirement stories:} The customer writes stories starting from real scenarios in order to sample the typical facts that should be stored in the ontology.
+    \item \textbf{Task 2. Collect requirement stories:} the customer writes stories starting from real scenarios in order to provide examples of the typical facts that should be stored in the ontology.
 
-    \item \textbf{Task 3. Select a story that has not been treated yet:} Each pair of designers selects a story to focus on for the next iteration, creating a new wiki page with the story's title and content based on the information from the card.
+    \item \textbf{Task 3. Select a story that has not been treated yet:} each pair of engineers selects a story to focus on for the next iteration, creating a new wiki page with the story's title and content based on the information from the card.
 
-    \item \textbf{Task 4. Transform the story into CQs:} Starting from the wiki created in the previous task, designers create a sequence of competency questions, this task involves customer for having feedback/clarifications.
+    \item \textbf{Task 4. Transform the story into CQs:} create a sequence of CQs, this task involves customer for having feedback/clarifications.
 
-    \item \textbf{Task 5. Select a CQ that has not been treated yet:} The iteration continues by selecting one of the CQs.
+    \item \textbf{Task 5. Match the CQ to use cases:} identify candidate Content Patterns (CPs) (a specific type of ontology design patterns, see Sect.~\ref{subsection:2_2_ontology_design_patterns}) based on the CQs that express part of the Logical Unit of Concern (LUC). Matching can be done with tool support, such as keyword-based searching, or manually by engineers familiar with available CPs.
 
-    \item \textbf{Task 6. Match the CQ to GUCs:} This task aims to identify candidate Content Patterns (CPs) based on the Competency Questions (CQs) that express part of the Logical Unit of Concern (LUC). Matching can be done with tool support, such as keyword-based searching, or manually by designers familiar with available CPs.
+    \item \textbf{Task 6. Select the CPs to reuse:} select which of those patterns should be used for solving the modelling problem.
 
-    \item \textbf{Task 7. Select the CPs to reuse:} The goal of this task is to select which of those patterns should be used for solving the modeling problem. 
+    \item \textbf{Task 7. Reuse and integrate selected CPs:} apply typical operations for CPs i.e. import, specialization, and composition. 
 
-    \item \textbf{Task 8. Reuse and integrate selected CPs:} . The term “reuse” here refers to the application of typical operation that can be applied to CPs i.e. import, specialization, and composition. 
+    .
+    \item \textbf{Task 8. Test and fix:} validate the module by ensuring it aligns with the Competency Questions (CQs) just modelled. This process involves several steps: first, the CQ is transformed into a unit test, such as a SPARQL query, then, the module is populated with sample data based on the story, and the test is run. If the result isn't as expected, the module is revised and the test is rerun until it passes and once all tests linked to the story have been successfully completed, the engineers can move on to the next task. If any CQ remains unaddressed, they return to an earlier task to make adjustments.
 
-    \item \textbf{Task 9. Test and fix:} The goal of this task is to validate the module by ensuring it aligns with the Competency Questions (CQs) just modeled. This process involves several steps: first, the CQ is transformed into a unit test, such as a SPARQL query, then, the module is populated with sample data based on the story, and the test is run. If the result isn't as expected, the module is revised and the test is rerun until it passes and once all tests linked to the story have been successfully completed, the designers can move on to the next task. If any CQ remains unaddressed, they return to an earlier task to make adjustments.
+    \item \textbf{Task 9. Release module:} release an ontology module having an URI shared with the whole team and on web repositories.
 
-    \item \textbf{Task 10. Release module:} This tasks ends the development phase and releases an ontology module having an URI shared with the whole team and on web repositories.
-
-    \item \textbf{Task 11. Integrate, test and fix:} After the module is released it has to be integrated with the other modules that constitute the ontology. 
+    \item \textbf{Task 10. Integrate, test and fix:} integrate the module with the other modules that constitute the ontology.
 \end{enumerate}
-Once the eleven tasks have been completed, the release of the new version of the ontology takes place. 
-The eXtreme design methodology has the following advantages:
+Once the eleven tasks have been completed, the release of the new version of the ontology takes place.
+The XD methodology has the following advantages:
 \begin{itemize}
     \item The methodology supports collaboration and modular ontology development, allowing teams to work on different parts of the ontology in parallel, which is especially useful for large and distributed projects.
 
-    \item It employs a test-driven approach, where competency questions and contextual statements serve as the basis for unit testing the ontology, ensuring that each component meets its intended purpose before moving forward.
+    \item It employs a test-driven approach, where CQs and contextual statements serve as the basis for unit testing the ontology, ensuring that each component meets its intended purpose before moving forward.
 
     \item The methodology emphasizes constant interaction with domain experts and stakeholders to ensure that the ontology meets the intended use and requirements. This minimizes assumptions and ensures that implicit knowledge is captured
 \end{itemize}
-But there are some disadvantages:
+However, there are also disadvantages:
 \begin{itemize}
     \item The methodology's iterative, test-driven nature may be overkill for smaller ontology projects, where a simpler, more direct approach could be more efficient.
 
@@ -241,43 +284,71 @@ But there are some disadvantages:
 \end{itemize}
 
 \subsubsection{LOT Methodology}
-The \textit{LOT Methodology} (Linked Open Terms) \cite{poveda2022lot} introduces a lightweight industrial-oriented method for developing ontologies. The methodology is compatible with software development techniques, in fact it is inspired by the agile methodology and it defines a basic workflow consisting in four steps:
+The \textit{LOT Methodology} (Linked Open Terms) \cite{poveda2022lot} introduces a lightweight industrial-oriented method for developing ontologies.
+The methodology is compatible with software development techniques, in fact it is inspired by the agile methodology and it defines a basic workflow consisting in four steps:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{Figures/fig_3.png}
     \caption{LOT methodology base workflow}
-    \label{fig:enter-label}
+    \label{fig:lot-workflow}
 \end{figure}
+
+Fig.~\ref{fig:lot-workflow} describes the ontology development lifecycle with four stages: requirements specification, implementation, publication, and maintenance, involving collaboration between ontologists, developers, users, and experts. Each stage outputs artefacts (e.g., ORSD, ontology, online ontology) that flow into subsequent phases for iterative refinement and usage.
 
 
 \subsubsection{Ontology requirements specification}
-In this phase there is the definition of of the domain that the ontology should model, the goal of the ontology and the implementation language. In detail there are seven steps as shown below:
-Initially, use case specifications are created in collaboration with domain experts, users, and ontology engineers. These use cases describe scenarios in which the ontology will be utilized, expressed in natural language. Next, data exchange identification is carried out, where the necessary documentation and resources related to the domain are gathered and compiled into a set of documents. This provides a foundation for understanding the context and requirements of the ontology. The purpose and scope of the ontology are then identified with input from users and domain experts. The purpose clarifies the reason for creating the ontology, while the scope defines the aspects of the domain that will be represented. Subsequently, a set of functional ontological requirements is proposed, often in the form of competency questions (CQs) or natural language statements. These requirements outline what the ontology should be able to answer or represent. Ontology experts then review these functional requirements to ensure their correctness and completeness, addressing any ambiguities and verifying consistency with the defined purpose and scope. Following this, the Ontology Requirements Specification Document (ORSD) is formalized. This document consolidates all the information, competency questions, and functional requirements defined in the earlier phases, serving as a comprehensive reference for the ontology development. In some cases, an optional activity is conducted where the functional ontology requirements are further formalized into test cases, expressed in SPARQL queries. This step helps in validating that the ontology meets the specified requirements through structured testing.
+In this phase there is the definition of of the domain that the ontology should model, the goal of the ontology and the implementation language. 
+In detail there are seven steps as shown below.
+Initially, use case specifications are created in collaboration with domain experts, users, and ontology engineers.
+These use cases describe scenarios in which the ontology will be utilized and are expressed in natural language.
+Next, data exchange identification is carried out, where the necessary documentation and resources related to the domain are gathered and compiled into a set of documents.
+The purpose and the scope of the ontology are then identified with input from users and domain experts.
+The purpose clarifies the reason for creating the ontology, while the scope defines the aspects of the domain that will be represented.
+
+Subsequently, a set of functional ontological requirements is proposed, often in the form of (CQs) or natural language statements.
+These requirements outline what the ontology should be able to answer or represent. 
+Ontology experts then review these functional requirements to ensure their correctness and completeness, addressing any ambiguities and verifying consistency with the defined purpose and scope.
+Following this, the Ontology Requirements Specification Document (ORSD) is formalized.
+This document consolidates all the information, CQs, and functional requirements defined in the earlier phases, serving as a comprehensive reference for the ontology development. 
+In some cases, an optional activity is conducted where the functional ontology requirements are further formalized into test cases, expressed in SPARQL queries.
+This step helps in validating that the ontology meets the specified requirements through structured testing.
 
 \subsubsection{Ontology implementation}
-In this phase the ontology is implemented using a formal language, first there is the conceptualization in which there is the definition of classes, sub-classes, relationships and axioms. In the encoding phase there is the actual creation of the ontology using an implementation language, in this phase is useful to take into account other similar ontologies that could be reused. Once the whole ontology is completed it can be evaluated according different evaluation criteria. 
+In this phase the ontology is implemented using a formal language, first there is the conceptualization in which there is the definition of classes, sub-classes, relationships and axioms. 
+In the encoding phase there is the actual creation of the ontology using an implementation language, in this phase is useful to take into account other similar ontologies that could be reused. Once the whole ontology is completed it can be evaluated according different evaluation criteria.
 
 \subsubsection{Ontology publication}
-In this phase the ontology is published online, making it accessible and searchable by users. Before publishing the ontology online, it is necessary to identify the version to be released, document the ontology using human-readable HTML pages, and finally publish the ontology online according to W3C guidelines.\cite{ontology_online}
+In this phase the ontology is published online, making it accessible and searchable by users. 
+Before publishing the ontology online, it is necessary to identify the version to be released, document the ontology using human-readable HTML pages, and finally publish the ontology online according to W3C guidelines \cite{ontology_online}.
 
 \subsubsection{Ontology maintenance}
-The last step is the ontology maintenance, in this phase once the ontology is published online there is bug detection but it also useful in order to update the ontology according new requirements.
+The last step is the ontology maintenance, in this phase once the ontology is published online there is bug detection but it also useful in order to update the ontology according to new requirements.
 
 \subsubsection{Application of LOT methodology}
-Despite being introduced recently, the LOT methodology has been successful and has been applied in several projects, both in research and in the industrial field, for the development of ontologies. In the industrial and manufacturing sector, the ontology \textit{SAREF4INMA} \cite{de2020saref4inma} has been developed to describe equipment, materials, products, factories and manufacturing processes in a structured way. The industry is not the only sector where an ontology developed with the LOT method can be applied. In Spain, specifically in Madrid, an ontology has been developed to represent the Bus Public Transport system. \cite{ruckhaus2023applying} The ontology represents information on lines, routes, journey patterns and their timetables, stops on each route, information on expected bus arrival times for each stop, and information on planned and unplanned incidents that may affect the bus routes and their journeys. Still in Spain the LOT methodology has been successfully used in the development of a noise pollution ontology.\cite{espinoza2020using} The ontology integrates data from IoT sensors in the city and establishes semantic relationships between them. The LOT methodology has been used also in artificial intelligence research field, the \textit{HALO ontology} \cite{nananukul2024halo} has been creating for representing hallucinations in large language models. In the ontology there are classes for representing LLMs, hallucinations (with subclasses), prompts and responses. The ontology consists of two modules and was created from a dataset of 40 known prompts designed to generate hallucinations. Each prompt was given as input to three large language models: ChatGPT, BARD, and Claude.
+Despite being introduced recently, the LOT methodology has been successful and has been applied in several projects, both in research and in the industrial field, for the development of ontologies.
+In the industrial and manufacturing sector, the ontology \textit{SAREF4INMA} \cite{de2020saref4inma} has been developed to describe equipment, materials, products, factories and manufacturing processes in a structured way. 
+The industry is not the only sector where an ontology developed with the LOT method can be applied.
+In Spain, specifically in Madrid, an ontology has been developed to represent the Bus Public Transport system \cite{ruckhaus2023applying}. 
+The ontology represents information on lines, routes, journey patterns and their timetables, stops on each route, information on expected bus arrival times for each stop, and information on planned and unplanned incidents that may affect the bus routes and their journeys.
+Still in Spain the LOT methodology has been successfully used in the development of a noise pollution ontology \cite{espinoza2020using}.
+The ontology integrates data from (Internet of Things) IoT sensors in the city and establishes semantic relationships between them. 
+
+The LOT methodology has been used also in artificial intelligence research field, the \textit{HALO ontology} \cite{nananukul2024halo} has been creating for representing hallucinations in large language models.
+In the ontology there are classes for representing LLMs, hallucinations (with subclasses), prompts and responses.
+The ontology consists of two modules and was created from a dataset of 40 known prompts designed to generate hallucinations. Each prompt was given as input to three large language models: ChatGPT, BARD, and Claude.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth, height=8cm]{Figures/fig_4.png}
     \caption{HALO ontology}
-    \label{fig:enter-label}
+    \label{fig:halo}
 \end{figure}
+Fig. \ref{fig:halo}
+
 The LOT methodology has the following advantages:
 \begin{itemize}
     \item The LOT methodology is designed to be lightweight and agile, which allows for faster iterations and easier integration with software development practices and it is particularly well-suited for projects that need rapid, iterative development.
 
-    \item The methodology provides a structured approach, including well-defined steps such as ontology requirements specification, implementation, publication, and maintenance.
-
-    \item It offers flexibility by combining various techniques ( competency questions, natural language statements ...) to define requirements and allows for different levels of formality depending on the project.
+    \item It offers flexibility by combining various techniques (competency questions, natural language statements ...) to define requirements and allows for different levels of formality depending on the project.
 
     \item Many open source ontologies have been developed successfully using LOT methodology for example the HALO ontology, the public transport ontology and may others described previously.
 \end{itemize}
@@ -289,21 +360,26 @@ but the LOT methodology has two disadvantages:
 \end{itemize}
 
 \subsection{Ontology engineering using large language models}
-The methodologies analyzed for ontology design involve users, domain experts, and ontology engineers, but do not include the use of advanced tools based on artificial intelligence, such as large language models. The spread of large language models has opened a new path for the design and construction of knowledge graphs and ontologies in an automatic or semi-automatic manner. The study "From human experts to machines: An LLM supported approach to ontology and knowledge graph construction"\cite{kommineni2024human} introduces a semi-automatic pipeline for the construction of knowledge graphs. There are six phases in the proposed pipeline.
+The methodologies analysed for ontology design involve users, domain experts, and ontology engineers, but do not include the use of advanced tools based on artificial intelligence, such as LLMs. The study "From human experts to machines: An LLM supported approach to ontology and knowledge graph construction"\cite{kommineni2024human} introduces a semi-automatic pipeline for the construction of knowledge graphs. There are six phases in the proposed pipeline.
 The process begins with the data collection phase, which does not involve the use of large language models (LLMs). Instead, domain experts generate a dataset and a set of publications relevant to the topic under study.
 In the next phase, known as competency question (CQ) generation, ChatGPT-3.5 is utilized to create competency questions. These questions are designed to describe the data collected in the previous phase at an abstract level. Domain experts provide inputs to the LLM to generate these questions, which are then evaluated by two domain experts to ensure their relevance and accuracy. Following this, the ontology creation phase is initiated. It builds on the competency questions generated earlier. This phase involves two steps: in the first step, a prompt is created that includes a competency question, the expected output, and a set of instructions. In the second step, the LLM is provided with a basic ontology structure containing the concepts and relationships derived from the competency questions.
 The CQ answering phase involves applying text processing techniques to extract answers to the competency questions. These answers are used to enrich the ontology and provide a deeper understanding of the dataset.
 During the knowledge graph (KG) construction phase, the competency questions, their answers, and the ontology generated by the LLM are combined and provided as input to the LLM. The prompt for this phase focuses on extracting entities, relationships, and concepts and mapping them onto the ontology, thereby creating a comprehensive knowledge graph.
 Finally, in the evaluation phase, the LLM evaluates the competency questions and the constructed knowledge graph by comparing them to a ground truth generated by human evaluators. The LLM assigns a score based on the alignment of the generated knowledge graph with the human-generated ground truth.
 The presented method enabled the creation of a fairly complex ontology consisting of 45 classes, 41 relations, and 365 axioms. However, it required significant computational resources, as an 80GB NVIDIA A100 GPU machine was used. \\
-Another approach for ontology learning using large language models is NeOn-GPT.\cite{fathallah2024neon} Starting from the NeOn methodology, the methodology is converted to a series of prompts to ChatGPT-3.5, these prompt are created using prompt engineering techniques and they are used first to generate ontology specification and competency questions. ChatGPT-3.5 is used also to generate a conceptual model of the ontology in the form of subject-relation-object triples and to generate implementation code. Once the code is generated, there is the syntax validation using the RDFLib python library\cite{rdflib} and the consistency check in order to check logical inconsistencies. The final step is the pitfall resolution for checking circular axioms and missing disjointedness using OOPS API. The presented methodology is an evolution of the NeOn methodology, in which all tasks traditionally performed by the developer are delegated to ChatGPT. This includes identifying requirements, writing competency questions, conceptualizing, and implementing the ontology.\\
+Another approach for ontology learning using large language models is NeOn-GPT.\cite{fathallah2024neon} Starting from the NeOn methodology, the methodology is converted to a series of prompts to ChatGPT-3.5, these prompt are created using prompt engineering techniques and they are used first to generate ontology specification and competency questions. ChatGPT-3.5 is used also to generate a conceptual model of the ontology in the form of subject-relation-object triples and to generate implementation code. Once the code is generated, there is the syntax validation using the RDFLib python library\cite{rdflib} and the consistency check in order to check logical inconsistencies. The final step is the pitfall resolution for checking circular axioms and missing disjointedness using OOPS API. The presented methodology is an evolution of the NeOn methodology, in which all tasks traditionally performed by the engineer are delegated to ChatGPT. This includes identifying requirements, writing competency questions, conceptualizing, and implementing the ontology.\\
 ChatGPT can be used not only for the creation of ontologies but also for the creation of more complex knowledge graphs, specifically Hyper-Relational Knowledge Graphs, as discussed in the study "Construction of hyper-relational knowledge graph using pre-trained large language models".\cite{datta2024construction} Hyper-relational knowledge graphs unlike the normal knowledge graphs incorporate additional qualifiers or attribute-value pairs\cite{hyper}, in the study starting from HyperRED dataset, a dataset about different topics , the hyper relational knowledge graph is built including in prompts the data from the dataset. Prompts are generated using Chain-of-Thoughts prompt engineering technique (CoT) and in order to evaluate the result generated, BERTScore is choose as a metric. The results obtained were not satisfactory, as the other algorithm(CubeRE)for extracting hyper-relational information was not surpassed.\\
 In general, large language models have shown promising potential  in automating and enhancing the processes of ontology and knowledge graph construction replacing the ontology engineer in different tasks.
 
 \newpage
 \subsection{Ontology design patterns}
-In ontology engineering, ontology design patterns (ODPs) are a powerful approach, design to address recurring problems in the development of ontologies.\cite{hitzler2016ontology}
-According to the official definition given in the paper \textit{"Ontology Design Patterns"}, an ontology design pattern is: a modelling solution to solve a recurrent ontology design problem.\cite{gangemi2009ontology} These patterns encapsulate best practices, enabling ontology engineers to draw from proven solutions when confronted with similar challenges and enabling them to optimize time and costs during the development process. According to the paper \textit{Ontology Patterns: Clarifying Concepts and Terminology}\cite{falbo2013ontology} there are five types of ontology design patterns:
+\label{subsection:2_2_ontology_design_patterns}
+In ontology engineering, ontology design patterns (ODPs)\cite{odps} are a powerful approach for addressing recurring problems in the development of ontologies \cite{hitzler2016ontology}.
+According to the official definition given in \cite{gangemi2009ontology} an ontology design pattern is: a modelling solution to solve a recurrent ontology design problem.
+These patterns encapsulate best practices, enabling ontology engineers to draw from proven solutions when confronted with similar challenges and enabling them to optimize time and costs during the development process. 
+
+% According to the paper \textit{Ontology Patterns: Clarifying Concepts and Terminology}
+In \cite{falbo2013ontology} there are five types of ontology design patterns:
 \begin{enumerate}
     \item \textbf{Structural Ontology Design Patterns}
 
@@ -317,17 +393,17 @@ According to the official definition given in the paper \textit{"Ontology Design
 
     \item \textbf{Content Ontology Design Patterns}
 \end{enumerate}
-each type of ontology design pattern is analysed below. 
+We describe each type below.
 
 \subsubsection{Structural OPs}
-Structural Ontology Design Patterns (Structural OPs) are high-level modelling solutions that address architectural and logical challenges in ontology design. They include two main subtypes:
+Structural Ontology Design Patterns (Structural OPs) are high-level modelling solutions that address architectural and logical challenges in ontology design.
+They include two main subtypes:
 \begin{itemize}
     \item \textbf{Logical OPs:} these are combinations of logical constructs that resolve expressivity issues in ontology languages. They operate independently of specific content domains and are designed to bridge gaps where a representation language lacks built-in constructs. For example, Logical OPs help model n-ary relations in OWL, which only supports binary relations.
 
     \item \textbf{Architectural OPs:} these patterns influence the overall shape and structure of an ontology. They can be internal, focusing on consistent use of Logical OPs within an ontology (e.g., adopting a specific OWL species), or external, involving meta-level constructs like modular networks connecting multiple ontologies.
 \end{itemize}
 
-So, Logical OPs are for overcoming the limitations of ontology languages like OWL while Architectural OPs establish overarching frameworks for ontologies, ensuring they adhere to desired computational, organizational, or modular structures.
 
 \subsubsection{Reasoning OPs}
 Reasoning Operations (Reasoning OPs) are applications of Logical Operations specifically designed to achieve certain reasoning outcomes, leveraging the functionality implemented within a reasoning engine. Examples of Reasoning OPs include classification, subsumption, inheritance, materialization, de-anonymization, and others. When applied to an ontology, Reasoning OPs provide insights into the state of the ontology and enable a system to determine the type of reasoning required to perform tasks such as queries, evaluations, and more. 
@@ -360,11 +436,19 @@ Content Patterns (CPs) are conceptual design patterns that address domain-specif
 A more practical approach to ontology design patterns is given by MODL. MODL (Modular Ontology Design Library) \cite{shimizu2019modl} is a curated collection of ontology design patterns designed to support modular ontology development. This library promotes FAIR (Findable, Accessible, Interoperable, and Reusable) principles by addressing challenges like ontology reusability and interoperability. MODL provides well-documented and structured design patterns in OWL format, enabling ontology engineers to create high-quality modular ontologies adaptable to diverse use cases. The library includes five categories of patterns: meta-patterns, organization of data, space-time movement, agents and roles, and description and details. These patterns are reusable templates for solving recurring modelling challenges across domains, emphasizing minimal ontological commitment and best practices in formalization. MODL offers patterns for dynamic processes, complex roles, and detailed relationships like part-whole hierarchies, enabling precise and flexible ontology design. Its diversity ensures modularity and expressiveness for both general and domain-specific needs.
 
 
-\newpage
+% \newpage
 \section{Large language models}
+\label{section:2_3_llms}
 \subsection{Overview of large language models}
-Large language models, as seen in the previous section, are capable of supporting the development of ontologies by ontology engineers, but this revolutionary technology in the field of artificial intelligence is applied to various tasks across diverse domains, thanks to the incredible versatility these models offer. Starting from the definition, a large language model is a large-scale, pre-trained statistical language model based on neural networks, it is capable of language generation and other natural language processing tasks.\cite{llm_wiki} Large language models are trained on a vast amount of training data in order to predict the next word in a given sequence of words, no matter if that sequence is long or short, it can be in any other language and it can include mathematical formulas and even sequences of code.\cite{llm_medium} An important feature that distinguishes large language models from other models is their ability to perform tasks they have not been specifically trained on. In fact, compared to other models, large language models are \textit{zero-shot reasoners}: when given an instruction without any example of the task (zero-shot), they are able to provide a correct response. This has been proved in the study \textit{Large Language Models are Zero-Shot Reasoners} \cite{kojima2022large}, using the prompting technique called \textit{"Zero-shot-CoT"} the study proves the reasoning ability of llms like OPT, GPT, T0 and PaLM on problems divided into four categories: arithmetic, common sense, symbolic and data understanding. On those problems in which llms have to "think step-by-step", they have demonstrated a good accuracy around 70\%.\\
-Large language models are able to execute different heterogeneous task tanks to a complex neural-network architecture under the hood, the most advanced architecture is the transformer architecture. Introduced in the 2017 by the study \textit{Attention Is All You Need}\cite{vaswani2017attention} the architecture is composed by two parts:
+% LLMs, as seen in the previous section, are capable of supporting the development of ontologies by ontology engineers, but this revolutionary technology in the field of AI is applied to various tasks across diverse domains, thanks to the incredible versatility these models offer.
+LMLs, as seen in the previous section, are capable of supporting the development of ontologies by ontology engineers, but this revolutionary technology in the field of AI is applied to various tasks across diverse domains, mainly because of their remarkable performance and versatility.
+
+% Starting from the definition, 
+A LLM is a large-scale, pre-trained statistical LM based on neural networks, it is capable of language generation and other natural language processing tasks \cite{llm_wiki}.
+LLMs are trained on a vast amount of training data in order to predict the next word in a given sequence of words, no matter if that sequence is long or short, it can be in any other language and it can include mathematical formulas and even sequences of code \cite{llm_medium}.
+
+Large language models are able to execute different heterogeneous task thanks to a complex neural-network architecture under the hood, the most advanced architecture is the transformer architecture.
+Introduced in the 2017 by the seminal paper \textit{Attention Is All You Need} \cite{vaswani2017attention}, the architecture is composed by two parts:
 \begin{enumerate}
     \item \textbf{Encoder:} the encoder has six layers, each layer has a multi-head self-attention mechanism and a position-wise fully connected feed-forward network.
 
@@ -385,11 +469,18 @@ The transformer architecture has shown good performances and it is used by one o
 
     \item \textbf{Prefix Decoder architecture:} this architecture is a modification of the causal decoder architecture, it has a bidirectional attention mechanism that can encode the prefix sequence bidirectionally and predict output tokens autoregressively using shared parameters. \cite{llm_labeller}
 \end{itemize}
-Zero-shot reasoning, made possible by the described architectures, turns large language models into general-purpose tools capable of understanding natural language text and performing tasks ranging from simple text translation to more complex tasks such as question-answering and even code generation. The utility of these models makes them perfect for everyday use, and they find applications in various fields. 
+Zero-shot reasoning, made possible by the described architectures, turns LLMs into general-purpose tools capable of understanding natural language text and performing tasks ranging from simple text translation to more complex tasks such as question-answering and even code generation. The utility of these models makes them perfect for everyday use, and they find applications in various fields. 
 
-\newpage
+% R. spostato
+An important feature that distinguishes LLMs from other models is their ability to perform tasks they have not been specifically trained on.
+In fact, compared to other models, LLMs are \textit{zero-shot reasoners}: when given an instruction without any example of the task (zero-shot), they are able to provide a correct response.
+This has been proved in the study \textit{Large Language Models are Zero-Shot Reasoners} \cite{kojima2022large}, using the prompting technique called \textit{"Zero-shot-CoT"} the study proves the reasoning ability of LLMs like OPT, GPT, T0 and PaLM on problems divided into four categories: arithmetic, common sense, symbolic and data understanding.
+On those problems in which LLMs have to "think step-by-step", they have demonstrated a good accuracy around 70\%.
+
+% \newpage
 \subsection{General purpose large language models}
-General purpose large language models are large language models capable of performing a wide variety of tasks and are available online. In this section, I will analyse and discuss the following general purpose large language models.
+General purpose LLMs are capable of performing a wide variety of tasks. % and are available online.
+In this section, we will analyse and discuss the following general purpose LLMs.
 \begin{itemize}
     \item \textbf{GPT}
     \item \textbf{BERT}
@@ -406,7 +497,7 @@ General purpose large language models are large language models capable of perfo
 \end{itemize}
 
 \subsubsection{GPT}
-The Generative Pretrained Transformer (GPT) is actually the most advanced and powerful large language models available to users. The LLM has been developed by OpenAI and it has been made available to the public in November 2022 in form of a web application called ChatGPT. In two months it gained over than 100 million of users, making it the  fastest-growing consumer software application in history, this massive success it is due to its capacity of understanding user language supporting him in different task.\cite{chatgpt_wiki} 
+The Generative Pre-trained Transformer (GPT) is actually the most advanced and powerful LLM available to users. The LLM has been developed by OpenAI and it has been made available to the public in November 2022 in form of a web application called ChatGPT. In two months it gained over than 100 million of users, making it the  fastest-growing consumer software application in history, this massive success it is due to its capacity of understanding user language supporting him in different task \cite{chatgpt_wiki}. 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{Figures/fig_18.png}
@@ -520,7 +611,7 @@ GPT-4 is the latest version of the most popular large language model: GPT. Relea
 
     \item Real-time vision: GPT-4o is able to process and understand vision data like images and video and their semantics. The model can generate an image starting from text and applying styles or generating descriptions of an image.
 
-    \item Code Reading Through Vision: this feature is very useful for developers, given a screen of an IDE like Eclipse or Visual studio code. GPT-4o can read and understand the code inside the image, giving useful responses to developers.
+    \item Code Reading Through Vision: this feature is very useful for engineers, given a screen of an IDE like Eclipse or Visual studio code. GPT-4o can read and understand the code inside the image, giving useful responses to engineers.
 
     \item Data and Chart Reading: GPT-4o can read and interpret data in forms of charts and graphs, giving useful insights.
 \end{itemize}
@@ -558,6 +649,7 @@ BLIP-2 architecture is designed to generate captions starting from images, this 
 \end{figure}
 \newpage
 \section{Prompt engineering}
+\label{section:2_4_prompt_engineering}
 \subsection{What is prompt engineering?}
 At the core of interaction with large language models are prompts, a prompt is an instruction written in natural language given as input to a large language model to generate a response or action.\cite{llm_prompt}
 A prompt can be written without a criteria or following specific prompting techniques that describe the structure, the application of those techniques iteratively is the prompt engineering\cite{schulhoff2024prompt}, in this process there is the modification of the structure in order to get better and more accurate results from the model. A prompt can be structured in different ways, the first way is writing the instructions and include a direct question like:
